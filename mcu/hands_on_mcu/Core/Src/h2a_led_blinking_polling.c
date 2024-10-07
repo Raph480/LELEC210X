@@ -20,13 +20,12 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "usart.h"
-#include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
-#include "retarget.h"
+#include "retarget.h"  //to use printf to print information via the UART stream
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -46,10 +45,10 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-int button_pressed;
-int led_blinking;
-int prev_button_state;
-int current_button_state;
+//If we want to use these variables outside of the main function
+//bool buttonPressed = false;
+//bool ledBlinking = false;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -70,6 +69,8 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+	int buttonPressed = 0;
+	int ledBlinking = 0;
 
   /* USER CODE END 1 */
 
@@ -92,24 +93,17 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_LPUART1_UART_Init();
-  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   RetargetInit(&hlpuart1);
   printf("Hello world!\r\n");
 
-  button_pressed = 0;
-  led_blinking = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-	  /*
-	   * 	//* METHOD 1 - POLLING STATEGY
-	   * 	--------------------------------
-	   *
+	  //Read the button state
 	  if (HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == 1 && !buttonPressed){
 		  printf("Button is pressed\r\n");
 		  buttonPressed = 1; //rising edge
@@ -138,47 +132,7 @@ int main(void)
 	  else {
 		  printf("No-Blinking mode\r\n");
 		  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-	  }*/
-
-	  	  /*
-	  	   //*  METHOD 2 - INTERRUPTIONS
-	  	    ------------------------------------
-	   	  if (ledBlinking){
-		  printf("Blinking mode\r\n");
-			  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);  // LED ON
-			  HAL_Delay(500);
-			  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET); // LED OFF
-			  HAL_Delay(500);
 	  }
-
-		  //If no-blinking mode, the led stays OFF
-		  else {
-			  printf("No-Blinking mode\r\n");
-			  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET); Not absolutely required
-		  }
-			/*
-	  	   //*  METHOD 3 - INTERRUPTIONS WITH TIMER
-	  	    *--------------------------------------------
-
-	  //In the interrupt mode, we no longer need the buttonPressed variable because the button state is handle by he interrupt
-	  	  //Blinking mode
-	  	  if (ledBlinking){
-	  		  printf("Blinking mode with timer\r\n");
-	  		  HAL_TIM_OC_Start(&htim4, TIM_CHANNEL_2); //To start the timer and blinking
-
-	  	  }
-
-	  	  //If no-blinking mode, the led stays OFF (ok ?)
-	  	  else {
-	  		  printf("No-Blinking mode\r\n");
-	  		  HAL_TIM_OC_Stop(&htim4, TIM_CHANNEL_2); //To stop the timer and the blinking
-	  	  }
-
-
-
-	      // Store the current button state for the next loop iteration
-
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -231,31 +185,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-
-	if (GPIO_Pin == B1_Pin){
-
-		/* METHOD 2 - INTERRUPTIONS
-		led_blinking = !led_blinking;
-		printf("LED is %s\r\n", ledBlinking ? "blinking" : "not blinking");
-		//Method 3 -Timer
-		  if (led_blinking){
-			  printf("blink!\n");
-			  HAL_TIM_OC_Start(&htim4,TIM_CHANNEL_2);
-		  }
-		  else{
-			//printf("don't blink!\n");
-			  HAL_TIM_OC_Stop(&htim4,TIM_CHANNEL_2);
-		}
-		*/
-
-
-		//Code to be executed in the interrupt
-	}
-}
-
 
 /* USER CODE END 4 */
 
