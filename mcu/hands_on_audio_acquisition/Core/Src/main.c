@@ -38,7 +38,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define ADC_BUF_SIZE 30000
+#define ADC_BUF_SIZE 10000
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -50,16 +50,15 @@
 
 /* USER CODE BEGIN PV */
 volatile int state;
-volatile uint16_t ADCBuffer[2*ADC_BUF_SIZE]; /* ADC group regular conversion data (array of data) */
+volatile uint16_t ADCBuffer[ADC_BUF_SIZE]; /* ADC group regular conversion data (array of data) */
 volatile uint16_t* ADCData1;
 volatile uint16_t* ADCData2;
 
 volatile int state = 0; // To track the button
 uint32_t adc_value = 0; // To store ADC value
 
- uint32_t power_value = 0;
- uint32_t is_more_50 = 0;
-
+//Our defined variables
+uint8_t is_led_blinking = 0;
 
 char hex_encoded_buffer[4*ADC_BUF_SIZE+1];
 /* USER CODE END PV */
@@ -74,31 +73,9 @@ uint32_t get_signal_power(uint16_t *buffer, size_t len);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-	if (GPIO_Pin == B1_Pin) {
-		//state = 1-state;
-		HAL_TIM_Base_Start(&htim3);
-		HAL_ADC_Start_DMA(&hadc1, (uint32_t *) ADCBuffer, 2 * ADC_BUF_SIZE);
-/*
-		if (state == 1) //Check if button was pressed
-			{
-			printf("state %d \n\r", state);
 
-			HAL_TIM_Base_Start(&htim3);
-			HAL_ADC_Start_DMA(&hadc1, (uint32_t *) ADCBuffer, ADC_BUF_SIZE);
-
-				}
-
-			else {
-				printf("state %d \n\r", state);
-
-
-			}*/
-
-	}
-}
-
-
+//Teaching staff's functions
+//----------------------------
 void hex_encode(char* s, const uint8_t* buf, size_t len) {
     s[2*len] = '\0'; // A string terminated by a zero char.
     for (size_t i=0; i<len; i++) {
@@ -108,7 +85,7 @@ void hex_encode(char* s, const uint8_t* buf, size_t len) {
 }
 
 void print_buffer(uint16_t *buffer) {
-	hex_encode(hex_encoded_buffer, (uint8_t*)buffer, 2*ADC_BUF_SIZE);
+	hex_encode(hex_encoded_buffer, (uint8_t*)buffer, ADC_BUF_SIZE);
 	printf("SND:HEX:%s\r\n", hex_encoded_buffer);
 }
 
@@ -123,35 +100,26 @@ uint32_t get_signal_power(uint16_t *buffer, size_t len){
 	return (uint32_t)(sum2/len - sum*sum/len/len);
 }
 
-//Comment faire pour que on sample un dernier buffer avant de stop?
+//Our functions
+//--------------------------------
+//B1 USER BUTTON Trigger
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) { //Triggered when pressing button
+	if (GPIO_Pin == B1_Pin) {
+		HAL_TIM_Base_Start(&htim3);
+		HAL_ADC_Start_DMA(&hadc1, (uint32_t *) ADCBuffer, ADC_BUF_SIZE);
 
-//When 1st buffer is full
-void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc){
-	if (is_more_50){
-		print_buffer(ADCData1);
-		HAL_TIM_Base_Stop(&htim3);
-		HAL_ADC_Stop_DMA(&hadc1);
 	}
-	power_value = 0;
-	power_value = get_signal_power(ADCData1,ADC_BUF_SIZE);
-	if (power_value >= 50){
-			is_more_50 = 1;
-	}
-
 }
-//Function added for point 1.4
-//When 2nd buffer is full
+
+//Triggered by ADC_Start_DMA when buffer is full
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc){
-	if (is_more_50){
-		print_buffer(ADCData2);
-		HAL_TIM_Base_Stop(&htim3);
-		HAL_ADC_Stop_DMA(&hadc1);
-	}
-	power_value = 0;
-	power_value = get_signal_power(ADCData2,ADC_BUF_SIZE);
-	if (power_value >= 50){
-		is_more_50 = 1;
-	}
+
+	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);  // LED ON
+	print_buffer(ADCBuffer);
+	HAL_TIM_Base_Stop(&htim3);
+	HAL_ADC_Stop_DMA(&hadc1);
+	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET); // LED OFF
+
 
 }
 
