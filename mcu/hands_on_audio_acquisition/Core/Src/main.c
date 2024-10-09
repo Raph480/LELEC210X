@@ -19,7 +19,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
+#include "dma.h"
 #include "usart.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -51,6 +54,10 @@ volatile uint16_t ADCBuffer[2*ADC_BUF_SIZE]; /* ADC group regular conversion dat
 volatile uint16_t* ADCData1;
 volatile uint16_t* ADCData2;
 
+volatile int state = 0; // To track the button
+uint32_t adc_value = 0; // To store ADC value
+
+
 char hex_encoded_buffer[4*ADC_BUF_SIZE+1];
 /* USER CODE END PV */
 
@@ -66,9 +73,28 @@ uint32_t get_signal_power(uint16_t *buffer, size_t len);
 /* USER CODE BEGIN 0 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 	if (GPIO_Pin == B1_Pin) {
-		state = 1-state;
+		//state = 1-state;
+		HAL_TIM_Base_Start(&htim3);
+		HAL_ADC_Start_DMA(&hadc1, (uint32_t *) ADCBuffer, ADC_BUF_SIZE);
+/*
+		if (state == 1) //Check if button was pressed
+			{
+			printf("state %d \n\r", state);
+
+			HAL_TIM_Base_Start(&htim3);
+			HAL_ADC_Start_DMA(&hadc1, (uint32_t *) ADCBuffer, ADC_BUF_SIZE);
+
+				}
+
+			else {
+				printf("state %d \n\r", state);
+
+
+			}*/
+
 	}
 }
+
 
 void hex_encode(char* s, const uint8_t* buf, size_t len) {
     s[2*len] = '\0'; // A string terminated by a zero char.
@@ -82,6 +108,15 @@ void print_buffer(uint16_t *buffer) {
 	hex_encode(hex_encoded_buffer, (uint8_t*)buffer, 2*ADC_BUF_SIZE);
 	printf("SND:HEX:%s\r\n", hex_encoded_buffer);
 }
+
+//Function added for point 1.4
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc){
+	print_buffer(ADCBuffer);
+	HAL_TIM_Base_Stop(&htim3);
+	HAL_ADC_Stop_DMA(&hadc1);
+
+}
+
 
 uint32_t get_signal_power(uint16_t *buffer, size_t len){
 	uint64_t sum = 0;
@@ -122,7 +157,10 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_LPUART1_UART_Init();
+  MX_ADC1_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   RetargetInit(&hlpuart1);
   printf("Hello world!\r\n");
@@ -135,10 +173,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-	HAL_Delay(500);
-	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-	HAL_Delay(500);
+	__WFI();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -191,6 +226,8 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+
 
 /* USER CODE END 4 */
 
