@@ -47,6 +47,7 @@ def generate_audio(buf, file_name):
     buf = buf - np.mean(buf)
     buf /= max(abs(buf))
     sf.write("audio_files/"+file_name + ".ogg", buf, FREQ_SAMPLING)
+    
 
 
 if __name__ == "__main__":
@@ -85,8 +86,8 @@ if __name__ == "__main__":
             plt.ylim([0, 3300])
             plt.draw()
             plt.pause(0.001)
-            plt.cla()
-
+            #plt.cla()
+            plt.savefig(f"audio_plots/acq-{msg_counter}.pdf", bbox_inches='tight')
             generate_audio(msg, f"acq-{msg_counter}")
 
             msg_counter += 1

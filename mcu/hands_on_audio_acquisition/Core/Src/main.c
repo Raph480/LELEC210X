@@ -38,7 +38,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define ADC_BUF_SIZE 10000
+#define ADC_BUF_SIZE 50000
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -86,7 +86,7 @@ void hex_encode(char* s, const uint8_t* buf, size_t len) {
 
 void print_buffer(uint16_t *buffer) {
 	hex_encode(hex_encoded_buffer, (uint8_t*)buffer, ADC_BUF_SIZE);
-	printf("SND:HEX:%s\r\n", hex_encoded_buffer);
+	//printf("SND:HEX:%s\r\n", hex_encoded_buffer);
 }
 
 
