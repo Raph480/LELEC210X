@@ -38,7 +38,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define ADC_BUF_SIZE 10000
+#define ADC_BUF_SIZE 50000
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -50,7 +50,7 @@
 
 /* USER CODE BEGIN PV */
 volatile int state;
-volatile uint16_t ADCBuffer[ADC_BUF_SIZE]; /* ADC group regular conversion data (array of data) */
+volatile uint16_t ADCBuffer[2*ADC_BUF_SIZE]; /* ADC group regular conversion data (array of data) */
 volatile uint16_t* ADCData1;
 volatile uint16_t* ADCData2;
 
@@ -85,7 +85,7 @@ void hex_encode(char* s, const uint8_t* buf, size_t len) {
 }
 
 void print_buffer(uint16_t *buffer) {
-	hex_encode(hex_encoded_buffer, (uint8_t*)buffer, ADC_BUF_SIZE);
+	hex_encode(hex_encoded_buffer, (uint8_t*)buffer, 2*ADC_BUF_SIZE);
 	printf("SND:HEX:%s\r\n", hex_encoded_buffer);
 }
 
@@ -106,7 +106,7 @@ uint32_t get_signal_power(uint16_t *buffer, size_t len){
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) { //Triggered when pressing button
 	if (GPIO_Pin == B1_Pin) {
 		HAL_TIM_Base_Start(&htim3);
-		HAL_ADC_Start_DMA(&hadc1, (uint32_t *) ADCBuffer, ADC_BUF_SIZE);
+		HAL_ADC_Start_DMA(&hadc1, (uint32_t *) ADCBuffer, 2*ADC_BUF_SIZE);
 
 	}
 }
@@ -161,8 +161,8 @@ int main(void)
   RetargetInit(&hlpuart1);
   printf("Hello world!\r\n");
   state=0;
-  ADCData1 = &ADCBuffer[0];
-  ADCData2 = &ADCBuffer[ADC_BUF_SIZE];
+  //ADCData1 = &ADCBuffer[0];
+  //ADCData2 = &ADCBuffer[ADC_BUF_SIZE];
   /* USER CODE END 2 */
 
   /* Infinite loop */
