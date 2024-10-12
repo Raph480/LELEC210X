@@ -18,9 +18,25 @@ VDD = 3.3
 
 
 def parse_buffer(line):
-    line = line.strip()
+    """
+    #initial version
+        line = line.strip()
     if line.startswith(PRINT_PREFIX):
         return bytes.fromhex(line[len(PRINT_PREFIX) :])
+    else:
+        print(line)
+        return None
+    """
+    #try & except version
+    line = line.strip()
+    if line.startswith(PRINT_PREFIX):
+        hex_data = line[len(PRINT_PREFIX):]
+        try:
+            # Ensure the string only contains valid hex characters
+            return bytes.fromhex(hex_data)
+        except ValueError as e:
+            print(f"Error converting line to hex: {e}")
+            return None
     else:
         print(line)
         return None
@@ -53,6 +69,7 @@ def generate_audio(buf, file_name):
 if __name__ == "__main__":
     argParser = argparse.ArgumentParser()
     argParser.add_argument("-p", "--port", help="Port for serial communication")
+    argParser.add_argument("-f", "--filename", help="Base name for the output files", default="acq")
     args = argParser.parse_args()
     print("uart-reader launched...\n")
 
@@ -79,6 +96,7 @@ if __name__ == "__main__":
             times = np.linspace(0, buffer_size - 1, buffer_size) * 1 / FREQ_SAMPLING
             voltage_mV = msg * VDD / VAL_MAX_ADC * 1e3
 
+            plt.clf()  # Clear the figure for the next acquisition
             plt.plot(times, voltage_mV)
             plt.title(f"Acquisition #{msg_counter}")
             plt.xlabel("Time (s)")
@@ -87,7 +105,13 @@ if __name__ == "__main__":
             plt.draw()
             plt.pause(0.001)
             #plt.cla()
-            plt.savefig(f"audio_plots/acq-{msg_counter}.pdf", bbox_inches='tight')
-            generate_audio(msg, f"acq-{msg_counter}")
+            # Use the user-provided filename as the base name
+            base_name = f"{args.filename}-{msg_counter}"
+
+            # Save the plot as a PDF
+            plt.savefig(f"audio_plots/{base_name}.pdf", bbox_inches='tight')
+
+            # Generate and save the audio as an OGG file
+            generate_audio(msg, base_name)
 
             msg_counter += 1

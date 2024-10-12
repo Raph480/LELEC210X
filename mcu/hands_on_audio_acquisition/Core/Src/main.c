@@ -38,7 +38,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define ADC_BUF_SIZE 50000
+//MAXIMUM BUFFER WITHOUT PROBLEM: 32700 - above : only part of the audio recorded
+//ABOVE 40000: overflow error - not enough ram (320KB (bytes) of RAM, buffer of 40000 -> 160kB)
+#define ADC_BUF_SIZE 32700
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -50,6 +52,7 @@
 
 /* USER CODE BEGIN PV */
 volatile int state;
+//Le 2* est normal !
 volatile uint16_t ADCBuffer[2*ADC_BUF_SIZE]; /* ADC group regular conversion data (array of data) */
 volatile uint16_t* ADCData1;
 volatile uint16_t* ADCData2;
