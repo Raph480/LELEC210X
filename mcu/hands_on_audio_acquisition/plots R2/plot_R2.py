@@ -11,7 +11,9 @@ def csv_to_arrays(fichier,sep=','):
 
 plt.figure(figsize=(9,5), dpi=100)
 
-filename = "power subtasks v1"
+#filename = "power subtasks v1"
+#filename = "classic_usage_buffer10k"
+filename = "classic_usage_buffer5k"
 with open(filename+".csv", 'r') as f:
     first_char = f.read(1)
     if (first_char == ';'):
@@ -19,6 +21,7 @@ with open(filename+".csv", 'r') as f:
         with open(filename+".csv", 'w') as f:
             f.writelines(lines[7:])
 datas=csv_to_arrays(filename+".csv")
+datas[1] = datas[1] + 8 # shift by 8 seconds to begin at 0
 R = 50 # shunt resistance
 I = datas[2]/R # current
 P_mcu = 3.3*I # power of the mcu
@@ -39,10 +42,6 @@ plt.savefig(filename+".svg")
 
 # plot a piechart of the energy consumption with data[2] and data[3]
 plt.figure(figsize=(9,5), dpi=100)
-datas=csv_to_arrays(filename+".csv")
-R = 50 # shunt resistance
-
-I = datas[2]/R # current
 P_mcu = 3.3*I # power of the mcu
 #E_mcu = np.trapz(P_mcu,datas[1]) # energy of the mcu
 #print(E_mcu)
@@ -56,9 +55,12 @@ mask_2 = (P_mcu >= 8e-3) & (P_mcu < 12e-3)
 mask_3 = P_mcu >= 12e-3
 
 # energies for different tasks
-E_1 = np.trapz(P_mcu[mask_1],datas[1][mask_1])
-E_2 = np.trapz(P_mcu[mask_2],datas[1][mask_2])
-E_3 = np.trapz(P_mcu[mask_3],datas[1][mask_3])
+E_1 = np.trapz(np.where(P_mcu < 8e-3, P_mcu, 0),datas[1])
+E_2 = np.trapz(np.where((P_mcu >= 8e-3) & (P_mcu < 12e-3),P_mcu,0),datas[1])
+E_3 = np.trapz(np.where(P_mcu >= 12e-3, P_mcu, 0),datas[1])
+
+E_tot = np.trapz(P_mcu,datas[1])
+
 
 labels = '(1) WFI state', '(2) Audio sampling', '(3) UART transmission'
 values = [E_1, E_2, E_3]
@@ -93,7 +95,7 @@ plt.plot(datas[1],P_mcu*1000,label="MCU")
 plt.fill_between(datas[1],P_mcu*1000, where=mask_1, color='gold', alpha=0.5, label='WFI state')
 plt.fill_between(datas[1],P_mcu*1000, where=mask_2, color='green', alpha=0.5, label='Audio sampling')
 plt.fill_between(datas[1],P_mcu*1000, where=mask_3, color='red', alpha=0.5, label='UART transmission')
-plt.title('Energy consumption of the MCU during the three subtasks \n(Piechart 1 equivalent)')
+#plt.title('Energy consumption of the MCU during the three subtasks \n(Piechart 1 equivalent)')
 plt.xlabel('Time [s]')
 plt.ylabel('Power [mW]')
 plt.legend(loc="upper right")
@@ -119,9 +121,9 @@ def autopct_format(values):
     return my_format
 
 # Tracer le graphique en secteurs
-plt.pie(values, labels=labels, colors=colors, autopct=autopct_format(values), shadow=False, startangle=80, wedgeprops=wedgeprops, textprops=textprops)
+plt.pie(values, labels=labels, colors=colors, autopct=autopct_format(values), shadow=False, startangle=0, wedgeprops=wedgeprops, textprops=textprops)
 plt.axis('equal')
-plt.title('Energy consumption of the MCU during subtasks (2) and (3)')
+#plt.title('Energy consumption of the MCU during subtasks (2) and (3)')
 
 # change label text color to black, as it is invisible if kept white :)
 for text in plt.gca().texts:
@@ -149,8 +151,8 @@ plt.savefig(filename+"_mask2.svg")
 # mean P_1 power during WFI state
 P_1 = np.mean(P_mcu[mask_1])
 #deduce energy of P_1 during mask_2 and mask_3
-E_2_rel = E_2 - np.trapz(P_1*np.ones(len(datas[1][mask_2])),datas[1][mask_2])
-E_3_rel = E_3 - np.trapz(P_1*np.ones(len(datas[1][mask_3])),datas[1][mask_3])
+E_2_rel = E_2 - P_1* np.trapz(np.where((P_mcu >= 8e-3) & (P_mcu < 12e-3),1,0),datas[1])
+E_3_rel = E_3 - P_1* np.trapz(np.where(P_mcu < 12e-3,1,0),datas[1])
 
 plt.figure(figsize=(9,5), dpi=100)
 labels = '(2) Audio sampling', '(3) UART transmission'
@@ -168,9 +170,9 @@ def autopct_format(values):
     return my_format
 
 # Tracer le graphique en secteurs
-plt.pie(values, labels=labels, colors=colors, autopct=autopct_format(values), shadow=False, startangle=80, wedgeprops=wedgeprops, textprops=textprops)
+plt.pie(values, labels=labels, colors=colors, autopct=autopct_format(values), shadow=False, startangle=0, wedgeprops=wedgeprops, textprops=textprops)
 plt.axis('equal')
-plt.title('Energy consumption of the MCU during subtasks (2) and (3), WFI state energy deducted')
+#plt.title('Energy consumption of the MCU during subtasks (2) and (3), WFI state energy deducted')
 
 # change label text color to black, as it is invisible if kept white :)
 for text in plt.gca().texts:
@@ -229,8 +231,9 @@ plt.figure(figsize=(9,5), dpi=100)
 plt.plot(datas[1],P_mcu*1000,label="MCU")
 plt.fill_between(datas[1],P_mcu*1000, where=mask_2, color='green', alpha=0.5, label='Audio sampling only')
 plt.fill_between(datas[1],P_mcu*1000, where=mask_3, color='red', alpha=0.5, label='UART transmission only')
-plt.fill_between(datas[1],P_1*1000, color='gold', alpha=1, label='Idle (WFI state only)')
-plt.title('Relative energy consumption of the MCU during sequence \n(Piechart 4 equivalent)')
+plt.fill_between(datas[1],P_1*1000, color='white', alpha=1)
+plt.fill_between(datas[1],P_1*1000, color='gold', alpha=0.5, label='Idle (WFI state only)')
+#plt.title('Relative energy consumption of the MCU during sequence \n(Piechart 4 equivalent)')
 plt.xlabel('Time [s]')
 plt.ylabel('Power [mW]')
 plt.legend(loc="upper right")
