@@ -13,7 +13,7 @@ plt.figure(figsize=(9,5), dpi=100)
 
 #filename = "power subtasks v1"
 #filename = "classic_usage_buffer10k"
-filename = "classic_usage_buffer5k"
+filename = "classic_usage_buffer10k_CORRECTED"
 with open(filename+".csv", 'r') as f:
     first_char = f.read(1)
     if (first_char == ';'):
@@ -108,6 +108,7 @@ plt.savefig(filename+"_mask1.svg")
 plt.figure(figsize=(9,5), dpi=100)
 labels = '(2) Audio sampling', '(3) UART transmission'
 values = [E_2, E_3]
+#values = [8.33, 80.5]
 colors = ['yellowgreen', 'lightcoral']
 wedgeprops = {"edgecolor": "white", 'linewidth': 3, 'antialiased': True}
 textprops = {'fontsize': 12, 'color': 'white'}
@@ -117,7 +118,7 @@ def autopct_format(values):
     def my_format(pct):
         total = sum(values)
         val = pct/100*total
-        return f'{val:.3f} [J] \n({pct:.1f}%)'
+        return f'\n{val:.2f} [J] \n({pct:.1f}%)'
     return my_format
 
 # Tracer le graphique en secteurs
@@ -157,6 +158,7 @@ E_3_rel = E_3 - P_1* np.trapz(np.where(P_mcu < 12e-3,1,0),datas[1])
 plt.figure(figsize=(9,5), dpi=100)
 labels = '(2) Audio sampling', '(3) UART transmission'
 values = [E_2_rel, E_3_rel]
+#values = [1.02, 48.73]
 colors = ['yellowgreen', 'lightcoral']
 wedgeprops = {"edgecolor": "white", 'linewidth': 3, 'antialiased': True}
 textprops = {'fontsize': 12, 'color': 'white'}
@@ -166,7 +168,7 @@ def autopct_format(values):
     def my_format(pct):
         total = sum(values)
         val = pct/100*total
-        return f'{val:.3f} [J] \n({pct:.1f}%)'
+        return f'{val:.2f} [J] \n({pct:.1f}%)\n\n\n'
     return my_format
 
 # Tracer le graphique en secteurs
