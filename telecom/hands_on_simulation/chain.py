@@ -112,12 +112,40 @@ class Chain:
 
     def demodulate(self, y: np.array) -> np.array:
         """
-        Demodulates the received signal.
+        Demodulates the received signal using non-coherent detection.
 
         :param y: The received signal, (N * R,).
-        :return: The signal, after demodulation.
+        :return: The demodulated bit sequence, (N,).
         """
-        raise NotImplementedError
+        fd = self.freq_dev  # Frequency deviation, Delta_f
+        B = self.bit_rate  # Bit rate B=1/T
+        R = self.osr_rx  # Oversampling factor at RX
+        N = len(y) // R  # Number of symbols in the signal
+
+        bits = np.zeros(N, dtype=np.int8)  # Output bits
+
+        # Precompute the phase for symbol waveforms (symbol 0 and symbol 1)
+        t = np.arange(R) / (R * B)  # Time vector for one symbol period (normalized)
+        s0 = np.exp(1j * 2 * np.pi * (-fd) * t)  # Reference waveform for symbol 0
+        s1 = np.exp(1j * 2 * np.pi * fd * t)  # Reference waveform for symbol 1
+
+        #For each symbol
+        for k in range(N):
+            # Extract the received samples corresponding to the current symbol
+            y_k = y[k * R:(k + 1) * R]
+
+            # Compute correlation with both reference waveforms
+            r0 = np.sum(y_k * np.conj(s0)) / R  # Correlate with symbol 0
+            r1 = np.sum(y_k * np.conj(s1)) / R  # Correlate with symbol 1
+
+            # Non-coherent detection: Compare the magnitudes of r0 and r1
+            if np.abs(r1) > np.abs(r0):
+                bits[k] = 1  # Symbol 1 is detected
+            else:
+                bits[k] = 0  # Symbol 0 is detected
+
+        return bits
+
 
 
 class BasicChain(Chain):
@@ -143,17 +171,35 @@ class BasicChain(Chain):
 
     bypass_cfo_estimation = True
 
-    def cfo_estimation(self, y):
+    def cfo_estimation(self, y: np.array) -> float:
         """
         Estimates CFO using Moose algorithm, on first samples of preamble.
+    
+        :param y: The received signal, (N * R,).
+        :return: The estimated CFO.
         """
-        # TO DO: extract 2 blocks of size N*R at the start of y
+        # Constants
+        N = 4  # Block size in bits (4 bits)
+        RRX = self.osr_rx  # Receiver oversampling factor
+        B = self.bit_rate  # Bit rate (B = 1/T)
+    
+        # Block size in samples
+        Nt = N * RRX  # N bits oversampled by RRX factor
 
-        # TO DO: apply the Moose algorithm on these two blocks to estimate the CFO
+        # Extract the first two blocks of size Nt from the received signal
+        y1 = y[:Nt]         # First block
+        y2 = y[Nt:2*Nt]     # Second block
 
-        cfo_est = 0  # Default value, to change
+        # Moose estimator calculation: alpha
+        numerator = np.sum(y2 * np.conj(y1))  # Sum of y[l + Nt] * conj(y[l])
+        denominator = np.sum(np.abs(y1)**2)   # Sum of |y[l]|^2
+        alpha = numerator / denominator       # Estimate of alpha
+    
+        # Estimate the frequency offset (CFO)
+        delta_f_c = np.angle(alpha) / (2 * np.pi * Nt / (RRX * B))  # CFO estimate in Hz
 
-        return cfo_est
+        return delta_f_c
+
 
     bypass_sto_estimation = True
 
@@ -179,23 +225,43 @@ class BasicChain(Chain):
 
         return np.mod(save_i + 1, R)
 
-    def demodulate(self, y):
+    def demodulate(self, y: np.array) -> np.array:
         """
-        Non-coherent demodulator.
+        Non-coherent demodulator for Continuous-Phase FSK.
+    
+        :param y: The received signal, (N * R,).
+        :return: The demodulated bit sequence, (N,).
         """
         R = self.osr_rx  # Receiver oversampling factor
         nb_syms = len(y) // R  # Number of CPFSK symbols in y
 
-        # Group symbols together, in a matrix. Each row contains the R samples over one symbol period
+        # Reshape received signal to separate each symbol's samples
         y = np.resize(y, (nb_syms, R))
 
-        # TO DO: generate the reference waveforms used for the correlation
-        # hint: look at what is done in modulate() in chain.py
+        # Generate reference waveforms (s0 for symbol 0, s1 for symbol 1)
+        fd = self.freq_dev  # Frequency deviation (Delta_f)
+        B = self.bit_rate  # Bit rate (B = 1/T)
+    
+        t = np.arange(R) / (R * B)  # Time vector for one symbol period (normalized)
+        s0 = np.exp(1j * 2 * np.pi * (-fd) * t)  # Reference waveform for symbol 0
+        s1 = np.exp(1j * 2 * np.pi * fd * t)    # Reference waveform for symbol 1
 
-        # TO DO: compute the correlations with the two reference waveforms (r0 and r1)
+        # Output bit sequence
+        bits_hat = np.zeros(nb_syms, dtype=int)
 
-        # TO DO: performs the decision based on r0 and r1
-
-        bits_hat = np.zeros(nb_syms, dtype=int)  # Default value, all bits=0. TO CHANGE!
+        # Demodulate each symbol
+        for k in range(nb_syms):
+            y_k = y[k]  # Get the samples for the k-th symbol
+        
+            # Compute correlation with both reference waveforms
+            r0 = np.sum(y_k * np.conj(s0)) / R  # Correlation with reference for symbol 0
+            r1 = np.sum(y_k * np.conj(s1)) / R  # Correlation with reference for symbol 1
+        
+            # Non-coherent detection: Compare magnitudes of r0 and r1
+            if np.abs(r1) > np.abs(r0):
+                bits_hat[k] = 1  # Symbol 1 detected
+            else:
+                bits_hat[k] = 0  # Symbol 0 detected
 
         return bits_hat
+

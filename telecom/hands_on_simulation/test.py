@@ -27,6 +27,10 @@ class TestBasicChain:
         )  # application of ideal channel (if TX and RX oversampling factors are different)
 
         bits_hat = self.chain.demodulate(y)  # call to demodulation function
+        
+        # Print the input and output bits
+        print(f"Input bits: {bits}")
+        print(f"Output (demodulated) bits: {bits_hat}")
 
         np.testing.assert_equal(bits_hat, bits)
 
