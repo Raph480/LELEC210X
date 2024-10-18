@@ -1,3 +1,0 @@
-../Core/Src/retarget.c:23:6:RetargetInit	1
-../Core/Src/retarget.c:31:5:_write	2
-../Core/Src/retarget.c:45:5:_read	2

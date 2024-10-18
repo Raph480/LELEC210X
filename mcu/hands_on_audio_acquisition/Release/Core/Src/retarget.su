@@ -1,3 +1,0 @@
-../Core/Src/retarget.c:23:6:RetargetInit	0	static
-../Core/Src/retarget.c:31:5:_write	8	static
-../Core/Src/retarget.c:45:5:_read	8	static
