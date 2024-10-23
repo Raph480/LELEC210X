@@ -192,11 +192,12 @@ class BasicChain(Chain):
 
         # Moose estimator calculation: alpha
         numerator = np.sum(y2 * np.conj(y1))  # Sum of y[l + Nt] * conj(y[l])
-        denominator = np.sum(np.abs(y1)**2)   # Sum of |y[l]|^2
-        alpha = numerator / denominator       # Estimate of alpha
+        #denominator = np.sum(np.abs(y1)**2)   # Sum of |y[l]|^2
+        #alpha = numerator / denominator       # Estimate of alpha
     
         # Estimate the frequency offset (CFO)
-        delta_f_c = np.angle(alpha) / (2 * np.pi * Nt / (RRX * B))  # CFO estimate in Hz
+        #delta_f_c = np.angle(alpha) / (2 * np.pi * Nt / (RRX * B))  # CFO estimate in Hz #Raph: le tuteur m'a dit que le calcul du denom était inutile car angle de alpha = angle de num
+        delta_f_c = np.angle(numerator) / (2 * np.pi * Nt / (RRX * B))
 
         return delta_f_c
 
