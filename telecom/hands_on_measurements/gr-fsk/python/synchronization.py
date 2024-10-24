@@ -54,8 +54,8 @@ def cfo_estimation(y, B, R, Fdev, N=2):
     #alpha = numerator / denominator       # Estimate of alpha
 
     # Estimate the frequency offset (CFO)
-    #delta_f_c = np.angle(alpha) / (2 * np.pi * Nt / (RRX * B))  # CFO estimate in Hz #Raph: le tuteur m'a dit que le calcul du denom était inutile car angle de alpha = angle de num
-    delta_f_c = np.angle(numerator) / (2 * np.pi * Nt / (RRX * B))
+    #delta_f_c = np.angle(alpha) / (2 * np.pi * Nt / (R * B))  # CFO estimate in Hz #Raph: le tuteur m'a dit que le calcul du denom était inutile car angle de alpha = angle de num
+    delta_f_c = np.angle(numerator) / (2 * np.pi * Nt / (R * B))
 
     return delta_f_c
 
