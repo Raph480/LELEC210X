@@ -1,0 +1,124 @@
+Info: Starting: Create testbench Platform Designer system
+Info: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/packet_presence_detection_tb_gen_tb.ipx
+Info: qsys-generate C:\Users\tvang\Thibaut\LELEC2102_3_projet_elec\LELEC210X\fpga\LimeSDR-Mini_lms7_lelec210x\ip\packet_presence_detection\testbench\packet_presence_detection_tb_gen_tb.qsys --testbench=STANDARD --output-directory=C:\Users\tvang\Thibaut\LELEC2102_3_projet_elec\LELEC210X\fpga\LimeSDR-Mini_lms7_lelec210x\ip\packet_presence_detection\testbench --family="MAX 10" --part=10M16SAU169C8G
+Progress: Loading testbench/packet_presence_detection_tb_gen_tb.qsys
+Progress: Reading input file
+Progress: Adding packet_presence_detection_tb_gen_inst [packet_presence_detection_tb_gen 1.0]
+Progress: Parameterizing module packet_presence_detection_tb_gen_inst
+Progress: Adding packet_presence_detection_tb_gen_inst_clock_bfm [altera_avalon_clock_source 18.1]
+Progress: Parameterizing module packet_presence_detection_tb_gen_inst_clock_bfm
+Progress: Adding packet_presence_detection_tb_gen_inst_reset_bfm [altera_avalon_reset_source 18.1]
+Progress: Parameterizing module packet_presence_detection_tb_gen_inst_reset_bfm
+Progress: Adding packet_presence_detection_tb_gen_inst_sink_bfm [altera_avalon_st_source_bfm 18.1]
+Progress: Parameterizing module packet_presence_detection_tb_gen_inst_sink_bfm
+Progress: Adding packet_presence_detection_tb_gen_inst_source_bfm [altera_avalon_st_sink_bfm 18.1]
+Progress: Parameterizing module packet_presence_detection_tb_gen_inst_source_bfm
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_clock_bfm: Elaborate: altera_clock_source
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_clock_bfm:            $Revision: #1 $
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_clock_bfm:            $Date: 2018/07/18 $
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_reset_bfm: Elaborate: altera_reset_source
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_reset_bfm:            $Revision: #1 $
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_reset_bfm:            $Date: 2018/07/18 $
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_reset_bfm: Reset is positively asserted.
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_sink_bfm: Use Ready set to zero - omitting src_ready port
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_sink_bfm: Use Packets set to zero - omitting src_startofpacket, src_endofpacket and src_empty ports
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_sink_bfm: Use Empty set to zero - omitting src_empty port
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_sink_bfm: Use Channels set to zero - omitting src_channel port
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_sink_bfm: Use Error set to zero - omitting src_error port
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_source_bfm: Use Ready set to zero - omitting sink_ready port
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_source_bfm: Use Packets set to zero - omitting sink_startofpacket, sink_endofpacket and sink_empty ports
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_source_bfm: Use Empty set to zero - omitting sink_empty port
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_source_bfm: Use Channels set to zero - omitting sink_channel port
+Info: packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_source_bfm: Use Error set to zero - omitting sink_error port
+Info: qsys-generate succeeded.
+Info: Loading IP catalog for testbench.
+Progress: 
+Progress: 
+Progress: 
+Progress: (2) searching C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/root_components.ipx (ipx file)
+Info: Reading index C:\intelfpga_lite\18.1\quartus\sopc_builder\bin\root_components.ipx
+Info: C:\intelfpga_lite\18.1\quartus\sopc_builder\bin\root_components.ipx: Loading now from components.ipx
+Info: Reading index C:\intelfpga_lite\18.1\quartus\sopc_builder\bin\ip_component_categories.ipx
+Info: C:\intelfpga_lite\18.1\quartus\sopc_builder\bin\ip_component_categories.ipx described 0 plugins, 0 paths, in 0.00 seconds
+Info: C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/ip_component_categories.ipx matched 1 files in 0.00 seconds
+Info: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/ip/**/* matched 0 files in 0.00 seconds
+Info: Reading index C:\Users\tvang\Thibaut\LELEC2102_3_projet_elec\LELEC210X\fpga\LimeSDR-Mini_lms7_lelec210x\ip\packet_presence_detection\testbench\packet_presence_detection_tb_gen.ipx
+Progress: Loading LimeSDR-Mini_lms7_lelec210x/AVS2FIFO_hw.tcl
+Progress: Loading LimeSDR-Mini_lms7_lelec210x/Av_FIFO_Int_hw.tcl
+Progress: Loading LimeSDR-Mini_lms7_lelec210x/FIFO2AVS_hw.tcl
+Progress: Loading LimeSDR-Mini_lms7_lelec210x/fir_tb_gen.qsys
+Progress: Loading LimeSDR-Mini_lms7_lelec210x/lms_ctr.qsys
+Progress: Loading LimeSDR-Mini_lms7_lelec210x/lms_dsp.qsys
+Progress: Loading LimeSDR-Mini_lms7_lelec210x/packet_presence_detection_hw.tcl
+Progress: Loading LimeSDR-Mini_lms7_lelec210x/packet_presence_detection_tb_gen.qsys
+Info: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/* matched 41 files in 0.07 seconds
+Progress: Loading clkctrl/clkctrl.qsys
+Info: Reading index C:\Users\tvang\Thibaut\LELEC2102_3_projet_elec\LELEC210X\fpga\LimeSDR-Mini_lms7_lelec210x\ip\fir\testbench\fir_tb_gen.ipx
+Warning: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/**/* repeats C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/*
+Warning: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/**/* repeats C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/**/*
+Info: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/*/* matched 132 files in 0.00 seconds
+Info: C:\Users\tvang\Thibaut\LELEC2102_3_projet_elec\LELEC210X\fpga\LimeSDR-Mini_lms7_lelec210x\ip\fir\testbench\fir_tb_gen.ipx described 0 plugins, 3 paths, in 0.00 seconds
+Progress: Loading testbench/fir_tb_gen_tb.qsys
+Progress: Loading i2c_opencores_v13/i2c_opencores_hw.tcl
+Progress: Loading i2c_opencores_v13/i2c_opencores_sw.tcl
+Progress: Loading i2c_opencores_v13_v0/i2c_opencores_hw.tcl
+Progress: Loading i2c_opencores_v13_v0/i2c_opencores_sw.tcl
+Info: Reading index C:\Users\tvang\Thibaut\LELEC2102_3_projet_elec\LELEC210X\fpga\LimeSDR-Mini_lms7_lelec210x\ip\packet_presence_detection\testbench\packet_presence_detection_tb_gen.ipx
+Warning: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/*/* repeats C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/*
+Warning: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/*/* repeats C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/**/*
+Warning: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/*/* repeats C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/*/*
+Info: C:\Users\tvang\Thibaut\LELEC2102_3_projet_elec\LELEC210X\fpga\LimeSDR-Mini_lms7_lelec210x\ip\packet_presence_detection\testbench\packet_presence_detection_tb_gen.ipx described 0 plugins, 3 paths, in 0.00 seconds
+Info: Reading index C:\Users\tvang\Thibaut\LELEC2102_3_projet_elec\LELEC210X\fpga\LimeSDR-Mini_lms7_lelec210x\ip\packet_presence_detection\testbench\packet_presence_detection_tb_gen_tb.ipx
+Warning: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/*/* repeats C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/*
+Warning: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/*/* repeats C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/ip/**/*
+Info: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/*/* matched 25 files in 0.00 seconds
+Info: C:\Users\tvang\Thibaut\LELEC2102_3_projet_elec\LELEC210X\fpga\LimeSDR-Mini_lms7_lelec210x\ip\packet_presence_detection\testbench\packet_presence_detection_tb_gen_tb.ipx described 0 plugins, 3 paths, in 0.00 seconds
+Progress: Loading testbench/packet_presence_detection_tb_gen_tb.qsys
+Info: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/**/* matched 121 files in 0.04 seconds
+Warning: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/*/* repeats C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/*/*
+Info: C:\Users\tvang\Thibaut\LELEC2102_3_projet_elec\LELEC210X\fpga\LimeSDR-Mini_lms7_lelec210x\ip\packet_presence_detection\testbench\packet_presence_detection_tb_gen.ipx described 0 plugins, 3 paths, in 0.11 seconds
+Info: Reading index C:\Users\tvang\Thibaut\LELEC2102_3_projet_elec\LELEC210X\fpga\LimeSDR-Mini_lms7_lelec210x\ip\packet_presence_detection\testbench\packet_presence_detection_tb_gen_tb.ipx
+Warning: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/*/* repeats C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/*
+Warning: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/*/* repeats C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/ip/**/*
+Warning: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/*/* repeats C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/*/*
+Info: C:\Users\tvang\Thibaut\LELEC2102_3_projet_elec\LELEC210X\fpga\LimeSDR-Mini_lms7_lelec210x\ip\packet_presence_detection\testbench\packet_presence_detection_tb_gen_tb.ipx described 0 plugins, 3 paths, in 0.00 seconds
+Progress: Loading testbench/packet_presence_detection_tb_gen_tb.qsys
+Info: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/* matched 25 files in 0.11 seconds
+Warning: C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/*/* repeats C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench/*/*
+Info: C:/Users/tvang/.altera.quartus/ip/18.1/**/* matched 0 files in 0.00 seconds
+Info: C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/$$QUARTUS_IP_PROJECTDIR/* matched 0 files in 0.00 seconds
+Info: C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/$$QUARTUS_IP_USERDIR/* matched 0 files in 0.00 seconds
+Info: C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/$$QUARTUS_IP_GLOBALDIR/* matched 0 files in 0.00 seconds
+Info: Reading index C:\intelfpga_lite\18.1\ip\altera\altera_components.ipx
+Info: C:\intelfpga_lite\18.1\ip\altera\altera_components.ipx described 2035 plugins, 0 paths, in 0.05 seconds
+Info: C:/intelfpga_lite/18.1/ip/**/* matched 139 files in 0.06 seconds
+Info: C:/intelfpga_lite/ip/**/* matched 0 files in 0.00 seconds
+Info: Reading index C:\intelfpga_lite\18.1\quartus\sopc_builder\builtin.ipx
+Info: C:\intelfpga_lite\18.1\quartus\sopc_builder\builtin.ipx described 83 plugins, 0 paths, in 0.00 seconds
+Info: C:/intelfpga_lite/18.1/quartus/sopc_builder/**/* matched 8 files in 0.00 seconds
+Info: Reading index C:\intelfpga_lite\18.1\quartus\common\librarian\factories\index.ipx
+Info: C:\intelfpga_lite\18.1\quartus\common\librarian\factories\index.ipx described 151 plugins, 0 paths, in 0.01 seconds
+Info: C:/intelfpga_lite/18.1/quartus/common/librarian/factories/**/* matched 4 files in 0.01 seconds
+Info: C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/$IP_IPX_PATH matched 1 files in 0.00 seconds
+Info: C:\intelfpga_lite\18.1\quartus\sopc_builder\bin\root_components.ipx described 0 plugins, 13 paths, in 0.18 seconds
+Info: C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/root_components.ipx matched 1 files in 0.18 seconds
+Progress: 
+Progress: 
+Progress: 
+Info: Running script C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/tbgen.tcl
+Info: send_message Info TB_Gen: QSYS Testbench Generator Rev: $Revision: #1 $
+Info: TB_Gen: QSYS Testbench Generator Rev: $Revision: #1 $
+Info: get_module_property NAME
+Info: send_message Info TB_Gen: System design is: packet_presence_detection_tb_gen_tb
+Info: TB_Gen: System design is: packet_presence_detection_tb_gen_tb
+Info: get_interfaces 
+Info: send_message Error TB_Gen: System has no exported interfaces
+Error: TB_Gen: System has no exported interfaces
+Error: Error: TB_Gen: System has no exported interfaces
+Info: Done
+Error: There were errors creating the testbench system.
+Info: Finished: Create testbench Platform Designer system

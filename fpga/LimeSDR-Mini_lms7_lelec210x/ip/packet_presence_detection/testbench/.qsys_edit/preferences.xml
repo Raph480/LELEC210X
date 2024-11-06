@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <debug showDebugMenu="0" />
+ <systemtable filter="All Interfaces">
+  <columns>
+   <connections preferredWidth="79" />
+   <irq preferredWidth="34" />
+   <name preferredWidth="434" />
+   <inputclock preferredWidth="95" />
+   <export preferredWidth="161" />
+   <description preferredWidth="242" />
+   <baseaddress preferredWidth="56" />
+   <endaddress preferredWidth="30" />
+  </columns>
+ </systemtable>
+ <library expandedCategories="Project,Library" />
+ <window width="1920" height="1038" x="0" y="0" />
+ <generation
+   path="C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/"
+   testbench_system="STANDARD"
+   testbench_simulation="VERILOG"
+   greybox="1"
+   simulation="VERILOG" />
+ <hdlexample language="VERILOG" />
+</preferences>

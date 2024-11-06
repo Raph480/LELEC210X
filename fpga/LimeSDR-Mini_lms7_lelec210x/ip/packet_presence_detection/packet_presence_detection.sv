@@ -194,9 +194,11 @@ module dual_running_sum #(
 	end
 	
 	
-	wire  [(LONG_SUM_WIDTH+8 -1):0] long_shift_rescale;
+	reg  [(LONG_SUM_WIDTH+8 -1):0] long_shift_rescale; //faut changer wire en reg pour pouvoir faire un registre après
 	
-	assign long_shift_rescale  = long_sum_reg ;
+	always @(posedge clock) begin //ajouté pour pas avoir des problèmes de slack
+		long_shift_rescale  <= (long_sum_reg*K)>>3 ;
+		end
 
 	assign long_shift_full = (long_counter==LONG_SHIFT_LEN);
 	

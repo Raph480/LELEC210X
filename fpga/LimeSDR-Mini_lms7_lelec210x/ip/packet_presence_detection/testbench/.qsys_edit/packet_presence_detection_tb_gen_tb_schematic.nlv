@@ -1,0 +1,16 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst packet_presence_detection_tb_gen_tb -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst.conduit_bfm_0 -pg 1
+preplace inst packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst.packet_presence_detection_0 -pg 1
+preplace inst packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_source_bfm -pg 1 -lvl 5 -y 140
+preplace inst packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_clock_bfm -pg 1 -lvl 1 -y 90
+preplace inst packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_sink_bfm -pg 1 -lvl 3 -y 90
+preplace inst packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst -pg 1 -lvl 4 -y 70
+preplace inst packet_presence_detection_tb_gen_tb.packet_presence_detection_tb_gen_inst_reset_bfm -pg 1 -lvl 2 -y 110
+preplace netloc FAN_OUT<net_container>packet_presence_detection_tb_gen_tb</net_container>(MASTER)packet_presence_detection_tb_gen_inst_clock_bfm.clk,(SLAVE)packet_presence_detection_tb_gen_inst_source_bfm.clk,(SLAVE)packet_presence_detection_tb_gen_inst_sink_bfm.clk,(SLAVE)packet_presence_detection_tb_gen_inst_reset_bfm.clk,(SLAVE)packet_presence_detection_tb_gen_inst.clock) 1 1 4 280 100 470 80 660 30 900
+preplace netloc POINT_TO_POINT<net_container>packet_presence_detection_tb_gen_tb</net_container>(SLAVE)packet_presence_detection_tb_gen_inst.sink,(MASTER)packet_presence_detection_tb_gen_inst_sink_bfm.src) 1 3 1 660
+preplace netloc FAN_OUT<net_container>packet_presence_detection_tb_gen_tb</net_container>(SLAVE)packet_presence_detection_tb_gen_inst_sink_bfm.clk_reset,(SLAVE)packet_presence_detection_tb_gen_inst.reset,(SLAVE)packet_presence_detection_tb_gen_inst_source_bfm.clk_reset,(MASTER)packet_presence_detection_tb_gen_inst_reset_bfm.reset) 1 2 3 470 160 680 170 NJ
+preplace netloc POINT_TO_POINT<net_container>packet_presence_detection_tb_gen_tb</net_container>(MASTER)packet_presence_detection_tb_gen_inst.source,(SLAVE)packet_presence_detection_tb_gen_inst_source_bfm.sink) 1 4 1 880
+levelinfo -pg 1 0 90 1190
+levelinfo -hier packet_presence_detection_tb_gen_tb 90 150 340 530 750 960 1090

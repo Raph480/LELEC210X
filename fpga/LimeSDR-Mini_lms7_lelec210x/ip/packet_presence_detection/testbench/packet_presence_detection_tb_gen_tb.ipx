@@ -1,0 +1,12 @@
+<library>
+	<!-- Include the system-under-test, and project-local components. -->
+	<path path="C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench//*" >
+		<tag2 key="COMPONENT_IN_PROJECT" value="true" />
+	</path>
+	<path path="C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench//ip/**/*" >
+		<tag2 key="COMPONENT_IN_PROJECT" value="true" />
+	</path>
+	<path path="C:/Users/tvang/Thibaut/LELEC2102_3_projet_elec/LELEC210X/fpga/LimeSDR-Mini_lms7_lelec210x/ip/packet_presence_detection/testbench//*/*" >
+		<tag2 key="COMPONENT_IN_PROJECT" value="true" />
+	</path>
+</library>
