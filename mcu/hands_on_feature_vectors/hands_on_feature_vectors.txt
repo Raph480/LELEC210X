@@ -1,0 +1,88 @@
+Configuration	hands_on_feature_vectors
+STM32CubeMX 	6.12.1
+Date	11/20/2024
+MCU	STM32L4A6ZGTx
+
+
+
+PERIPHERALS	MODES	FUNCTIONS	PINS
+ADC1	IN5 Single-ended	ADC1_IN5	PA0
+LPUART1	Asynchronous	LPUART1_RX	PG8
+LPUART1	Asynchronous	LPUART1_TX	PG7
+RCC	Crystal/Ceramic Resonator	RCC_OSC32_IN	PC14-OSC32_IN (PC14)
+RCC	Crystal/Ceramic Resonator	RCC_OSC32_OUT	PC15-OSC32_OUT (PC15)
+SYS	Trace Asynchronous Sw	SYS_JTMS-SWDIO	PA13 (JTMS/SWDIO)
+SYS	Trace Asynchronous Sw	SYS_JTCK-SWCLK	PA14 (JTCK/SWCLK)
+SYS	Trace Asynchronous Sw	SYS_JTDO-SWO	PB3 (JTDO/TRACESWO)
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+7	PC13	GPIO_EXTI13	B1
+8	PC14-OSC32_IN (PC14)	RCC_OSC32_IN	
+9	PC15-OSC32_OUT (PC15)	RCC_OSC32_OUT	
+24	PH1-OSC_OUT (PH1)*	RCC_OSC_OUT	
+34	PA0	ADC1_IN5	
+75	PB14	GPIO_Output	LD3 [Red]
+92	PG7	LPUART1_TX	STLK_RX [STM32F103CBT6_PA3]
+93	PG8	LPUART1_RX	STLK_TX [STM32F103CBT6_PA2]
+97	PC7	GPIO_Output	LD1 [Green]
+105	PA13 (JTMS/SWDIO)	SYS_JTMS-SWDIO	TMS
+109	PA14 (JTCK/SWCLK)	SYS_JTCK-SWCLK	TCK
+133	PB3 (JTDO/TRACESWO)	SYS_JTDO-SWO	SWO
+137	PB7	GPIO_Output	LD2 [Blue]
+PERIPHERALS	MODES	FUNCTIONS	PINS
+ADC1	IN5 Single-ended	ADC1_IN5	PA0
+LPUART1	Asynchronous	LPUART1_RX	PG8
+LPUART1	Asynchronous	LPUART1_TX	PG7
+RCC	Crystal/Ceramic Resonator	RCC_OSC32_IN	PC14-OSC32_IN (PC14)
+RCC	Crystal/Ceramic Resonator	RCC_OSC32_OUT	PC15-OSC32_OUT (PC15)
+SYS	Trace Asynchronous Sw	SYS_JTMS-SWDIO	PA13 (JTMS/SWDIO)
+SYS	Trace Asynchronous Sw	SYS_JTCK-SWCLK	PA14 (JTCK/SWCLK)
+SYS	Trace Asynchronous Sw	SYS_JTDO-SWO	PB3 (JTDO/TRACESWO)
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+7	PC13	GPIO_EXTI13	B1
+8	PC14-OSC32_IN (PC14)	RCC_OSC32_IN	
+9	PC15-OSC32_OUT (PC15)	RCC_OSC32_OUT	
+24	PH1-OSC_OUT (PH1)*	RCC_OSC_OUT	
+34	PA0	ADC1_IN5	
+75	PB14	GPIO_Output	LD3 [Red]
+92	PG7	LPUART1_TX	STLK_RX [STM32F103CBT6_PA3]
+93	PG8	LPUART1_RX	STLK_TX [STM32F103CBT6_PA2]
+97	PC7	GPIO_Output	LD1 [Green]
+105	PA13 (JTMS/SWDIO)	SYS_JTMS-SWDIO	TMS
+109	PA14 (JTCK/SWCLK)	SYS_JTCK-SWCLK	TCK
+133	PB3 (JTDO/TRACESWO)	SYS_JTDO-SWO	SWO
+137	PB7	GPIO_Output	LD2 [Blue]
+
+
+
+SOFTWARE PROJECT
+
+Project Settings : 
+Project Name : hands_on_feature_vectors
+Project Folder : /home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/mcu/hands_on_feature_vectors
+Toolchain / IDE : STM32CubeIDE
+Firmware Package Name and Version : STM32Cube FW_L4 V1.18.0
+
+
+Code Generation Settings : 
+STM32Cube MCU packages and embedded software packs : Copy only the necessary library files
+Generate peripheral initialization as a pair of '.c/.h' files per peripheral : Yes
+Backup previously generated files when re-generating : No
+Delete previously generated files when not re-generated : Yes
+Set all free pins as analog (to optimize the power consumption) : No
+
+
+Toolchains Settings : 
+Compiler Optimizations : 
+
+
+
+
+

@@ -17,13 +17,36 @@ const uint8_t AES_Key[16]  = {
 void tag_cbc_mac(uint8_t *tag, const uint8_t *msg, size_t msg_len) {
 	// Allocate a buffer of the key size to store the input and result of AES
 	// uint32_t[4] is 4*(32/8)= 16 bytes long
-	uint32_t statew[4] = {0};
+	uint32_t statew[4] = {0}; //tabeau de 16 bytes, séquencé par 4 bytes
 	// state is a pointer to the start of the buffer
 	uint8_t *state = (uint8_t*) statew;
     size_t i;
 
 
     // TO DO : Complete the CBC-MAC_AES
+	// Parse msg in blocks of 16 bytes and append zeros if necessary
+	int n = msg_len / 16;
+	if (msg_len % 16 != 0) {
+		n++;
+	}
+	for (i = 0; i < n; i++) { // For each block
+		// Copy the block to the state buffer
+		for (int j=0; j<16; j++) {
+			if (i == n-1 && j >= msg_len%16) {
+				state[j] = 0;
+			} else {
+				state[j] = msg[i*16+j];
+			}
+		}
+		// XOR the block with the previous result
+		for (int j=0; j<16; j++) {
+			state[j] ^= tag[j];
+		}
+		// Perform AES encryption
+		AES128_encrypt(state, AES_Key);
+	}
+
+
 
     // Copy the result of CBC-MAC-AES to the tag.
     for (int j=0; j<16; j++) {
@@ -31,13 +54,27 @@ void tag_cbc_mac(uint8_t *tag, const uint8_t *msg, size_t msg_len) {
     }
 }
 
+
 // Assumes payload is already in place in the packet
 int make_packet(uint8_t *packet, size_t payload_len, uint8_t sender_id, uint32_t serial) {
     size_t packet_len = payload_len + PACKET_HEADER_LENGTH + PACKET_TAG_LENGTH;
     // Initially, the whole packet header is set to 0s
-    memset(packet, 0, PACKET_HEADER_LENGTH);
+    //memset(packet, 0, PACKET_HEADER_LENGTH);
     // So is the tag
-	memset(packet + payload_len + PACKET_HEADER_LENGTH, 0, PACKET_TAG_LENGTH);
+	//memset(packet + payload_len + PACKET_HEADER_LENGTH, 0, PACKET_TAG_LENGTH);
+
+	packet[0] = 0x0; // Reserved
+
+	packet[1] = sender_id; // Emitter ID
+
+	packet[2] = (payload_len >> 8) & 0xFF; // Payload length MSB
+	packet[3] = payload_len & 0xFF; // Payload length LSB
+
+	packet[4] = (serial >> 24) & 0xFF; // Packet serial MSB
+	packet[5] = (serial >> 16) & 0xFF; // Packet serial
+	packet[6] = (serial >> 8) & 0xFF; // Packet serial
+	packet[7] = serial & 0xFF; // Packet serial
+
 
 	// TO DO :  replace the two previous command by properly
 	//			setting the packet header with the following structure :
