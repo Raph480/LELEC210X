@@ -8,6 +8,7 @@ import sounddevice as sd
 import soundfile as sf
 from numpy import ndarray
 from scipy.signal import fftconvolve
+from scipy import signal
 
 # -----------------------------------------------------------------------------
 """
@@ -67,6 +68,7 @@ class AudioUtil:
         sig, sr = audio
 
         ### TO COMPLETE
+        resig = signal.resample(sig, int(len(sig) / newsr))
 
         return (resig, newsr)
 
@@ -198,6 +200,18 @@ class AudioUtil:
         """
         ### TO COMPLETE
         # stft /= float(2**8)
+        L = len(audio)
+        audio = audio[: L - L % Nft]
+        "Reshape the signal with a piece for each row"
+        audiomat = np.reshape(audio, (L // Nft, Nft))
+        audioham = audiomat * np.hamming(Nft)  # Windowing. Hamming, Hanning, Blackman,..
+        "FFT row by row"
+        stft = np.fft.fft(audioham, axis=1)
+        stft = np.abs(
+        stft[:, : Nft // 2].T
+        )  # Taking only positive frequencies and computing the magnitude
+
+    
         return stft
 
     def get_hz2mel(fs2=11025, Nft=512, Nmel=20) -> ndarray:
@@ -224,7 +238,13 @@ class AudioUtil:
         :param fs2: The sampling frequency.
         """
         ### TO COMPLETE
-
+        x_down = audio.resample(audio)
+        stft = x_down.specgram(x_down, Nft=Nft, Nmel=Nmel)
+        mels = librosa.filters.mel(sr=fs2, n_fft=Nft, n_mels=Nmel)
+        mels = mels[:, :-1] 
+        mels = mels / np.max(mels) 
+        melspec = np.dot(mels, np.abs(stft))
+    
         return melspec
 
     def spectro_aug_timefreq_masking(
