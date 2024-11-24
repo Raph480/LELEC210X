@@ -9,7 +9,6 @@ import soundfile as sf
 from numpy import ndarray
 from scipy.signal import fftconvolve
 from scipy import signal
-
 # -----------------------------------------------------------------------------
 """
 Synthesis of the classes in :
@@ -67,8 +66,14 @@ class AudioUtil:
         """
         sig, sr = audio
 
-        ### TO COMPLETE
-        resig = signal.resample(sig, int(len(sig) / newsr))
+        # Calculate the resampling factor
+        M = newsr / sr #M is calculated as the ratio of the target sampling frequency (newsr) to the original sampling frequency (sr)
+
+        # Compute the new length of the signal
+        new_len = int(len(sig) * M)
+
+        # Resample the signal using scipy.signal.resample
+        resig = signal.resample(sig, new_len)
 
         return (resig, newsr)
 
@@ -123,10 +128,9 @@ class AudioUtil:
         :param scaling_limit: The maximum scaling factor.
         """
         sig, sr = audio
-
-        ### TO COMPLETE
-
-        return audio
+        scale = np.random.uniform(1 / scaling_limit, scaling_limit)  # Random scaling factor
+        sig = sig * scale  # Scale the signal
+        return (sig, sr)
 
     def add_noise(audio, sigma=0.05) -> Tuple[ndarray, int]:
         """
@@ -136,10 +140,9 @@ class AudioUtil:
         :param sigma: Standard deviation of the gaussian noise.
         """
         sig, sr = audio
-
-        ### TO COMPLETE
-
-        return audio
+        noise = np.random.normal(0, sigma, sig.shape)  # Generate Gaussian noise
+        sig = sig + noise  # Add noise to the signal
+        return (sig, sr)
 
     def echo(audio, nechos=2) -> Tuple[ndarray, int]:
         """
@@ -167,9 +170,10 @@ class AudioUtil:
         :param filt: The filter to apply.
         """
         sig, sr = audio
-
-        ### TO COMPLETE
-
+        fft_sig = np.fft.fft(sig)  # Perform FFT on the signal
+        filt_full = np.concatenate([filt, filt[::-1]])[:fft_sig.shape[0]]  # Symmetrize the filter
+        fft_sig = fft_sig * filt_full  # Apply the filter in the frequency domain
+        sig = np.fft.ifft(fft_sig).real  # Perform inverse FFT to get the filtered signal
         return (sig, sr)
 
     def add_bg(
@@ -184,11 +188,34 @@ class AudioUtil:
         :param max_ms: The maximum duration of the sounds to add.
         :param amplitude_limit: The maximum amplitude of the added sounds.
         """
-        sig, sr = audio
+        sig, sr = audio  # Unpack the signal and sample rate
 
-        ### TO COMPLETE
+        for _ in range(num_sources):
+            # Randomly select a class and an index within that class
+            class_name = random.choice(list(dataset.files.keys()))  # Select a random class
+            index = random.randint(0, len(dataset.files[class_name]) - 1)  # Select a random index
+            bg_audio_path = dataset.__getitem__((class_name, index))  # Retrieve the file path
 
-        return audio
+            # Open the background audio file
+            bg_audio, bg_sr = AudioUtil.open(bg_audio_path)
+
+            # Resample the background audio if the sample rates do not match
+            if bg_sr != sr:
+                bg_audio = AudioUtil.resample((bg_audio, bg_sr), sr)[0]  # Resample and extract the signal
+                bg_sr = sr  # Update the background audio's sample rate
+
+            # Limit the maximum duration in samples
+            max_samples = int(max_ms / 1000 * sr)
+            bg_audio = bg_audio[:max_samples]  # Trim background sound
+            bg_audio = bg_audio * amplitude_limit  # Scale its amplitude
+            bg_audio = np.pad(bg_audio, (0, max(0, len(sig) - len(bg_audio))), 'constant')  # Pad to match signal length
+
+            # Add background sound to the main signal
+            sig = sig + bg_audio[:len(sig)]
+
+        return (sig, sr)
+
+    
 
     def specgram(audio, Nft=512, fs2=11025) -> ndarray:
         """
@@ -198,20 +225,28 @@ class AudioUtil:
         :param Nft: The number of points of the FFT.
         :param fs2: The sampling frequency.
         """
-        ### TO COMPLETE
-        # stft /= float(2**8)
-        L = len(audio)
-        audio = audio[: L - L % Nft]
-        "Reshape the signal with a piece for each row"
-        audiomat = np.reshape(audio, (L // Nft, Nft))
-        audioham = audiomat * np.hamming(Nft)  # Windowing. Hamming, Hanning, Blackman,..
-        "FFT row by row"
-        stft = np.fft.fft(audioham, axis=1)
-        stft = np.abs(
-        stft[:, : Nft // 2].T
-        )  # Taking only positive frequencies and computing the magnitude
+        sig, sr = audio
 
-    
+        # Resample the signal if the sampling rate is different
+        if sr != fs2:
+            sig, _ = AudioUtil.resample(audio, fs2)
+
+        # Trim signal to make its length divisible by Nft
+        L = len(sig)
+        sig = sig[: L - L % Nft]
+
+        # Reshape signal into a matrix with Nft-length segments as rows
+        audiomat = np.reshape(sig, (L // Nft, Nft))
+
+        # Apply Hamming window to each row
+        audioham = audiomat * np.hamming(Nft)
+
+        # Compute FFT row by row
+        stft = np.fft.fft(audioham, axis=1)
+
+        # Take only positive frequencies and compute magnitude
+        stft = np.abs(stft[:, : Nft // 2].T)
+
         return stft
 
     def get_hz2mel(fs2=11025, Nft=512, Nmel=20) -> ndarray:
@@ -237,14 +272,23 @@ class AudioUtil:
         :param Nft: The number of points of the FFT.
         :param fs2: The sampling frequency.
         """
-        ### TO COMPLETE
-        x_down = audio.resample(audio)
-        stft = x_down.specgram(x_down, Nft=Nft, Nmel=Nmel)
+        sig, sr = audio
+
+        # Resample the signal to the target sampling frequency
+        if sr != fs2:
+            sig, _ = AudioUtil.resample(audio, newsr=fs2)
+
+        # Compute the spectrogram using the specgram function
+        stft = AudioUtil.specgram((sig, fs2), Nft=Nft, fs2=fs2)
+
+        # Generate the Mel filter bank
         mels = librosa.filters.mel(sr=fs2, n_fft=Nft, n_mels=Nmel)
-        mels = mels[:, :-1] 
-        mels = mels / np.max(mels) 
+        mels = mels[:, :-1]  # Remove the last column to match dimensions
+        mels = mels / np.max(mels)  # Normalize the Mel filter bank
+
+        # Compute the Melspectrogram
         melspec = np.dot(mels, np.abs(stft))
-    
+
         return melspec
 
     def spectro_aug_timefreq_masking(

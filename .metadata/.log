@@ -1,0 +1,45 @@
+!SESSION 2024-11-20 17:38:55.752 -----------------------------------------------
+eclipse.buildId=Version 1.16.1
+java.version=17.0.11
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-11-20 17:39:35.177
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-11-20 17:39:35.178
+!MESSAGE Log4j2 initialized with config file /home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-11-20 17:39:37.193
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-11-20 17:40:27.829
+!MESSAGE Indexed 'hands_on_audio_acquisition' (31 sources, 134 headers) in 4.5 sec: 14,498 declarations; 87,467 references; 3 unresolved inclusions; 46 syntax errors; 169 unresolved names (0.17%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-11-20 17:40:30.338
+!MESSAGE Indexed 'hands_on_mcu' (31 sources, 129 headers) in 2.51 sec: 13,567 declarations; 76,425 references; 3 unresolved inclusions; 46 syntax errors; 181 unresolved names (0.2%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-11-20 17:40:32.801
+!MESSAGE Indexed 'hands_on_feature_vectors' (35 sources, 146 headers) in 2.46 sec: 18,053 declarations; 91,571 references; 3 unresolved inclusions; 46 syntax errors; 169 unresolved names (0.15%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-11-20 17:40:34.995
+!MESSAGE Indexed 'hands_on_main_app' (43 sources, 142 headers) in 2.19 sec: 16,260 declarations; 89,012 references; 3 unresolved inclusions; 46 syntax errors; 169 unresolved names (0.16%)
+
+!ENTRY org.eclipse.ui 2 2 2024-11-20 17:40:52.692
+!MESSAGE Invalid preference category path: org.eclipse.pde.ui.MainPreferencePage (bundle: org.jboss.tools.pde.sourcelookup.ui, page: org.jboss.tools.pde.sourcelookup.ui.preferences.PluginSourceLookupPreferencePage)
+!SESSION 2024-11-20 17:41:40.896 -----------------------------------------------
+eclipse.buildId=Version 1.16.1
+java.version=17.0.11
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-11-20 17:41:46.579
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-11-20 17:41:46.580
+!MESSAGE Log4j2 initialized with config file /home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-11-20 17:41:51.031
+!MESSAGE Started RMI Server, listening on port 41337
