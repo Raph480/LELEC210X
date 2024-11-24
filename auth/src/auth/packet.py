@@ -3,7 +3,7 @@ import struct
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives.constant_time import bytes_eq
-
+import numpy as np
 
 def tag_cbc_mac(msg, key):
     mode = modes.CBC(16 * b"\0")  # all-0 IV for CBC-MAC
@@ -83,3 +83,10 @@ class PacketUnwrapper:
                 raise InvalidPacket(f"Serial number non-incrementing ({serial}).")
             self.senders_last_serial[sender] = serial
         return (sender, packet[HEADER_LEN:-TAG_LEN])
+
+
+#AES_key = bytes.fromhex("0123456789abcdef0123456789abcdef")
+#msg = bytes.fromhex("00000020000000007fff7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff7fff")
+
+#tag1 = tag_cbc_mac(msg, AES_key).hex()
+#print(tag1)

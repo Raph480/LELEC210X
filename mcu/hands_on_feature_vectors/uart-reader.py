@@ -66,13 +66,14 @@ if __name__ == "__main__":
     else:
         input_stream = reader(port=args.port)
         msg_counter = 0
-
+        plt.figure()
         for melvec in input_stream:
+            melvec = melvec[4:-8]
             msg_counter += 1
 
             print(f"MEL Spectrogram #{msg_counter}")
 
-            plt.figure()
+            
             plot_specgram(
                 melvec.reshape((N_MELVECS, MELVEC_LENGTH)).T,
                 ax=plt.gca(),
@@ -81,5 +82,5 @@ if __name__ == "__main__":
                 xlabel="Mel vector",
             )
             plt.draw()
-            plt.pause(0.001)
+            plt.pause(0.1)
             plt.clf()
