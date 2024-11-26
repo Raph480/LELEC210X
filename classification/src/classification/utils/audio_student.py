@@ -330,19 +330,19 @@ class Feature_vector_DS:
     def __init__(
         self,
         dataset,
-        Nft=512,
-        nmel=20,
-        duration=500,
-        shift_pct=0.4,
-        normalize=False,
-        data_aug=None,
-        pca=None,
+        Nft=512, # Number of points of the FFT, x axis
+        nmel=20, # Number of mel bands, y axis
+        duration=500, #duration of the audio signal 
+        shift_pct=0.4, # percentage of total
+        normalize=False, # Normalize the energy of the signal
+        data_aug=None, # Data augmentation options
+        pca=None, # PCA object
     ):
         self.dataset = dataset
         self.Nft = Nft
         self.nmel = nmel
         self.duration = duration  # ms
-        self.sr = 11025
+        self.sr = 11025 # sampling rate
         self.shift_pct = shift_pct  # percentage of total
         self.normalize = normalize
         self.data_aug = data_aug
