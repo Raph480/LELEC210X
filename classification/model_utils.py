@@ -304,8 +304,8 @@ def plot_grid_search_heatmap(X_train, y_train, param_grid):
     Perform grid search and plot the results as a heatmap.
     """
     # Extract hyperparameter values from the param_grid
-    n_estimators_values = param_grid['n_estimators']
-    max_depth_values = param_grid['max_depth']
+    n_estimators_values = param_grid['min_samples_leaf']
+    max_depth_values = param_grid['min_samples_split']
     
     # Create a matrix to store the mean accuracy scores
     mean_accuracies = np.zeros((len(max_depth_values), len(n_estimators_values)))
@@ -322,7 +322,7 @@ def plot_grid_search_heatmap(X_train, y_train, param_grid):
 
     # Plot the heatmap of the results
     plt.figure(figsize=(8, 6))
-    plt.imshow(mean_accuracies, interpolation='nearest', cmap = 'coolwarm',aspect='auto')
+    plt.imshow(mean_accuracies, interpolation='nearest', cmap = 'jet',aspect='auto')
     plt.colorbar(label='Mean Accuracy Score')
 
     # Set axis labels and ticks
@@ -330,10 +330,54 @@ def plot_grid_search_heatmap(X_train, y_train, param_grid):
     plt.yticks(np.arange(len(max_depth_values)), max_depth_values)
 
     # Label the plot
-    plt.xlabel('Number of Estimators (n_estimators)')
-    plt.ylabel('Max Depth (max_depth)')
+    plt.xlabel('Min Samples Leaf (min_samples_leaf)')
+    plt.ylabel('Min Samples Split (min_samples_split)')
     plt.title('Random Forest Hyperparameter Tuning (Grid Search)')
     
     # Show the plot
+    plt.tight_layout()
+    plt.show()
+
+
+def boxplot_augmentations(accuracy_vals, accuracy_std_vals, config_names, title):
+    import matplotlib.pyplot as plt
+
+    # Calculate boxplot statistics for each configuration
+    def calculate_box(mean, std):
+        q1 = mean - 0.675 * std  # Approximate 25th percentile
+        q3 = mean + 0.675 * std  # Approximate 75th percentile
+        whisker_low = mean - 1.5 * std  # Lower whisker
+        whisker_high = mean + 1.5 * std  # Upper whisker
+        return {
+            'whislo': whisker_low,  # Bottom whisker
+            'q1': q1,               # 25th percentile
+            'med': mean,            # Median
+            'q3': q3,               # 75th percentile
+            'whishi': whisker_high  # Top whisker
+        }
+
+    # Generate box data for all configurations
+    boxes = [calculate_box(mean, std) for mean, std in zip(accuracy_vals, accuracy_std_vals)]
+
+    # Create figure and axis
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # Adjust positions of boxplots with spacings
+    positions = range(1, len(boxes) + 1)  # Automatically space box plots
+    ax.bxp(boxes, positions=positions, showfliers=False, patch_artist=True)
+
+    # Annotate mean and std for each configuration
+    for pos, mean, std, name in zip(positions, accuracy_vals, accuracy_std_vals, config_names):
+        ax.text(pos, mean + 1.5 * std, f"Mean: {mean:.2f}\nStd: {std:.2f}", 
+                ha='center', va='center', fontsize=8, color='black', bbox=dict(facecolor='white', alpha=0.8))
+
+    # Customize the plot
+    ax.set_title(title, fontsize=14)
+    ax.set_xticks(positions)
+    ax.set_xticklabels(config_names, rotation=45, ha='right', fontsize=10)
+    ax.set_ylabel("Accuracy", fontsize=12)
+    ax.grid(axis='y', linestyle='--', alpha=0.7)
+
+    # Final layout adjustments
     plt.tight_layout()
     plt.show()
