@@ -89,6 +89,76 @@ def get_dataset_matrix(normalization=False, verbose=False):
     
     return X, y, classnames 
 
+def get_dataset_matrix_augmened(augmentations):
+
+    dataset = Dataset()
+    classnames = dataset.list_classes()
+
+    "Creation of the dataset"
+    myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2, normalize=True)
+
+    "Some attributes..."
+    myds.nmel
+    myds.duration
+    myds.shift_pct
+    myds.sr
+    myds.data_aug
+    myds.ncol
+
+
+    idx = 0
+
+    ### TO RUN
+    myds.data_aug = None  # Ensure
+
+    cls_index = ["birds", 4]
+
+    sound = dataset.__getitem__(cls_index)
+    name = dataset.__getname__(cls_index)
+    audio = AudioUtil.open(sound)
+
+    audio2 = AudioUtil.resample(audio, 11025)
+    audio2 = AudioUtil.pad_trunc(audio2, 5000)
+
+
+    myds.mod_data_aug(augmentations)
+    #y_aug = np.repeat(classnames, dataset.naudio * myds.data_aug_factor)  # original implem = wrong !!
+
+    train_pct = 1
+
+    featveclen = len(myds["fire", 0])  # number of items in a feature vector
+    nitems = len(myds)  # number of sounds in the dataset
+    naudio = dataset.naudio  # number of audio files in each class
+    nclass = dataset.nclass  # number of classes
+    nlearn = round(naudio * train_pct)  # number of sounds among naudio for training
+
+
+    "Compute the matrixed dataset, this takes some seconds, but you can then reload it by commenting this loop and decommenting the np.load below"
+    X_aug = np.zeros((myds.data_aug_factor * nclass * naudio, featveclen))
+    y_aug = np.empty((myds.data_aug_factor * nclass * naudio,), dtype=object)
+    for s in range(myds.data_aug_factor):
+        for idx in range(dataset.naudio):
+            for class_idx, classname in enumerate(classnames):
+                #print(classname, idx)
+                featvec = myds[classname, idx]
+                X_aug[s * nclass * naudio + class_idx * naudio + idx, :] = featvec
+                y_aug[s * nclass * naudio + class_idx * naudio + idx] = classname
+
+    y_aug = np.array(y_aug)
+    
+    
+    np.save("feature_matrix_2D_aug.npy", X_aug, allow_pickle=True)
+    np.save("labels_aug.npy", y_aug, allow_pickle=True)
+    
+    #X_aug = np.load(fm_dir+"feature_matrix_2D_aug.npy", allow_pickle=True)
+    #y_aug = np.load(fm_dir+"labels_aug.npy", allow_pickle=True)
+
+    print(f"Shape of the feature matrix : {X_aug.shape}")
+    print(f"Number of labels : {len(y_aug)}")
+
+    return X_aug, y_aug, classnames
+
+
 #K Fold 
 def perform_Kfold(X_train, y_train, model, kf, normalization, reduction, PCA_components=0, verbose=True, dB_mismatch=0, FV_normalization=False):
     """
