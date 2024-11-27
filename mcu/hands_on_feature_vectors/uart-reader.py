@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import serial
 from serial.tools import list_ports
+from ...classification.Random_Forest import final_model
 
 from classification.utils.plots import plot_specgram
 
@@ -82,5 +83,7 @@ if __name__ == "__main__":
                 xlabel="Mel vector",
             )
             plt.draw()
+            plt.savefig(f"melspectrograms_plots/melspec_{msg_counter}.pdf")
             plt.pause(0.1)
+            # save figure in a folder melspecs_plots
             plt.clf()
