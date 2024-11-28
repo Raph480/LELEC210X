@@ -9,9 +9,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import serial
 from serial.tools import list_ports
-from ...classification.Random_Forest import final_model
+import pickle
 
+from classification.Random_Forest import final_model
 from classification.utils.plots import plot_specgram
+
+
+
+
 
 PRINT_PREFIX = "DF:HEX:"
 FREQ_SAMPLING = 10200
@@ -47,7 +52,7 @@ def reader(port=None):
             yield buffer_array
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":    
     argParser = argparse.ArgumentParser()
     argParser.add_argument("-p", "--port", help="Port for serial communication")
     args = argParser.parse_args()
@@ -67,23 +72,39 @@ if __name__ == "__main__":
     else:
         input_stream = reader(port=args.port)
         msg_counter = 0
-        plt.figure()
+
+        #model_rf = final_model(verbose=False)
+        #print("Random forest classifier fitted...\n")
+
+        # Load the model from pickle file
+
+        model_rf = pickle.load(open("../../classification/data/models/final_model.pkl", "rb"))
+        print("Random forest model imported...\n")
+
+        plt.figure(figsize=(8, 6))
         for melvec in input_stream:
             melvec = melvec[4:-8]
             msg_counter += 1
 
             print(f"MEL Spectrogram #{msg_counter}")
 
-            
+            # Predict the class of the mel vector
+            pred = model_rf.predict(melvec.reshape(1, -1))
+            proba = model_rf.predict_proba(melvec.reshape(1, -1))
+            print(f"Predicted class: {pred[0]}\n")
+            print(f"Predicted probabilities: {proba}\n")
+                        
             plot_specgram(
                 melvec.reshape((N_MELVECS, MELVEC_LENGTH)).T,
                 ax=plt.gca(),
                 is_mel=True,
                 title=f"MEL Spectrogram #{msg_counter}",
                 xlabel="Mel vector",
+                classlabel=f"Predicted class: {pred[0]}",
+                probalabel=f"Predicted probability: {np.round(max(proba[0]*100),2)}%",
             )
             plt.draw()
-            plt.savefig(f"melspectrograms_plots/melspec_{msg_counter}.pdf")
+            #plt.savefig(f"melspectrograms_plots/melspec_{msg_counter}.pdf")
             plt.pause(0.1)
             # save figure in a folder melspecs_plots
             plt.clf()

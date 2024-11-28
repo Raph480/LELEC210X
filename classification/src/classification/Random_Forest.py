@@ -22,7 +22,7 @@ from classification.utils.utils import accuracy
 
 
 #All the functions are in the model_utils.py file
-from model_utils import *
+from classification.model_utils import *
 
 dB_mismatch = 10
 ### 1. Model without hyperparameters tuning, without normalization & without reduction (PCA)
@@ -606,7 +606,7 @@ def final_model(verbose=True):
 
 
 
-def main():
+if __name__ == '__main__':
         
     #acc_val_classic, acc_std_val_classic, acc_val_classic_db, acc_std_val_classic_db, accuracy_test_db_clasic = model_original()
     #acc_val_FVNorm, acc_std_val_FVnorm, acc_val_FVNorm_db, acc_std_val_FVnorm_db, accuracy_test_db_FVnorm = model_FVNnorm()
@@ -637,5 +637,7 @@ def main():
     #hyperparameters_tuning()
 
     model = final_model(verbose=True)
-
-main()
+    # Save the model
+    with open("final_model.pkl", "wb") as f:
+        pickle.dump(model, f)
+    print("Model saved as 'final_model.pkl'")
