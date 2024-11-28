@@ -387,6 +387,37 @@ def hyperparam_plot():
     # Perform grid search and plot the results as a heatmap
     plot_grid_search_heatmap(X_train, y_train, param_grid)  # This might take time
 
+def hyperparameters_tuning():
+    print("\n-----------------------------------------------\n\
+    Random Forest Classifier, with hyperparameters tuning, with FV normalization & without reduction (PCA)")
+    FV_normalization = True 
+    normalization = False 
+    reduction = False 
+
+    augmentations = ["original", "scaling", "time_shift", "add_noise", "add_echo"]
+    X, y, classnames = get_dataset_matrix_augmened(augmentations)
+    
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
+    #Model creation
+    #------------------
+
+    # Random Forest Grid Search
+    param_grid = {
+        'n_estimators': [80,90,100,110, 120, 130,140,150, 200],
+        'max_depth': [5,6, 7,8,9,10],
+        'min_samples_split': [3, 4, 5, 7, 10],
+        'min_samples_leaf': [13, 15, 18,19,20, 25],
+        'bootstrap': [True]
+    }
+    
+    model = RandomForestClassifier()
+    kf = KFold(n_splits=10, shuffle=True, random_state=42)
+    rf_grid = perform_grid_search(model, param_grid, kf, X_train, y_train, "Random Forest")
+    accuracy_train = rf_grid.best_score_
+    accuracy_test = accuracy(y_test, rf_grid.predict(X_test))
+    print_result(rf_grid, "Random Forest", accuracy_train, accuracy_test)
+    return rf_grid.best_params_
+
 
 
 # 7. Data augmentation analysis
@@ -404,83 +435,11 @@ def data_augmentation():
     PCA_components = 7 #for kfold only if reduction is True
     print("FV normalization: ", FV_normalization)
 
-    dataset = Dataset()
-    classnames = dataset.list_classes()
-
-    "Creation of the dataset"
-    myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2, normalize=True)
-
-    "Some attributes..."
-    myds.nmel
-    myds.duration
-    myds.shift_pct
-    myds.sr
-    myds.data_aug
-    myds.ncol
-
-
-    idx = 0
-
-    ### TO RUN
-    myds.data_aug = None  # Ensure
-
-    cls_index = ["birds", 4]
-
-    sound = dataset.__getitem__(cls_index)
-    name = dataset.__getname__(cls_index)
-    audio = AudioUtil.open(sound)
-
-    audio2 = AudioUtil.resample(audio, 11025)
-    audio2 = AudioUtil.pad_trunc(audio2, 5000)
-
-    audio3 = AudioUtil.time_shift(audio2, 0.3)
-    audio4 = AudioUtil.scaling(audio2)
-    audio5 = AudioUtil.add_noise(audio2, sigma=1e-2)
-    audio6 = AudioUtil.echo(audio2, 3)
-    audio7 = AudioUtil.add_bg(audio2, dataset)
-
-    AudioUtil.play(audio7)
-
-    melspec = AudioUtil.melspectrogram(audio2, fs2=11025)
-    melspec2 = AudioUtil.spectro_aug_timefreq_masking(melspec, max_mask_pct=0.1)
-
-    myds.mod_data_aug(["original","add_bg", "scaling", "time_shift", "add_noise", "add_echo"])
-    #y_aug = np.repeat(classnames, dataset.naudio * myds.data_aug_factor)  # original implem = wrong !!
-
-    train_pct = 0.7
-
-    featveclen = len(myds["fire", 0])  # number of items in a feature vector
-    nitems = len(myds)  # number of sounds in the dataset
-    naudio = dataset.naudio  # number of audio files in each class
-    nclass = dataset.nclass  # number of classes
-    nlearn = round(naudio * train_pct)  # number of sounds among naudio for training
-
-
-    "Compute the matrixed dataset, this takes some seconds, but you can then reload it by commenting this loop and decommenting the np.load below"
-    X_aug = np.zeros((myds.data_aug_factor * nclass * naudio, featveclen))
-    y_aug = np.empty((myds.data_aug_factor * nclass * naudio,), dtype=object)
-    for s in range(myds.data_aug_factor):
-        for idx in range(dataset.naudio):
-            for class_idx, classname in enumerate(classnames):
-                #print(classname, idx)
-                featvec = myds[classname, idx]
-                X_aug[s * nclass * naudio + class_idx * naudio + idx, :] = featvec
-                y_aug[s * nclass * naudio + class_idx * naudio + idx] = classname
-
-    y_aug = np.array(y_aug)
-    
-    
-    np.save("feature_matrix_2D_aug.npy", X_aug, allow_pickle=True)
-    np.save("labels_aug.npy", y_aug, allow_pickle=True)
-    
-    #X_aug = np.load(fm_dir+"feature_matrix_2D_aug.npy", allow_pickle=True)
-    #y_aug = np.load(fm_dir+"labels_aug.npy", allow_pickle=True)
-
-    print(f"Shape of the feature matrix : {X_aug.shape}")
-    print(f"Number of labels : {len(y_aug)}")
+    augmentations = ["original","add_bg", "scaling", "time_shift", "add_noise", "add_echo"]
+    X, y = get_dataset_matrix_augmened(augmentations)
 
     # Splitting the dataset
-    X_train, X_test, y_train, y_test = train_test_split(X_aug, y_aug, test_size=0.3, random_state=42, stratify=y_aug)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y_aug)
 
     #Model creation
     #------------------
@@ -523,12 +482,14 @@ def evaluate_data_augmentations():
         ["time_shift"],  # 5. Only "time shift"
         ["add_noise"],  # 6. Only "add_noise"
         ["add_echo"],  # 7. Only "add_echo"
-        ["original", "add_bg", "scaling", "time_shift", "add_noise", "add_echo"],  # 8. All augmentations
+        ["original","add_bg","scaling","time_shift","add_noise","add_echo"],  # 8. All
+        ["original","scaling","add_noise","time shift","add_echo"],  # 9. Best combination
+
     ]
 
     # Parameters for the Random Forest model
-    params = {'bootstrap': True, 'max_depth': 4, 'min_samples_leaf': 2,
-              'min_samples_split': 4, 'n_estimators': 150}
+    params = {'bootstrap': True, 'max_depth': 8, 'min_samples_leaf': 13,
+              'min_samples_split': 3, 'n_estimators': 150}
     model_rf = RandomForestClassifier(**params)
 
     # K-Fold configuration
@@ -579,40 +540,20 @@ def evaluate_data_augmentations():
 
 
 
-    # Splitting the dataset
-    X_train, X_test, y_train, y_test = train_test_split(X_aug, y_aug, test_size=0.3, random_state=42, stratify=y_aug)
-
-    #Model creation
-    #------------------
-
-    #From previous best hyperparameters
-    params = {'bootstrap': True, 'max_depth': 4, 'min_samples_leaf': 2,
-            'min_samples_split': 4, 'n_estimators': 150}
-
-    model_rf = RandomForestClassifier(**params)
-
-    #1. K Fold evaluation (the most rigorous)
-    kf = KFold(n_splits=10, shuffle=True, random_state=42)
-    _,_, accuracy_val, accuracy_std_val = \
-        perform_Kfold(X_train, y_train, model_rf, kf, normalization, reduction, PCA_components, verbose=True)
-
-
 # 8. Final model: FV Normalization, No PCA and best hyperparameters
 #------------------
-def final_model():
+def final_model(verbose=True):
     print("\n-----------------------------------------------\n\
-    Final Classifier, with FV normalization & without reduction (PCA)")
-    #Get dataset matrix
+    Final Classifier, with FV normalization, without reduction (PCA) & with data augmentation")
+
     #------------------
+    normalization = False
+    reduction = False
+    PCA_components = 7
+    
 
-    FV_normalization = True #Normalization directly feature vectors
-    normalization = False #Normalization for the model with standartScaler
-    reduction = False #Reduction with PCA
-    PCA_components = 7 #for kfold only if reduction is True
-    print("FV normalization: ", FV_normalization)
-
-    X, y, classnames = get_dataset_matrix(normalization=FV_normalization)
-
+    augmentations = ["original", "scaling", "time_shift", "add_noise", "add_echo"]
+    X, y, classnames = get_dataset_matrix_augmened(augmentations)
     # Splitting the dataset
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
 
@@ -620,15 +561,15 @@ def final_model():
     #------------------
 
     #From previous best hyperparameters
-    params = {'bootstrap': True, 'max_depth': 7, 'min_samples_leaf': 1,
-            'min_samples_split': 2, 'n_estimators': 100}
+    params = {'bootstrap': True, 'max_depth': 8, 'min_samples_leaf': 19,
+            'min_samples_split': 4, 'n_estimators': 110}
 
     model_rf = RandomForestClassifier(**params)
 
     #1. K Fold evaluation (the most rigorous)
     kf = KFold(n_splits=10, shuffle=True, random_state=42)
     _,_, accuracy_val_FVNorm, accuracy_std_val_FVnorm = \
-        perform_Kfold(X_train, y_train, model_rf, kf, normalization, reduction, PCA_components, verbose=True)
+        perform_Kfold(X_train, y_train, model_rf, kf, normalization, reduction, PCA_components, verbose=verbose)
 
 
     #TODO: Adapt K-fold function so that it shows mean prediction, recall and F1 score ? 
@@ -637,54 +578,64 @@ def final_model():
     # On the whole train and test set (no kfold, less accurate)
     #--------------------------------------------
     model_rf.fit(X_train, y_train)
-    y_pred_train = model_rf.predict(X_train)
-    y_pred_test = model_rf.predict(X_test)
+    if (verbose):
+        y_pred_train = model_rf.predict(X_train)
+        y_pred_test = model_rf.predict(X_test)
 
-    # Accuracy
-    accuracy_train = accuracy(y_train, y_pred_train)
-    accuracy_test = accuracy(y_test, y_pred_test)
+        # Accuracy
+        accuracy_train = accuracy(y_train, y_pred_train)
+        accuracy_test = accuracy(y_test, y_pred_test)
 
-    print("Training results:\n---------------------")
-    print(f"Accuracy on train set: {accuracy_train:.5f}")
-    print(f"Accuracy on test set: {accuracy_test:.5f}")
+        print("Training results:\n---------------------")
+        print(f"Accuracy on train set: {accuracy_train:.5f}")
+        print(f"Accuracy on test set: {accuracy_test:.5f}")
 
-    # Confusion matrix
-    #TODO: correct so that it saves correctly!
-    show_confusion_matrix(y_train, y_pred_train, classnames, title="confusion_matrix_train")
-    show_confusion_matrix(y_test, y_pred_test, classnames, title="confusion_matrix_test")
+        # Confusion matrix
+        #TODO: correct so that it saves correctly!
+        show_confusion_matrix(y_train, y_pred_train, classnames, title="confusion_matrix_train")
+        show_confusion_matrix(y_test, y_pred_test, classnames, title="confusion_matrix_test")
 
-    #Precision, recall, F1-score (better to do it directly with K_fold?)
-    print_classification_report = True
-    if print_classification_report:
-        print("\nClassification Report:")
-        print(classification_report(y_test, y_pred_test, target_names=classnames))
+        #Precision, recall, F1-score (better to do it directly with K_fold?)
+        print_classification_report = True
+        if print_classification_report:
+            print("\nClassification Report:")
+            print(classification_report(y_test, y_pred_test, target_names=classnames))
+    
+    return model_rf
 
 
 
-#acc_val_classic, acc_std_val_classic, acc_val_classic_db, acc_std_val_classic_db, accuracy_test_db_clasic = model_original()
-#acc_val_FVNorm, acc_std_val_FVnorm, acc_val_FVNorm_db, acc_std_val_FVnorm_db, accuracy_test_db_FVnorm = model_FVNnorm()
-#acc_val_standardScaler, acc_std_val_standardScaler, acc_val_StandartScaler_db, acc_std_val_StandartScaler_db, accuracy_test_db_StandartScaler = model_standartnorm()
 
-                     
-#boxplot_and_mismatch(acc_val_classic, acc_val_FVNorm, acc_val_standardScaler,
-#                        acc_std_val_classic, acc_std_val_FVnorm, acc_std_val_standardScaler,
-#                        acc_val_classic_db, acc_val_FVNorm_db, acc_val_StandartScaler_db,
-#                        acc_std_val_classic_db, acc_std_val_FVnorm_db, acc_std_val_StandartScaler_db,
-#                        accuracy_test_db_clasic, accuracy_test_db_FVnorm, accuracy_test_db_StandartScaler,
-#                        )
+def main():
+        
+    #acc_val_classic, acc_std_val_classic, acc_val_classic_db, acc_std_val_classic_db, accuracy_test_db_clasic = model_original()
+    #acc_val_FVNorm, acc_std_val_FVnorm, acc_val_FVNorm_db, acc_std_val_FVnorm_db, accuracy_test_db_FVnorm = model_FVNnorm()
+    #acc_val_standardScaler, acc_std_val_standardScaler, acc_val_StandartScaler_db, acc_std_val_StandartScaler_db, accuracy_test_db_StandartScaler = model_standartnorm()
 
-#model_PCA()
-#hyperparam_plot()
-#hyperparam_compute()
-#final_model()
-data_augmentation()
-#accuracy_vals, accuracy_std_vals = evaluate_data_augmentations()
-config_names = [
-    "No Augmentation", "Original", "Add BG", "Scaling", 
-    "Time Shift", "Add Noise", "Add Echo", "All Augmentations"
-]
+                        
+    #boxplot_and_mismatch(acc_val_classic, acc_val_FVNorm, acc_val_standardScaler,
+    #                        acc_std_val_classic, acc_std_val_FVnorm, acc_std_val_standardScaler,
+    #                        acc_val_classic_db, acc_val_FVNorm_db, acc_val_StandartScaler_db,
+    #                        acc_std_val_classic_db, acc_std_val_FVnorm_db, acc_std_val_StandartScaler_db,
+    #                        accuracy_test_db_clasic, accuracy_test_db_FVnorm, accuracy_test_db_StandartScaler,
+    #                        )
 
-# Call the function
-#boxplot_augmentations(accuracy_vals, accuracy_std_vals, config_names, "Model Performance by Data Augmentation")
+    #model_PCA()
+    #hyperparam_plot()
+    #hyperparam_compute()
 
-#final_model()
+    #data_augmentation()
+    #accuracy_vals, accuracy_std_vals = evaluate_data_augmentations()
+    #config_names = [
+    #    "No Augmentation", "Original", "Add BG", "Scaling", 
+    #    "Time Shift", "Add Noise", "Echo", "All", "Best"
+    #]
+
+    # Call the function
+    #boxplot_augmentations(accuracy_vals, accuracy_std_vals, config_names, "Model Performance by Data Augmentation")
+
+    #hyperparameters_tuning()
+
+    model = final_model(verbose=True)
+
+main()
