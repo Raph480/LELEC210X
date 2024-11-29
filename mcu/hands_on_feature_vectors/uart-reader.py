@@ -94,14 +94,20 @@ if __name__ == "__main__":
             print(f"Predicted class: {pred[0]}\n")
             print(f"Predicted probabilities: {proba}\n")
                         
+            class_names = model_rf.classes_
+            probabilities = np.round(proba[0] * 100, 2)
+            textlabel = "\n".join(
+                [f"{name:<11}: {prob:>6.2f}%" for name, prob in zip(class_names, probabilities)]
+            )
+            textlabel = textlabel + f"\n\nPredicted class: {pred[0]}\n" 
+
             plot_specgram(
                 melvec.reshape((N_MELVECS, MELVEC_LENGTH)).T,
                 ax=plt.gca(),
                 is_mel=True,
                 title=f"MEL Spectrogram #{msg_counter}",
                 xlabel="Mel vector",
-                classlabel=f"Predicted class: {pred[0]}",
-                probalabel=f"Predicted probability: {np.round(max(proba[0]*100),2)}%",
+                textlabel=textlabel,
             )
             plt.draw()
             #plt.savefig(f"melspectrograms_plots/melspec_{msg_counter}.pdf")

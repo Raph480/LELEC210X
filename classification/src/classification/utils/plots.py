@@ -103,8 +103,7 @@ def plot_specgram(
     title=None,
     xlabel="Time [s]",
     ylabel="Frequency [Hz]",
-    classlabel = "",
-    probalabel = "",
+    textlabel = "",
     cmap="jet",
     cb=True,
     tf=None,
@@ -148,8 +147,7 @@ def plot_specgram(
     ax.set_title(title)
     
     plt.subplots_adjust(bottom=0.3)
-    ax.text(0.5, -0.2, classlabel, ha='center', va='center', transform=ax.transAxes)
-    ax.text(0.5, -0.3, probalabel, ha='center', va='center', transform=ax.transAxes)
+    ax.text(0, -0.15, f'{textlabel}', ha='left', va='top', transform=ax.transAxes, family='monospace')
 
     return None
 
