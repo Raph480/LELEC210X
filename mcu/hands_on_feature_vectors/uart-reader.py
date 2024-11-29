@@ -79,7 +79,8 @@ if __name__ == "__main__":
         # Load the model from pickle file
 
         model_rf = pickle.load(open("../../classification/data/models/final_model.pkl", "rb"))
-        print("Random forest model imported...\n")
+        #print("Random forest model imported...\n")
+        print(f"Model {type(model_rf).__name__} has been loaded from pickle file.\n")
 
         plt.figure(figsize=(8, 6))
         for melvec in input_stream:
@@ -96,9 +97,11 @@ if __name__ == "__main__":
                         
             class_names = model_rf.classes_
             probabilities = np.round(proba[0] * 100, 2)
-            textlabel = "\n".join(
-                [f"{name:<11}: {prob:>6.2f}%" for name, prob in zip(class_names, probabilities)]
-            )
+            max_len = max(len(name) for name in class_names)
+            class_names_str = " ".join([f"{name:<{max_len}}" for name in class_names])
+            probabilities_str = " ".join([f"{prob:.2f}%".ljust(max_len) for prob in probabilities])
+            textlabel = f"{class_names_str}\n{probabilities_str}"
+            # For column text: textlabel = "\n".join([f"{name:<11}: {prob:>6.2f}%" for name, prob in zip(class_names, probabilities)])
             textlabel = textlabel + f"\n\nPredicted class: {pred[0]}\n" 
 
             plot_specgram(
