@@ -40,9 +40,9 @@ def get_dataset_matrix(normalization=False, verbose=False):
 
     # Hyperparameters to tune in 2nd part of project?
     if normalization:
-        myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2, normalize=True)
+        myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950*5, shift_pct=0.2, normalize=True)
     else:
-        myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2)
+        myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950*5, shift_pct=0.2)
     
     "Some attributes..."
     myds.nmel
@@ -95,7 +95,7 @@ def get_dataset_matrix_augmened(augmentations):
     classnames = dataset.list_classes()
 
     "Creation of the dataset"
-    myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2, normalize=True)
+    myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950*5, shift_pct=0.2, normalize=True)
 
     "Some attributes..."
     myds.nmel
@@ -118,7 +118,7 @@ def get_dataset_matrix_augmened(augmentations):
     audio = AudioUtil.open(sound)
 
     audio2 = AudioUtil.resample(audio, 11025)
-    audio2 = AudioUtil.pad_trunc(audio2, 5000)
+    audio2 = AudioUtil.pad_trunc(audio2, 950*5)
 
 
     myds.mod_data_aug(augmentations)

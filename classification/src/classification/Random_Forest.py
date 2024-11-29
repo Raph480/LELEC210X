@@ -471,7 +471,7 @@ def evaluate_data_augmentations():
     dataset = Dataset()
     classnames = dataset.list_classes()
 
-    myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2)
+    myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950*5, shift_pct=0.2)
 
     # Define data augmentation configurations
     data_aug_configs = [
