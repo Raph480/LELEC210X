@@ -95,8 +95,8 @@ def model_original():
 
     # Confusion matrix
     #TODO: correct so that it saves correctly!
-    #show_confusion_matrix(y_train, y_pred_train, classnames, title="confusion_matrix_train", save=False)
-    #show_confusion_matrix(y_test, y_pred_test, classnames, title="confusion_matrix_test", save=True)
+    show_confusion_matrix(y_train, y_pred_train, classnames, title="confusion_matrix_train")
+    show_confusion_matrix(y_test, y_pred_test, classnames, title="confusion_matrix_test")
 
     #Precision, recall, F1-score (better to do it directly with K_fold?)
     print_classification_report = False
@@ -395,7 +395,7 @@ def hyperparameters_tuning():
     reduction = False 
 
     augmentations = ["original", "scaling", "time_shift", "add_noise", "add_echo"]
-    X, y, classnames = get_dataset_matrix_augmened(augmentations)
+    X, y, classnames = get_dataset_matrix_augmented(augmentations)
     
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
     #Model creation
@@ -436,7 +436,7 @@ def data_augmentation():
     print("FV normalization: ", FV_normalization)
 
     augmentations = ["original","add_bg", "scaling", "time_shift", "add_noise", "add_echo"]
-    X, y = get_dataset_matrix_augmened(augmentations)
+    X, y = get_dataset_matrix_augmented(augmentations)
 
     # Splitting the dataset
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y_aug)
@@ -553,7 +553,7 @@ def final_model(verbose=True):
     
 
     augmentations = ["original", "scaling", "time_shift", "add_noise", "add_echo"]
-    X, y, classnames = get_dataset_matrix_augmened(augmentations)
+    X, y, classnames = get_dataset_matrix_augmented(augmentations)
     # Splitting the dataset
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
 
@@ -561,15 +561,21 @@ def final_model(verbose=True):
     #------------------
 
     #From previous best hyperparameters
-    params = {'bootstrap': True, 'max_depth': 8, 'min_samples_leaf': 19,
-            'min_samples_split': 4, 'n_estimators': 110}
+    #params = {'bootstrap': True, 'max_depth': 8, 'min_samples_leaf': 19,
+    #        'min_samples_split': 4, 'n_estimators': 110}
+
+    params = {'bootstrap': True, 'max_depth': 8, 'min_samples_leaf': 13,
+            'min_samples_split': 3, 'n_estimators': 150}
+    #print the parameters
+    print("Parameters of the model:")
+    print(params)
 
     model_rf = RandomForestClassifier(**params)
 
     #1. K Fold evaluation (the most rigorous)
     kf = KFold(n_splits=10, shuffle=True, random_state=42)
     _,_, accuracy_val_FVNorm, accuracy_std_val_FVnorm = \
-        perform_Kfold(X_train, y_train, model_rf, kf, normalization, reduction, PCA_components, verbose=verbose)
+        perform_Kfold(X_train, y_train, model_rf, kf, normalization, reduction, PCA_components, verbose=verbose, FV_normalization=True)
 
 
     #TODO: Adapt K-fold function so that it shows mean prediction, recall and F1 score ? 
@@ -635,7 +641,6 @@ if __name__ == '__main__':
     #boxplot_augmentations(accuracy_vals, accuracy_std_vals, config_names, "Model Performance by Data Augmentation")
 
     #hyperparameters_tuning()
-
     model = final_model(verbose=True)
     # Save the model
     with open("final_model.pkl", "wb") as f:

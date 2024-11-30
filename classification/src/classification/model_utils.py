@@ -89,7 +89,7 @@ def get_dataset_matrix(normalization=False, verbose=False):
     
     return X, y, classnames 
 
-def get_dataset_matrix_augmened(augmentations):
+def get_dataset_matrix_augmented(augmentations):
 
     dataset = Dataset()
     classnames = dataset.list_classes()
@@ -144,7 +144,11 @@ def get_dataset_matrix_augmened(augmentations):
                 X_aug[s * nclass * naudio + class_idx * naudio + idx, :] = featvec
                 y_aug[s * nclass * naudio + class_idx * naudio + idx] = classname
 
+
     y_aug = np.array(y_aug)
+
+    #Normalize
+    X_aug = X_aug / np.linalg.norm(X_aug, axis=1, keepdims=True)
     
     
     np.save("feature_matrix_2D_aug.npy", X_aug, allow_pickle=True)
