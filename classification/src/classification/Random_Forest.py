@@ -23,6 +23,7 @@ from classification.utils.utils import accuracy
 
 #All the functions are in the model_utils.py file
 from classification.model_utils import *
+import glob
 
 dB_mismatch = 10
 ### 1. Model without hyperparameters tuning, without normalization & without reduction (PCA)
@@ -548,12 +549,31 @@ def final_model(verbose=True):
 
     #------------------
     normalization = False
+    FVnormalization = True
     reduction = False
     PCA_components = 7
     
 
     augmentations = ["original", "scaling", "time_shift", "add_noise", "add_echo"]
-    X, y, classnames = get_dataset_matrix_augmented(augmentations)
+    
+    # Add real melvecs to X and y
+    additionnal_melvecs = [[],[]]
+    melvecs_txt_path = "melvecs_txt" # folder name
+    # Get the list of folder names in the folder
+    additionnal_melvecs_classes = [name for name in os.listdir(melvecs_txt_path) if os.path.isdir(os.path.join(melvecs_txt_path, name))]
+    for class_name in additionnal_melvecs_classes:
+        num_txt_files = len(glob.glob(os.path.join(melvecs_txt_path+f"/{class_name}", "*.txt")))
+        print(f"Number of .txt files in {melvecs_txt_path}/{class_name}: {num_txt_files}")
+        for num in range(1, num_txt_files+1):
+            melvec = np.loadtxt(f"{melvecs_txt_path}/{class_name}/melvec_{num}.txt", 
+                            dtype=str, 
+                            converters={0: lambda x: int(x, 16)})
+            melvec = np.array(melvec, dtype=np.uint16)
+            additionnal_melvecs[0].append(melvec)
+            additionnal_melvecs[1].append(class_name)
+
+    X, y, classnames = get_dataset_matrix_augmented(augmentations, additionnal_melvecs)
+
     # Splitting the dataset
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
 
@@ -575,7 +595,7 @@ def final_model(verbose=True):
     #1. K Fold evaluation (the most rigorous)
     kf = KFold(n_splits=10, shuffle=True, random_state=42)
     _,_, accuracy_val_FVNorm, accuracy_std_val_FVnorm = \
-        perform_Kfold(X_train, y_train, model_rf, kf, normalization, reduction, PCA_components, verbose=verbose, FV_normalization=True)
+        perform_Kfold(X_train, y_train, model_rf, kf, normalization, reduction, PCA_components, verbose=verbose, FV_normalization=FVnormalization)
 
 
     #TODO: Adapt K-fold function so that it shows mean prediction, recall and F1 score ? 

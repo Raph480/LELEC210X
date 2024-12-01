@@ -89,7 +89,7 @@ def get_dataset_matrix(normalization=False, verbose=False):
     
     return X, y, classnames 
 
-def get_dataset_matrix_augmented(augmentations):
+def get_dataset_matrix_augmented(augmentations, additionnal_melvecs = None):
 
     dataset = Dataset()
     classnames = dataset.list_classes()
@@ -146,6 +146,12 @@ def get_dataset_matrix_augmented(augmentations):
 
 
     y_aug = np.array(y_aug)
+
+    if (additionnal_melvecs is not None):
+        X_additionnal = additionnal_melvecs[0]
+        y_additionnal = additionnal_melvecs[1]
+        X_aug = np.concatenate((X_aug, X_additionnal), axis=0)
+        y_aug = np.concatenate((y_aug, y_additionnal), axis=0)
 
     #Normalize
     X_aug = X_aug / np.linalg.norm(X_aug, axis=1, keepdims=True)

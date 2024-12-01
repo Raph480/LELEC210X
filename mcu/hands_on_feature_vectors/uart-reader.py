@@ -78,24 +78,29 @@ if __name__ == "__main__":
 
         # Load the model from pickle file
 
-        #model_rf = pickle.load(open("../../classification/data/models/final_model.pkl", "rb"))
-        #print("Random forest model imported...\n")
-        #print(f"Model {type(model_rf).__name__} has been loaded from pickle file.\n")
+        #model_rf = pickle.load(open("../../classification/data/models/final_model_5s_norm.pkl", "rb"))
+        model_rf = pickle.load(open("../../classification/data/models/final_model_with_txt_aug.pkl", "rb"))
+        print(f"Model {type(model_rf).__name__} has been loaded from pickle file.\n")
 
-        plt.figure(figsize=(4, 3))
+        plt.figure(figsize=(8, 6))
         for melvec in input_stream:
             melvec = melvec[4:-8]
             msg_counter += 1
 
             print(f"MEL Spectrogram #{msg_counter}")
 
+            #np.savetxt(f"melspectrograms_plots/melvec_{msg_counter}.txt", melvec, fmt="%04x", delimiter="\n")
+
             # Predict the class of the mel vector
-            """
-            pred = model_rf.predict(melvec.reshape(1, -1))
-            proba = model_rf.predict_proba(melvec.reshape(1, -1))
+            
+            fv = melvec.reshape(1, -1)
+            fv = fv / np.linalg.norm(fv)
+
+            pred = model_rf.predict(fv)
+            proba = model_rf.predict_proba(fv)
             print(f"Predicted class: {pred[0]}\n")
             print(f"Predicted probabilities: {proba}\n")
-                        
+            
             class_names = model_rf.classes_
             probabilities = np.round(proba[0] * 100, 2)
             max_len = max(len(name) for name in class_names)
@@ -104,8 +109,8 @@ if __name__ == "__main__":
             textlabel = f"{class_names_str}\n{probabilities_str}"
             # For column text: textlabel = "\n".join([f"{name:<11}: {prob:>6.2f}%" for name, prob in zip(class_names, probabilities)])
             textlabel = textlabel + f"\n\nPredicted class: {pred[0]}\n" 
-            """
-            textlabel = ""
+            
+            #textlabel = ""
             plot_specgram(
                 melvec.reshape((N_MELVECS, MELVEC_LENGTH)).T,
                 ax=plt.gca(),
@@ -115,7 +120,6 @@ if __name__ == "__main__":
                 textlabel=textlabel,
             )
             plt.draw()
-            plt.savefig(f"melspectrograms_plots/melspec_{msg_counter}.pdf")
+            #plt.savefig(f"melspectrograms_plots/melspec_{msg_counter}.pdf")
             plt.pause(0.1)
-            # save figure in a folder melspecs_plots
             plt.clf()

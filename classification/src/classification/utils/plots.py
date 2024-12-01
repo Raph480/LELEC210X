@@ -146,8 +146,8 @@ def plot_specgram(
     ax.set_ylabel(ylabel)
     ax.set_title(title)
     
-    #plt.subplots_adjust(bottom=0.3)
-    #ax.text(0, -0.15, f'{textlabel}', ha='left', va='top', transform=ax.transAxes, family='monospace')
+    plt.subplots_adjust(bottom=0.3)
+    ax.text(0, -0.15, f'{textlabel}', ha='left', va='top', transform=ax.transAxes, family='monospace')
 
     return None
 
