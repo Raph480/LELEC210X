@@ -1,25 +1,32 @@
-import argparse
-import pickle
-from pathlib import Path
+import os
+from collections.abc import Iterator
 from typing import Optional
 
-import matplotlib.pyplot as plt
-import numpy as np
-from serial import Serial
 import click
+import serial
+import zmq
+
+import common
 from common.env import load_dotenv
 from common.logging import logger
-from .utils import payload_to_melvecs
-from classification.utils.plots import plot_specgram
 
-# Constants
-PRINT_PREFIX = "DF:HEX:"
-FREQ_SAMPLING = 10200
-MELVEC_LENGTH = 20
-N_MELVECS = 102
-DTYPE = np.dtype(np.uint16).newbyteorder("<")
+from . import PRINT_PREFIX, packet
 
 load_dotenv()
+
+
+def parse_packet(line: str) -> bytes:
+    """Parse a line into a packet."""
+    line = line.strip()
+    if line.startswith(PRINT_PREFIX):
+        return bytes.fromhex(line[len(PRINT_PREFIX) :])
+    else:
+        return None
+
+
+def hex_to_bytes(ctx: click.Context, param: click.Parameter, value: str) -> bytes:
+    """Convert a hex string into bytes."""
+    return bytes.fromhex(value)
 
 
 @click.command()
@@ -27,118 +34,133 @@ load_dotenv()
     "-i",
     "--input",
     "_input",
-    default="-",
+    default=None,
     type=click.File("r"),
-    help="Where to read the input stream. Default to '-', a.k.a. stdin.",
+    help="Where to read the input stream. If not specified, read from TCP address. You can pass '-' to read from stdin.",
 )
 @click.option(
-    "-m",
-    "--model",
-    default=None,
-    type=click.Path(exists=True, dir_okay=False, path_type=Path),
-    help="Path to the trained classification model.",
+    "-o",
+    "--output",
+    default="-",
+    type=click.File("w"),
+    help="Where to read the input stream. Default to '-', a.k.a. stdout.",
 )
 @click.option(
     "--serial-port",
     default=None,
-    help="Port for serial communication.",
+    envvar="SERIAL_PORT",
+    show_envvar=True,
+    help="If specified, read the packet from the given serial port. E.g., '/dev/tty0'. This takes precedence of `--input` and `--tcp-address` options.",
 )
 @click.option(
-    "--auth-output",
+    "--tcp-address",
+    default="tcp://127.0.0.1:10000",
+    envvar="TCP_ADDRESS",
+    show_default=True,
+    show_envvar=True,
+    help="TCP address to be used to read the input stream.",
+)
+@click.option(
+    "-k",
+    "--auth-key",
+    default=16 * "00",
+    envvar="AUTH_KEY",
+    callback=hex_to_bytes,
+    show_default=True,
+    show_envvar=True,
+    help="Authentification key (hex string).",
+)
+@click.option(
+    "--authenticate/--no-authenticate",
+    default=True,
     is_flag=True,
-    default=False,
-    help="Specify if the input is the output of the authentication script.",
+    help="Enable / disable authentication, useful for skipping authentication step.",
 )
 @common.click.melvec_length
 @common.click.n_melvecs
 @common.click.verbosity
 def main(
     _input: Optional[click.File],
-    model: Optional[Path],
+    output: click.File,
     serial_port: Optional[str],
-    auth_output: bool,
+    tcp_address: str,
+    auth_key: bytes,
+    authenticate: bool,
     melvec_length: int,
     n_melvecs: int,
 ) -> None:
     """
-    Process data from input, classify Mel spectrograms, and optionally visualize them.
+    Parse packets from the MCU and perform authentication.
     """
-    if model:
-        with open(model, "rb") as file:
-            classifier = pickle.load(file)
-        logger.info(f"Model {type(classifier).__name__} loaded from {model}.")
-    else:
-        logger.warning("No classification model provided. Skipping classification.")
-        classifier = None
+    logger.debug(f"Unwrapping packets with auth. key: {auth_key.hex()}")
 
-    def parse_authenticated_input(line: str):
-        """Parse a line assuming it's in the format produced by the authentication script."""
-        if line.startswith(PRINT_PREFIX):
-            return bytes.fromhex(line[len(PRINT_PREFIX) :])
-        return None
+    how_to_kill = (
+        "Use Ctrl-C (or Ctrl-D) to terminate.\nIf that does not work, execute `"
+        f"kill {os.getpid()}` in a separate terminal."
+    )
 
-    if serial_port:  # Read directly from a serial port
-        ser = Serial(port=serial_port, baudrate=115200)
-        ser.reset_input_buffer()
-        input_stream = iter(
-            lambda: ser.read_until(b"\n").decode("ascii").strip(), ""
-        )
-    else:  # Read from file or stdin
-        input_stream = _input
+    unwrapper = packet.PacketUnwrapper(
+        key=auth_key,
+        allowed_senders=[
+            0,
+        ],
+        authenticate=authenticate,
+    )
 
-    plt.figure(figsize=(8, 6))
-    msg_counter = 0
+    if serial_port:  # Read from serial port
 
-    for line in input_stream:
-        if auth_output:
-            # Parse authenticated output
-            buffer = parse_authenticated_input(line.strip())
-        else:
-            # Directly parse payload to Mel vectors
-            if PRINT_PREFIX in line:
-                payload = line[len(PRINT_PREFIX) :].strip()
-                buffer = payload_to_melvecs(payload, melvec_length, n_melvecs)
-            else:
-                continue
+        def reader() -> Iterator[str]:
+            ser = serial.Serial(port=serial_port, baudrate=115200)
+            ser.reset_input_buffer()
+            ser.read_until(b"\n")
 
-        if buffer is None:
-            continue
+            logger.debug(f"Reading packets from serial port: {serial_port}")
+            logger.info(how_to_kill)
 
-        melvec = np.frombuffer(buffer, dtype=DTYPE)[4:-8]
-        msg_counter += 1
+            while True:
+                line = ser.read_until(b"\n").decode("ascii").strip()
+                packet = parse_packet(line)
+                if packet is not None:
+                    yield packet
 
-        logger.info(f"Processing MEL spectrogram #{msg_counter}.")
+    elif _input:  # Read from file-like
 
-        # Normalize feature vector
-        fv = melvec.reshape(1, -1)
-        fv = fv / np.linalg.norm(fv)
+        def reader() -> Iterator[str]:
+            logger.debug(f"Reading packets from input: {_input!s}")
+            logger.info(how_to_kill)
 
-        # Classify if a model is provided
-        if classifier:
-            pred = classifier.predict(fv)
-            proba = classifier.predict_proba(fv)
-            logger.info(f"Predicted class: {pred[0]}")
-            logger.info(f"Class probabilities: {proba}")
+            for line in _input:
+                packet = parse_packet(line)
+                if packet is not None:
+                    yield packet
 
-            # Prepare probabilities for display
-            class_names = classifier.classes_
-            probabilities = np.round(proba[0] * 100, 2)
-            max_len = max(len(name) for name in class_names)
-            class_names_str = " ".join([f"{name:<{max_len}}" for name in class_names])
-            probabilities_str = " ".join([f"{prob:.2f}%".ljust(max_len) for prob in probabilities])
-            textlabel = f"{class_names_str}\n{probabilities_str}\n\nPredicted class: {pred[0]}"
-        else:
-            textlabel = "No model loaded for classification."
+    else:  # Read from zmq GNU Radio interface
 
-        # Plot Mel spectrogram
-        plot_specgram(
-            melvec.reshape((N_MELVECS, MELVEC_LENGTH)).T,
-            ax=plt.gca(),
-            is_mel=True,
-            title=f"MEL Spectrogram #{msg_counter}",
-            xlabel="Mel vector",
-            textlabel=textlabel,
-        )
-        plt.draw()
-        plt.pause(0.1)
-        plt.clf()
+        def reader() -> Iterator[str]:
+            context = zmq.Context()
+            socket = context.socket(zmq.SUB)
+
+            socket.setsockopt(zmq.SUBSCRIBE, b"")
+            socket.setsockopt(zmq.CONFLATE, 1)  # last msg only.
+
+            socket.connect(tcp_address)
+
+            logger.debug(f"Reading packets from TCP address: {tcp_address}")
+            logger.info(how_to_kill)
+
+            while True:
+                msg = socket.recv(2 * melvec_length * n_melvecs)
+                yield msg
+
+    input_stream = reader()
+    for msg in input_stream:
+        try:
+            sender, payload = unwrapper.unwrap_packet(msg)
+            logger.debug(f"From {sender}, received packet: {payload.hex()}")
+            output.write(PRINT_PREFIX + payload.hex() + "\n")
+            output.flush()
+
+        except packet.InvalidPacket as e:
+            logger.error(
+                f"Invalid packet error: {e.args[0]}",
+            )
