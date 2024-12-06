@@ -472,7 +472,7 @@ def evaluate_data_augmentations():
     dataset = Dataset()
     classnames = dataset.list_classes()
 
-    myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950*5, shift_pct=0.2)
+    myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2)
 
     # Define data augmentation configurations
     data_aug_configs = [
@@ -556,8 +556,10 @@ def final_model(verbose=True):
 
     augmentations = ["original", "scaling", "time_shift", "add_noise", "add_echo"]
     
+    
     # Add real melvecs to X and y
     additionnal_melvecs = [[],[]]
+    """
     melvecs_txt_path = "melvecs_txt" # folder name
     # Get the list of folder names in the folder
     additionnal_melvecs_classes = [name for name in os.listdir(melvecs_txt_path) if os.path.isdir(os.path.join(melvecs_txt_path, name))]
@@ -571,6 +573,7 @@ def final_model(verbose=True):
             melvec = np.array(melvec, dtype=np.uint16)
             additionnal_melvecs[0].append(melvec)
             additionnal_melvecs[1].append(class_name)
+    """
 
     X, y, classnames = get_dataset_matrix_augmented(augmentations, additionnal_melvecs)
 
@@ -599,7 +602,6 @@ def final_model(verbose=True):
 
 
     #TODO: Adapt K-fold function so that it shows mean prediction, recall and F1 score ? 
-
     #2. Performance metrics
     # On the whole train and test set (no kfold, less accurate)
     #--------------------------------------------
@@ -663,6 +665,6 @@ if __name__ == '__main__':
     #hyperparameters_tuning()
     model = final_model(verbose=True)
     # Save the model
-    with open("final_model.pkl", "wb") as f:
+    with open("final_model_1s.pkl", "wb") as f:
         pickle.dump(model, f)
     print("Model saved as 'final_model.pkl'")

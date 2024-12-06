@@ -40,9 +40,9 @@ def get_dataset_matrix(normalization=False, verbose=False):
 
     # Hyperparameters to tune in 2nd part of project?
     if normalization:
-        myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950*5, shift_pct=0.2, normalize=True)
+        myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2, normalize=True)
     else:
-        myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950*5, shift_pct=0.2)
+        myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2)
     
     "Some attributes..."
     myds.nmel
@@ -95,7 +95,7 @@ def get_dataset_matrix_augmented(augmentations, additionnal_melvecs = None):
     classnames = dataset.list_classes()
 
     "Creation of the dataset"
-    myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950*5, shift_pct=0.2, normalize=True)
+    myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2, normalize=True)
 
     "Some attributes..."
     myds.nmel
@@ -118,7 +118,7 @@ def get_dataset_matrix_augmented(augmentations, additionnal_melvecs = None):
     audio = AudioUtil.open(sound)
 
     audio2 = AudioUtil.resample(audio, 11025)
-    audio2 = AudioUtil.pad_trunc(audio2, 950*5)
+    audio2 = AudioUtil.pad_trunc(audio2, 950)
 
 
     myds.mod_data_aug(augmentations)
@@ -147,11 +147,13 @@ def get_dataset_matrix_augmented(augmentations, additionnal_melvecs = None):
 
     y_aug = np.array(y_aug)
 
+    """"
     if (additionnal_melvecs is not None):
         X_additionnal = additionnal_melvecs[0]
         y_additionnal = additionnal_melvecs[1]
         X_aug = np.concatenate((X_aug, X_additionnal), axis=0)
         y_aug = np.concatenate((y_aug, y_additionnal), axis=0)
+    """
 
     #Normalize
     X_aug = X_aug / np.linalg.norm(X_aug, axis=1, keepdims=True)
