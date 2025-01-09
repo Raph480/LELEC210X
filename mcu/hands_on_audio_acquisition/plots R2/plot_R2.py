@@ -13,7 +13,10 @@ plt.figure(figsize=(9,5), dpi=100)
 
 #filename = "power subtasks v1"
 #filename = "classic_usage_buffer10k"
-filename = "classic_usage_buffer10k_CORRECTED"
+#filename = "classic_usage_buffer10k_CORRECTED"
+#filename = "MCU_2_power"
+#filename = "Radio_power"
+filename = "AFE_power_19mV"
 with open(filename+".csv", 'r') as f:
     first_char = f.read(1)
     if (first_char == ';'):
@@ -23,16 +26,16 @@ with open(filename+".csv", 'r') as f:
 datas=csv_to_arrays(filename+".csv")
 datas[1] = datas[1] + 8 # shift by 8 seconds to begin at 0
 R = 50 # shunt resistance
-I = datas[2]/R # current
+I = np.abs(datas[2]/R) # current
 P_mcu = 3.3*I # power of the mcu
 plt.plot(datas[1],P_mcu*1000,label="MCU")
 
-plt.title('Instant power consumption of the MCU')
+plt.title('Instant power consumption of the AFE')
 plt.xlabel('Time [s]')
 plt.xticks
 plt.ylabel('Power [mW]')
-#plt.xlim(xmin=0,xmax=7.15)
-plt.ylim(ymin=0, ymax=20)
+#plt.xlim(xmin=14,xmax=18)
+#plt.ylim(ymin=0, ymax=30)
 #plt.legend(loc="upper right")
 plt.savefig(filename+".svg")
 #plt.show()
