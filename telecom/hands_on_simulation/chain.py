@@ -20,10 +20,10 @@ class Chain:
     preamble: np.ndarray = PREAMBLE
     sync_word: np.ndarray = SYNC_WORD
 
-    payload_len: int = 50  # Number of bits per packet
+    payload_len: int = 800  # Number of bits per packet
 
     # Simulation parameters
-    n_packets: int = 100  # Number of sent packets
+    n_packets: int = 1000  # Number of sent packets
 
     # Channel parameters
     sto_val: float = 0
@@ -34,11 +34,11 @@ class Chain:
         10000  # defines the CFO range when random (in Hz) #(1000 in old repo)
     )
 
-    snr_range: np.ndarray = np.arange(-10, 25)
+    snr_range: np.ndarray = np.arange(-10, 25,5)
 
     # Lowpass filter parameters
     numtaps: int = 100
-    cutoff: float = BIT_RATE * osr_rx / 2.0001  # or 2*BIT_RATE,...
+    cutoff: float = 142000 #BIT_RATE * osr_rx / 2.0001  # or 2*BIT_RATE,...
 
     # Tx methods
 
@@ -169,7 +169,7 @@ class BasicChain(Chain):
 
         return None
 
-    bypass_cfo_estimation = True
+    bypass_cfo_estimation = False
 
     def cfo_estimation(self, y: np.array) -> float:
         """
@@ -179,7 +179,7 @@ class BasicChain(Chain):
         :return: The estimated CFO.
         """
         # Constants
-        N = 4  # Block size in bits (4 bits)
+        N = 2  # Block size in bits (4 bits)
         RRX = self.osr_rx  # Receiver oversampling factor
         B = self.bit_rate  # Bit rate (B = 1/T)
     
@@ -202,7 +202,7 @@ class BasicChain(Chain):
         return delta_f_c
 
 
-    bypass_sto_estimation = True
+    bypass_sto_estimation = False
 
     def sto_estimation(self, y):
         """
