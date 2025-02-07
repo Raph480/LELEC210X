@@ -665,6 +665,6 @@ if __name__ == '__main__':
     #hyperparameters_tuning()
     model = final_model(verbose=True)
     # Save the model
-    with open("final_model_1s.pkl", "wb") as f:
-        pickle.dump(model, f)
-    print("Model saved as 'final_model.pkl'")
+    # with open("final_model_1s.pkl", "wb") as f:
+    #    pickle.dump(model, f)
+    #print("Model saved as 'final_model.pkl'")

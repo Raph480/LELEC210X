@@ -16,22 +16,22 @@ Synthesis of the functions in :
 """
 # -----------------------------------------------------------------------------
 
-
 def show_confusion_matrix(y_predict, y_true, classnames, title=""):
     """
     From target labels and prediction arrays, sort them appropriately and plot confusion matrix.
     The arrays can contain either ints or str quantities, as long as classnames contains all the elements present in them.
     """
-    # # Reorder the prediction array
-    # labels = np.zeros_like(y_predict)
-    # for i in np.arange(len(classnames)):
-    #     mask = [None]*len(y_predict)
-    #     for j in np.arange(len(mask)):
-    #         mask[j] = (y_predict[j] == classnames[i])
-    #     labels[mask] = mode(y_true2[mask])[0]
+    import matplotlib.pyplot as plt
+    from sklearn.metrics import confusion_matrix
+    from seaborn import heatmap
 
-    plt.figure(figsize=(3, 3))
+    # Increase figure size
+    plt.figure(figsize=(6, 6))  # Enlarged the figure size for better visibility
+    
+    # Compute confusion matrix
     confmat = confusion_matrix(y_true, y_predict)
+    
+    # Plot confusion matrix with enlarged annotations
     heatmap(
         confmat.T,
         square=True,
@@ -40,13 +40,23 @@ def show_confusion_matrix(y_predict, y_true, classnames, title=""):
         cbar=False,
         xticklabels=classnames,
         yticklabels=classnames,
+        annot_kws={"size": 14},  # Increase font size for annotations
         ax=plt.gca(),
     )
-    plt.xlabel("True label")
-    plt.ylabel("Predicted label")
-    plt.title(title)
+    
+    # Set larger font sizes for labels and title
+    plt.xlabel("True label", fontsize=16)
+    plt.ylabel("Predicted label", fontsize=16)
+    plt.title(title, fontsize=18)
+    
+    # Enlarge tick labels
+    plt.xticks(fontsize=13)
+    plt.yticks(fontsize=13)
+    
+    # Display the plot
     plt.show()
     return None
+
 
 
 def plot_audio(audio, audio_down, fs=44100, fs_down=11025):
