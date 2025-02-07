@@ -16,8 +16,6 @@
 -e file:mcu
 aniso8601==9.0.1
     # via flask-restx
-annotated-types==0.7.0
-    # via pydantic
 anyio==4.4.0
     # via httpx
     # via jupyter-server
@@ -89,7 +87,7 @@ distlib==0.3.8
     # via virtualenv
 dnspython==2.6.1
     # via eventlet
-eventlet==0.36.1
+eventlet==0.33.3
     # via leaderboard
 exceptiongroup==1.2.2
     # via anyio
@@ -101,7 +99,7 @@ fastjsonschema==2.20.0
     # via nbformat
 filelock==3.15.4
     # via virtualenv
-flask==3.0.3
+flask==2.3.3
     # via flask-apscheduler
     # via flask-limiter
     # via flask-restx
@@ -335,10 +333,8 @@ pure-eval==0.2.3
     # via stack-data
 pycparser==2.22
     # via cffi
-pydantic==2.8.2
+pydantic==1.10.21
     # via leaderboard
-pydantic-core==2.20.1
-    # via pydantic
 pydub==0.25.1
     # via leaderboard
 pygments==2.18.0
@@ -426,6 +422,7 @@ six==1.16.0
     # via apscheduler
     # via asttokens
     # via bleach
+    # via eventlet
     # via python-dateutil
     # via rfc3339-validator
 sniffio==1.3.1
@@ -487,7 +484,6 @@ typing-extensions==4.12.2
     # via librosa
     # via limits
     # via pydantic
-    # via pydantic-core
 tzdata==2024.1
     # via pandas
 tzlocal==5.2
@@ -516,7 +512,7 @@ wsproto==1.2.0
     # via simple-websocket
 wtforms==3.1.2
     # via flask-wtf
-youtube-dl @ git+https://github.com/ytdl-org/youtube-dl.git@c5098961b04ce83f4615f2a846c84f803b072639
+youtube-dl @ git+https://github.com/ytdl-org/youtube-dl.git@711e72c292327674c4a0593fdbb83d6347738ec9
 zipp==3.20.1
     # via importlib-metadata
     # via importlib-resources
