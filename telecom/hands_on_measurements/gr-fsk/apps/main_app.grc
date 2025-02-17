@@ -121,7 +121,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 868e6
+    value: 864e6
   states:
     bus_sink: false
     bus_source: false
@@ -505,9 +505,7 @@ blocks:
     address: tcp://127.0.0.1:10000
     affinity: ''
     alias: ''
-    bind: 'True'
     comment: ''
-    drop_on_hwm: 'True'
     hwm: '-1'
     key: ''
     pass_tags: 'False'
@@ -535,4 +533,3 @@ connections:
 
 metadata:
   file_format: 1
-  grc_version: 3.10.7.0

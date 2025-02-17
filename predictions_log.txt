@@ -1,0 +1,15 @@
+Index	Prediction
+==============================
+1	helicopter
+2	helicopter
+3	helicopter
+4	helicopter
+5	helicopter
+6	handsaw
+7	birds
+8	birds
+9	birds
+10	helicopter
+11	helicopter
+12	helicopter
+13	helicopter

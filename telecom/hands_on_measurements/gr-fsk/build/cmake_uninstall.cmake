@@ -1,10 +1,10 @@
 # http://www.vtk.org/Wiki/CMake_FAQ#Can_I_do_.22make_uninstall.22_with_CMake.3F
 
-IF(NOT EXISTS "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/install_manifest.txt")
-  MESSAGE(FATAL_ERROR "Cannot find install manifest: \"/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/install_manifest.txt\"")
-ENDIF(NOT EXISTS "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/install_manifest.txt")
+IF(NOT EXISTS "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/install_manifest.txt")
+  MESSAGE(FATAL_ERROR "Cannot find install manifest: \"/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/install_manifest.txt\"")
+ENDIF(NOT EXISTS "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/install_manifest.txt")
 
-FILE(READ "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/install_manifest.txt" files)
+FILE(READ "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/install_manifest.txt" files)
 STRING(REGEX REPLACE "\n" ";" files "${files}")
 FOREACH(file ${files})
   MESSAGE(STATUS "Uninstalling \"$ENV{DESTDIR}${file}\"")

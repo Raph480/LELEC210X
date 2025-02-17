@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/python
+# Install script for directory: /home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/python
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -37,37 +37,42 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
+endif()
+
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages/fsk" TYPE FILE FILES
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/__init__.py"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/utils.py"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/preamble_detect.py"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/flag_detector.py"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/synchronization.py"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/demodulation.py"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/packet_parser.py"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/noise_estimation.py"
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3.10/dist-packages/fsk" TYPE FILE FILES
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/__init__.py"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/utils.py"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/preamble_detect.py"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/flag_detector.py"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/synchronization.py"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/demodulation.py"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/packet_parser.py"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/python/onQuery_noise_estimation.py"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages/fsk" TYPE FILE FILES
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/__init__.pyc"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/utils.pyc"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/preamble_detect.pyc"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/flag_detector.pyc"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/synchronization.pyc"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/demodulation.pyc"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/packet_parser.pyc"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/noise_estimation.pyc"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/__init__.pyo"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/utils.pyo"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/preamble_detect.pyo"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/flag_detector.pyo"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/synchronization.pyo"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/demodulation.pyo"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/packet_parser.pyo"
-    "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/noise_estimation.pyo"
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3.10/dist-packages/fsk" TYPE FILE FILES
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/__init__.pyc"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/utils.pyc"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/preamble_detect.pyc"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/flag_detector.pyc"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/synchronization.pyc"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/demodulation.pyc"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/packet_parser.pyc"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/onQuery_noise_estimation.pyc"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/__init__.pyo"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/utils.pyo"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/preamble_detect.pyo"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/flag_detector.pyo"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/synchronization.pyo"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/demodulation.pyo"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/packet_parser.pyo"
+    "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/onQuery_noise_estimation.pyo"
     )
 endif()
 

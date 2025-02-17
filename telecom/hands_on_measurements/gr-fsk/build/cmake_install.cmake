@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk
+# Install script for directory: /home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -37,19 +37,24 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
+endif()
+
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/fsk" TYPE FILE FILES "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/cmake/Modules/fskConfig.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/fsk" TYPE FILE FILES "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/cmake/Modules/fskConfig.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/include/fsk/cmake_install.cmake")
-  include("/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/lib/cmake_install.cmake")
-  include("/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/apps/cmake_install.cmake")
-  include("/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/docs/cmake_install.cmake")
-  include("/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/swig/cmake_install.cmake")
-  include("/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/cmake_install.cmake")
-  include("/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/grc/cmake_install.cmake")
+  include("/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/include/fsk/cmake_install.cmake")
+  include("/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/lib/cmake_install.cmake")
+  include("/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/apps/cmake_install.cmake")
+  include("/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/docs/cmake_install.cmake")
+  include("/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/swig/cmake_install.cmake")
+  include("/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/python/cmake_install.cmake")
+  include("/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/grc/cmake_install.cmake")
 
 endif()
 
@@ -61,5 +66,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/c/Users/marti/OneDrive/Documents/Ecole/EPL/M1/Q1/LELEC2102-Project_Embedded_system/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/hands_on_measurements/gr-fsk/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
