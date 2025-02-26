@@ -4,5 +4,5 @@
         "main.h": "c",
         "aes_ref.h": "c"
     },
-    "cmake.sourceDirectory": "C:/Users/rapha/Documents/GitHub/LELEC210X/telecom/gr-limesdr-3-10/grc"
+    "cmake.sourceDirectory": "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10"
 }

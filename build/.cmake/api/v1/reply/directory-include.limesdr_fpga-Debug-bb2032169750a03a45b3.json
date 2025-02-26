@@ -1,0 +1,45 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"include/limesdr_fpga/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 12,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "include/limesdr_fpga",
+			"paths" : 
+			[
+				"include/limesdr_fpga/api.h",
+				"include/limesdr_fpga/sink_fpga.h",
+				"include/limesdr_fpga/source_fpga.h"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "include/limesdr_fpga",
+		"source" : "include/limesdr_fpga"
+	}
+}

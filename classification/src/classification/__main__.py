@@ -13,6 +13,8 @@ from common.logging import logger
 from classification.utils import payload_to_melvecs
 from classification.utils.plots import plot_specgram
 
+from tensorflow.keras.models import load_model
+
 load_dotenv()
 
 # Constants
@@ -54,8 +56,12 @@ def main(
     """
     if model:
         with open(model, "rb") as file:
-            model_rf = pickle.load(file)
-            print(f"Model {type(model_rf).__name__} loaded successfully.")
+            try:
+                model = load_model('model.h5')
+                print(f"Model {type(model).__name__} loaded successfully.")
+            except:
+                model_rf = pickle.load(file)
+                print(f"Model {type(model_rf).__name__} loaded successfully.")
     else:
         logger.warning("No model provided, skipping classification.")
         return

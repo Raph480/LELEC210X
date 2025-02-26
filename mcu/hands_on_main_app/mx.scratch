@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ScratchFile FileVersion="3.0">
+  <FileVersion>3.0</FileVersion>
+  <Workspace>
+    <WorkspaceType>Single-project</WorkspaceType>
+    <WorkspacePath>/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/mcu/hands_on_main_app/</WorkspacePath>
+    <underRoot>true</underRoot>
+    <TrustZone>0</TrustZone>
+    <HAL_Driver>/home/martin/STM32Cube/Repository//STM32Cube_FW_L4_V1.18.1</HAL_Driver>
+    <CMSIS>Drivers/CMSIS</CMSIS>
+    <Toolchain>STM32CubeIDE</Toolchain>
+    <IocFile>hands_on_main_app.ioc</IocFile>
+    <Project>
+              
+      <ProjectName>hands_on_main_app</ProjectName>
+           
+      <ProjectNature>C</ProjectNature>
+       
+      <Secure/>
+            
+      <filestoremove>
+                
+        <file>
+                      
+          <name>../Src/stm32l4xx_nucleo.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc_ex.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash_ex.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash_ramfunc.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma_ex.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_exti.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi_ex.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim_ex.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/system_stm32l4xx.c</name>
+                  
+        </file>
+        <file>
+                      
+          <name>Core/Src/system_stm32l4xx.c</name>
+                  
+        </file>
+                           
+      </filestoremove>
+      <sourceEntriesToRemove>
+            
+        <sourceEntry/>
+      </sourceEntriesToRemove>
+          
+      <configs>
+        <config>
+              
+          <name>hands_on_main_app</name>
+          	 
+          <mainSourceRepo>Core</mainSourceRepo>
+             
+          <sourceStructure>Advanced</sourceStructure>
+           
+          <device>STM32L4A6ZGTx</device>
+          		     
+          <cpucore>Arm Cortex-M4</cpucore>
+                  
+          <fpu>SP</fpu>
+                
+          <memories>
+                       
+            <memory access="xrw" name="RAM" size="327680" start="0x20000000"/>
+                    
+            <memory access="xrw" name="RAM2" size="65536" start="0x10000000"/>
+                    
+            <memory access="rx" name="FLASH" size="1048576" start="0x8000000"/>
+                
+          </memories>
+              
+          <startup>/home/martin/STM32Cube/Repository/STM32Cube_FW_L4_V1.18.1/Drivers/CMSIS/Device\ST\STM32L4xx\Source\Templates\gcc\startup_stm32l4a6xx.s</startup>
+                
+          <LinkSettings>
+            	
+            <LinkAdditionalLibs>	</LinkAdditionalLibs>
+          </LinkSettings>
+              
+          <heapSize>0x200</heapSize>
+              
+          <stackSize>0x400</stackSize>
+                  
+          <cpuclock>48</cpuclock>
+                  
+          <board>NUCLEO-L4A6ZG</board>
+              
+          <debugprobe>swd</debugprobe>
+              
+          <optimization/>
+              
+          <Aincludes>
+                    
+            <include/>
+                    
+          </Aincludes>
+              
+          <Adefines>        </Adefines>
+                
+          <Cdefines>
+                    
+            <define>USE_HAL_DRIVER</define>
+                    
+            <define>STM32L4A6xx</define>
+                    
+          </Cdefines>
+              
+          <Ldefines>        </Ldefines>
+                  
+          <Cincludes>
+            		        
+            <include>Core/Inc</include>
+                    
+            <include>Drivers/STM32L4xx_HAL_Driver/Inc</include>
+                    
+            <include>Drivers/STM32L4xx_HAL_Driver/Inc/Legacy</include>
+                    
+            <include>Drivers/CMSIS/Device/ST/STM32L4xx/Include</include>
+                    
+            <include>Drivers/CMSIS/Include</include>
+                    
+          </Cincludes>
+              
+          <definestoremove>
+                    
+            <Adefines>            </Adefines>
+                    
+            <Cdefines>
+                                  
+              <define>USE_FULL_LL_DRIVER</define>
+                                  
+              <define>USE_FULL_ASSERT=1U</define>
+                          
+            </Cdefines>
+                     
+            <Ldefines>            </Ldefines>
+                     
+          </definestoremove>
+              
+          <inctoremove>
+                    
+            <Aincludes>
+                          
+              <include/>
+                          
+            </Aincludes>
+                    
+            <Cincludes>            </Cincludes>
+                    
+          </inctoremove>
+                 
+        </config>
+                
+      </configs>
+       
+      <copyAsReference>false</copyAsReference>
+               
+      <sourceEntries>
+                    
+        <sourceEntry>
+                      
+          <name>Core</name>
+                      
+        </sourceEntry>
+                            
+        <sourceEntry>
+                      
+          <name>Drivers</name>
+                  
+        </sourceEntry>
+                	          
+      </sourceEntries>
+      <Groups>    </Groups>
+       
+    </Project>
+  </Workspace>
+</ScratchFile>

@@ -1,0 +1,108 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install",
+			"GR_LIBRARY_FOO"
+		],
+		"files" : 
+		[
+			"/usr/lib/x86_64-linux-gnu/cmake/gnuradio/GrMiscUtils.cmake",
+			"lib/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 50,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 64,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 72,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 87,
+				"parent" : 1
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "lib/x86_64-linux-gnu",
+			"paths" : 
+			[
+				"lib/libgnuradio-limesdr_fpga.so.v1.0-compat-xxx-xunknown",
+				"lib/libgnuradio-limesdr_fpga.so.1.0.0git"
+			],
+			"targetId" : "gnuradio-limesdr_fpga::@306ed2d68c6501e8728f",
+			"targetIndex" : 2,
+			"targetInstallNamelink" : "skip",
+			"type" : "target"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "lib/x86_64-linux-gnu",
+			"paths" : 
+			[
+				"lib/libgnuradio-limesdr_fpga.so"
+			],
+			"targetId" : "gnuradio-limesdr_fpga::@306ed2d68c6501e8728f",
+			"targetIndex" : 2,
+			"targetInstallNamelink" : "only",
+			"type" : "target"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "Unspecified",
+			"destination" : "lib/cmake/limesdr_fpga",
+			"exportName" : "gnuradio-limesdr_fpga-export",
+			"exportTargets" : 
+			[
+				{
+					"id" : "gnuradio-limesdr_fpga::@306ed2d68c6501e8728f",
+					"index" : 2
+				}
+			],
+			"paths" : 
+			[
+				"lib/CMakeFiles/Export/lib/cmake/limesdr_fpga/gnuradio-limesdr_fpgaTargets.cmake"
+			],
+			"type" : "export"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "Unspecified",
+			"destination" : "lib/cmake/limesdr_fpga",
+			"paths" : 
+			[
+				"/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/build/lib/cmake/Modules/gnuradio-limesdr_fpgaConfig.cmake"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "lib",
+		"source" : "lib"
+	}
+}

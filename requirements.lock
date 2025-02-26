@@ -14,6 +14,10 @@
 -e file:common
 -e file:leaderboard
 -e file:mcu
+absl-py==2.1.0
+    # via keras
+    # via tensorboard
+    # via tensorflow
 aniso8601==9.0.1
     # via flask-restx
 anyio==4.4.0
@@ -29,6 +33,8 @@ arrow==1.3.0
     # via isoduration
 asttokens==2.4.1
     # via stack-data
+astunparse==1.6.3
+    # via tensorflow
 async-lru==2.0.4
     # via jupyterlab
 attrs==24.2.0
@@ -115,20 +121,32 @@ flask-swagger-ui==4.11.1
     # via leaderboard
 flask-wtf==1.2.1
     # via leaderboard
+flatbuffers==25.2.10
+    # via tensorflow
 fonttools==4.53.1
     # via matplotlib
 fqdn==1.5.1
     # via jsonschema
+gast==0.6.0
+    # via tensorflow
 gevent==24.2.1
     # via gevent-websocket
 gevent-websocket==0.10.1
     # via leaderboard
+google-pasta==0.2.0
+    # via tensorflow
 greenlet==3.0.3
     # via eventlet
     # via gevent
+grpcio==1.70.0
+    # via tensorboard
+    # via tensorflow
 h11==0.14.0
     # via httpcore
     # via wsproto
+h5py==3.13.0
+    # via keras
+    # via tensorflow
 httpcore==1.0.5
     # via httpx
 httpx==0.27.2
@@ -212,10 +230,18 @@ jupyterlab-pygments==0.3.0
 jupyterlab-server==2.27.3
     # via jupyterlab
     # via notebook
+keras==3.8.0
+    # via keras-tuner
+    # via tensorflow
+keras-tuner==1.4.7
 kiwisolver==1.4.5
     # via matplotlib
+kt-legacy==1.0.5
+    # via keras-tuner
 lazy-loader==0.4
     # via librosa
+libclang==18.1.1
+    # via tensorflow
 librosa==0.10.2.post1
     # via classification
 limits==3.13.0
@@ -224,6 +250,7 @@ llvmlite==0.43.0
     # via numba
 markdown==3.7
     # via leaderboard
+    # via tensorboard
 markdown-it-py==3.0.0
     # via rich
 markupsafe==2.1.5
@@ -240,8 +267,13 @@ mdurl==0.1.2
     # via markdown-it-py
 mistune==3.0.2
     # via nbconvert
+ml-dtypes==0.4.1
+    # via keras
+    # via tensorflow
 msgpack==1.0.8
     # via librosa
+namex==0.0.8
+    # via keras
 nbclient==0.10.0
     # via nbconvert
 nbconvert==7.16.4
@@ -261,15 +293,24 @@ numba==0.60.0
     # via librosa
 numpy==2.0.2
     # via contourpy
+    # via h5py
+    # via keras
     # via librosa
     # via matplotlib
     # via mcu
+    # via ml-dtypes
     # via numba
     # via pandas
     # via scikit-learn
     # via scipy
     # via seaborn
     # via soxr
+    # via tensorboard
+    # via tensorflow
+opt-einsum==3.4.0
+    # via tensorflow
+optree==0.14.0
+    # via keras
 ordered-set==4.1.0
     # via flask-limiter
 overrides==7.7.0
@@ -279,12 +320,16 @@ packaging==24.1
     # via jupyter-server
     # via jupyterlab
     # via jupyterlab-server
+    # via keras
+    # via keras-tuner
     # via lazy-loader
     # via limits
     # via matplotlib
     # via nbconvert
     # via plotly
     # via pooch
+    # via tensorboard
+    # via tensorflow
 pandas==2.2.2
     # via seaborn
 pandocfilters==1.5.1
@@ -306,6 +351,9 @@ prometheus-client==0.20.0
     # via jupyter-server
 prompt-toolkit==3.0.47
     # via ipython
+protobuf==5.29.3
+    # via tensorboard
+    # via tensorflow
 psutil==6.0.0
     # via ipykernel
 ptyprocess==0.7.0
@@ -367,8 +415,10 @@ referencing==0.35.1
     # via jupyter-events
 requests==2.32.3
     # via jupyterlab-server
+    # via keras-tuner
     # via leaderboard
     # via pooch
+    # via tensorflow
 rfc3339-validator==0.1.4
     # via jsonschema
     # via jupyter-events
@@ -378,6 +428,7 @@ rfc3986-validator==0.1.1
 rich==13.8.0
     # via common
     # via flask-limiter
+    # via keras
 rpds-py==0.20.0
     # via jsonschema
     # via referencing
@@ -394,6 +445,8 @@ send2trash==1.8.3
     # via jupyter-server
 setuptools==73.0.1
     # via jupyterlab
+    # via tensorboard
+    # via tensorflow
     # via zope-event
     # via zope-interface
 simple-websocket==1.0.0
@@ -401,10 +454,14 @@ simple-websocket==1.0.0
 six==1.16.0
     # via apscheduler
     # via asttokens
+    # via astunparse
     # via bleach
     # via eventlet
+    # via google-pasta
     # via python-dateutil
     # via rfc3339-validator
+    # via tensorboard
+    # via tensorflow
 sniffio==1.3.1
     # via anyio
     # via httpx
@@ -422,6 +479,15 @@ stack-data==0.6.3
     # via ipython
 tenacity==9.0.0
     # via plotly
+tensorboard==2.18.0
+    # via tensorflow
+tensorboard-data-server==0.7.2
+    # via tensorboard
+tensorflow==2.18.0
+tensorflow-io-gcs-filesystem==0.37.1
+    # via tensorflow
+termcolor==2.5.0
+    # via tensorflow
 terminado==0.18.1
     # via jupyter-server
     # via jupyter-server-terminals
@@ -462,7 +528,9 @@ typing-extensions==4.12.2
     # via ipython
     # via librosa
     # via limits
+    # via optree
     # via pydantic
+    # via tensorflow
 tzdata==2024.1
     # via pandas
 tzlocal==5.2
@@ -483,8 +551,12 @@ websocket-client==1.8.0
 werkzeug==3.0.4
     # via flask
     # via flask-restx
+    # via tensorboard
+wheel==0.45.1
+    # via astunparse
 wrapt==1.16.0
     # via deprecated
+    # via tensorflow
 wsproto==1.2.0
     # via simple-websocket
 wtforms==3.1.2

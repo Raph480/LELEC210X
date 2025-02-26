@@ -1,0 +1,259 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						6,
+						8
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-8370c55c6bd7c1c1e2d1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						7
+					]
+				},
+				{
+					"build" : "include/limesdr_fpga",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-include.limesdr_fpga-Debug-bb2032169750a03a45b3.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "include/limesdr_fpga"
+				},
+				{
+					"build" : "lib",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-lib-Debug-5214d83b86ceab4b89e8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "lib",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "apps",
+					"jsonFile" : "directory-apps-Debug-76fddd1453400e648719.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "apps",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"build" : "docs",
+					"childIndexes" : 
+					[
+						5
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-docs-Debug-c463161ff6ebad611835.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "docs"
+				},
+				{
+					"build" : "docs/doxygen",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-docs.doxygen-Debug-3665c488ed1bb4706151.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 0,
+					"source" : "docs/doxygen",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "python",
+					"childIndexes" : 
+					[
+						7
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-python-Debug-4f5fdc0172bfb0631bbb.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "python",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "python/bindings",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-python.bindings-Debug-27858f460d9c583d979d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 0,
+					"source" : "python/bindings",
+					"targetIndexes" : 
+					[
+						1,
+						3,
+						4
+					]
+				},
+				{
+					"build" : "grc",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-grc-Debug-0a6d2ddd9470ca0e6a0b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "grc"
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					],
+					"name" : "gr-limesdr_fpga",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 5,
+					"id" : "doxygen_target::@0eb31cab11dfcb11fc01",
+					"jsonFile" : "target-doxygen_target-Debug-0d1bd1443fcc39bc24ac.json",
+					"name" : "doxygen_target",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "extracted_docstrings::@2eea7b98123d8100bb1e",
+					"jsonFile" : "target-extracted_docstrings-Debug-877ce8bfc1676a7bacdd.json",
+					"name" : "extracted_docstrings",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gnuradio-limesdr_fpga::@306ed2d68c6501e8728f",
+					"jsonFile" : "target-gnuradio-limesdr_fpga-Debug-c1f3114fb492da0d2df7.json",
+					"name" : "gnuradio-limesdr_fpga",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "limesdr_fpga_docstrings::@2eea7b98123d8100bb1e",
+					"jsonFile" : "target-limesdr_fpga_docstrings-Debug-686242adc3ef76889aad.json",
+					"name" : "limesdr_fpga_docstrings",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "limesdr_fpga_python::@2eea7b98123d8100bb1e",
+					"jsonFile" : "target-limesdr_fpga_python-Debug-99177b025003e456db23.json",
+					"name" : "limesdr_fpga_python",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "pygen_apps_9a6dd::@9e189ee61a034fc9b705",
+					"jsonFile" : "target-pygen_apps_9a6dd-Debug-00252afc077d5bf0085f.json",
+					"name" : "pygen_apps_9a6dd",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "pygen_python_63469::@e1ac5446165bc0cf31e4",
+					"jsonFile" : "target-pygen_python_63469-Debug-eb23fbe01ed555595fcf.json",
+					"name" : "pygen_python_63469",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Debug-e16cd9423c740a9d1c85.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/build",
+		"source" : "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

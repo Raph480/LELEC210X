@@ -1,0 +1,44 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"docs/doxygen/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 42,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "share/doc/gr-limesdr_fpga",
+			"paths" : 
+			[
+				"/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/build/docs/doxygen/xml",
+				"/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/build/docs/doxygen/html"
+			],
+			"type" : "directory"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "docs/doxygen",
+		"source" : "docs/doxygen"
+	}
+}

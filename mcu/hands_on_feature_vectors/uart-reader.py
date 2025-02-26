@@ -11,7 +11,7 @@ import serial
 from serial.tools import list_ports
 import pickle
 
-from classification.Random_Forest import final_model
+from classification.Q1.Random_Forest import final_model
 from classification.utils.plots import plot_specgram
 
 

@@ -1,7 +1,7 @@
 import os
 import random
 import time
-from src.classification.utils.audio_student import AudioUtil  # Importing AudioUtil
+from classification.src.classification.Q2.audio_student import AudioUtil  # Importing AudioUtil
 
 def play_wav_files(folder_path, play_random=False, delay=0, log_file="play_log.txt"):
     """

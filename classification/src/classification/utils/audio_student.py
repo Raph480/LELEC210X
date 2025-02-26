@@ -415,7 +415,7 @@ class Feature_vector_DS:
             fv = self.pca.transform([fv])[0]
         return fv
 
-    def display(self, cls_index: Tuple[str, int]):
+    def display(self, cls_index: Tuple[str, int], show_img = False):
         """
         Play sound and display i'th item in dataset.
 
@@ -423,17 +423,19 @@ class Feature_vector_DS:
         """
         audio = self.get_audiosignal(cls_index)
         AudioUtil.play(audio)
-        plt.figure(figsize=(4, 3))
-        plt.imshow(
-            AudioUtil.melspectrogram(audio, Nmel=self.nmel, Nft=self.Nft),
-            cmap="jet",
-            origin="lower",
-            aspect="auto",
-        )
-        plt.colorbar()
-        plt.title(audio)
-        plt.title(self.dataset.__getname__(cls_index))
-        plt.show()
+        if show_img:
+            plt.figure(figsize=(4, 3))
+            plt.imshow(
+                AudioUtil.melspectrogram(audio, Nmel=self.nmel, Nft=self.Nft),
+                cmap="jet",
+                origin="lower",
+                aspect="auto",
+            )
+                
+            plt.colorbar()
+            plt.title(audio)
+            plt.title(self.dataset.__getname__(cls_index))
+            plt.show()
 
     def mod_data_aug(self, data_aug) -> None:
         """

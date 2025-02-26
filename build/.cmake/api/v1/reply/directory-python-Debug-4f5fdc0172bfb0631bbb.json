@@ -1,0 +1,68 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install",
+			"GR_PYTHON_INSTALL"
+		],
+		"files" : 
+		[
+			"/usr/lib/x86_64-linux-gnu/cmake/gnuradio/GrPython.cmake",
+			"python/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 22,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 197,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 251,
+				"parent" : 1
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "lib/python3.10/dist-packages/limesdr_fpga",
+			"paths" : 
+			[
+				"python/__init__.py"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "Unspecified",
+			"destination" : "lib/python3.10/dist-packages/limesdr_fpga",
+			"paths" : 
+			[
+				"/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/build/python/__init__.pyc",
+				"/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/build/python/__init__.pyo"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "python",
+		"source" : "python"
+	}
+}
