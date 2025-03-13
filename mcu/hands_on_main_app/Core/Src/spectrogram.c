@@ -19,6 +19,7 @@ q15_t buf_tmp[  SAMPLES_PER_MELVEC/2]; // Intermediate buffer for arm_mat_mult_f
 // Convert 12-bit DC ADC samples to Q1.15 fixed point signal and remove DC component
 void Spectrogram_Format(q15_t *buf)
 {
+	//printf("\nBuf:%d,%d,%d,%d,%d",buf[0],buf[1],buf[2],buf[3],buf[4]);
 	// STEP 0.1 : Increase fixed-point scale
 	//            --> Pointwise shift
 	//            Complexity: O(N)
@@ -44,6 +45,7 @@ void Spectrogram_Format(q15_t *buf)
 	for(uint16_t i=0; i < SAMPLES_PER_MELVEC; i++) { // Remove DC component
 		buf[i] -= (1 << 14);
 	}
+	//printf("\nBuf_formatted:%d,%d,%d,%d,%d",buf[0],buf[1],buf[2],buf[3],buf[4]);
 }
 
 // Compute spectrogram of samples and transform into MEL vectors.

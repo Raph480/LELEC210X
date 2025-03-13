@@ -44,7 +44,8 @@ static void print_spectrogram(void) {
 	for(unsigned int j=0; j < N_MELVECS; j++) {
 		DEBUG_PRINT("FV #%u:\t", j+1);
 		for(unsigned int i=0; i < MELVEC_LENGTH; i++) {
-			DEBUG_PRINT("%.2f, ", q15_to_float(mel_vectors[j][i]));
+			//DEBUG_PRINT("%.2f, ", q15_to_float(mel_vectors[j][i]));
+			DEBUG_PRINT("%d, ", mel_vectors[j][i]);
 		}
 		DEBUG_PRINT("\r\n");
 	}

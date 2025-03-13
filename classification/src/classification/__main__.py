@@ -5,6 +5,8 @@ import time
 import click
 import numpy as np
 import matplotlib.pyplot as plt
+import requests
+import json
 
 import common
 from auth import PRINT_PREFIX
@@ -12,6 +14,8 @@ from common.env import load_dotenv
 from common.logging import logger
 from classification.utils import payload_to_melvecs
 from classification.utils.plots import plot_specgram
+
+from tensorflow.keras.models import load_model
 
 load_dotenv()
 
@@ -54,8 +58,12 @@ def main(
     """
     if model:
         with open(model, "rb") as file:
-            model_rf = pickle.load(file)
-            print(f"Model {type(model_rf).__name__} loaded successfully.")
+            #try:
+                model = load_model('model.h5')
+                print(f"Model {type(model).__name__} loaded successfully.")
+            #except:
+            #    model_rf = pickle.load(file)
+            #    print(f"Model {type(model_rf).__name__} loaded successfully.")
     else:
         logger.warning("No model provided, skipping classification.")
         return
@@ -70,7 +78,7 @@ def main(
         for payload in _input:
             if PRINT_PREFIX in payload:
                 payload = payload[len(PRINT_PREFIX):]
-                melvec = payload_to_melvecs(payload, melvec_length, n_melvecs)
+                melvec = payload_to_melvecs(payload, melvec_length, n_melvecs) # *32768 to match the original q15_t values
                 logger.info(f"Parsed payload into Mel vectors: {melvec}")
 
                 msg_counter += 1
@@ -81,17 +89,25 @@ def main(
                 fv = fv / np.linalg.norm(fv)
 
                 # Make prediction
-                pred = model_rf.predict(fv)
-                proba = model_rf.predict_proba(fv)
-                predicted_class = pred[0]
+                #pred = model_rf.predict(fv)
+                #proba = model_rf.predict_proba(fv)
+                #predicted_class = pred[0]
+
+                # Make prediction
+                proba = model.predict(fv)
+                predicted_class = np.argmax(proba, axis=1)[0]
+                class_names = ["chainsaw", "fire", "fireworks", "gun"]
+                predicted_class = class_names[predicted_class]
                 print(f"Predicted class: {predicted_class}")
                 print(f"Predicted probabilities: {proba}")
+
 
                 # Log prediction
                 log.write(f"{msg_counter}\t{predicted_class}\n")
 
                 # Optional: Visualization
-                class_names = model_rf.classes_
+
+                #class_names = model_rf.classes_
                 probabilities = np.round(proba[0] * 100, 2)
                 max_len = max(len(name) for name in class_names)
                 class_names_str = " ".join([f"{name:<{max_len}}" for name in class_names])
@@ -110,6 +126,21 @@ def main(
                 plt.draw()
                 plt.pause(0.1)
                 plt.clf()
+
+                #hostname = "http://localhost:5000"
+                #key = "v_JARGcUgZRmCgToaK9Y-uZgmCYNBSgekgQk21cm"
+                hostname = "http://lelec210x.sipr.ucl.ac.be"
+                key = "c6yuOmUKKbKAS4lRa7vQ9clME3bGTSWUvS4N26af"
+                guess = predicted_class
+
+                #response = requests.post(f"{hostname}/lelec210x/leaderboard/submit/{key}/{guess}", timeout=1)
+
+                # N.B.: the timeout is generally a good idea to avoid blocking infinitely (if an error occurs)
+                # but you can change its value. Note a too small value may not give the server enough time
+                # to reply.
+
+                # All responses are JSON dictionaries
+                #response_as_dict = json.loads(response.text)
 
                 # Wait for 5 seconds before processing the next prediction
                 time.sleep(5)

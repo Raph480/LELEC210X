@@ -11,7 +11,7 @@
 #define MAIN_APP 0
 #define EVAL_RADIO 1
 
-#define RUN_CONFIG EVAL_RADIO
+#define RUN_CONFIG MAIN_APP
 
 // Radio parameters
 #define ENABLE_RADIO 1
@@ -32,7 +32,7 @@
 #define PERF_COUNT 0
 
 // Enable debug print
-#define DEBUGP 0
+#define DEBUGP 1
 
 #if (DEBUGP == 1)
 #define DEBUG_PRINT(...) do{ printf(__VA_ARGS__ ); } while( 0 )
