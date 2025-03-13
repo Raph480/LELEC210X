@@ -14,8 +14,6 @@
 -e file:common
 -e file:contrib
 -e file:leaderboard
-<<<<<<< HEAD
--e file:mcu
 absl-py==2.1.0
     # via keras
     # via tensorboard
@@ -74,10 +72,6 @@ click==8.1.7
     # via common
     # via flask
     # via leaderboard
-<<<<<<< HEAD
-    # via mcu
-=======
->>>>>>> upstream/main
 colorama==0.4.6
     # via click
     # via ipython
@@ -305,8 +299,6 @@ numpy==2.0.2
     # via keras
     # via librosa
     # via matplotlib
-<<<<<<< HEAD
-    # via mcu
     # via ml-dtypes
 =======
 >>>>>>> upstream/main
@@ -475,9 +467,6 @@ soxr==0.5.0
     # via librosa
 stack-data==0.6.3
     # via ipython
-<<<<<<< HEAD
-tenacity==9.0.0
-    # via plotly
 tensorboard==2.18.0
     # via tensorflow-intel
 tensorboard-data-server==0.7.2

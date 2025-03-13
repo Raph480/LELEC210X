@@ -14,8 +14,6 @@
 -e file:common
 -e file:contrib
 -e file:leaderboard
-<<<<<<< HEAD
--e file:mcu
 absl-py==2.1.0
     # via keras
     # via tensorboard
@@ -77,10 +75,6 @@ click==8.1.8
     # via contrib
     # via flask
     # via leaderboard
-<<<<<<< HEAD
-    # via mcu
-=======
->>>>>>> upstream/main
 colorama==0.4.6
     # via click
     # via ipython
@@ -317,12 +311,11 @@ numba==0.60.0
     # via librosa
 numpy==2.0.2
     # via contourpy
-<<<<<<< HEAD
+    # via contrib
     # via h5py
     # via keras
     # via librosa
     # via matplotlib
-    # via mcu
     # via ml-dtypes
 =======
     # via contrib
@@ -511,9 +504,6 @@ soxr==0.5.0
     # via librosa
 stack-data==0.6.3
     # via ipython
-<<<<<<< HEAD
-tenacity==9.0.0
-    # via plotly
 tensorboard==2.18.0
     # via tensorflow-intel
 tensorboard-data-server==0.7.2
@@ -604,7 +594,7 @@ wsproto==1.2.0
     # via simple-websocket
 wtforms==3.1.2
     # via flask-wtf
-youtube-dl @ git+https://github.com/ytdl-org/youtube-dl.git@673277e510ebd996b62a2fcc76169bf3cce29910
+youtube-dl @ git+https://github.com/ytdl-org/youtube-dl.git@420d53387cff54ea1fccca061438d59bdb50a39c
 zipp==3.20.1
     # via importlib-metadata
     # via importlib-resources
