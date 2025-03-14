@@ -1,9 +1,9 @@
-from classification.utils.audio_student import AudioUtil, Feature_vector_DS
+from classification.Q2.audio_student import AudioUtil, Feature_vector_DS
 import matplotlib.pyplot as plt
 import numpy as np
 
 #from classification.Q1.model_utils import *
-from classification.utils.audio_student import AudioUtil, Feature_vector_DS
+from classification.Q2.audio_student import AudioUtil, Feature_vector_DS
 
 def get_dataset(Nft=512, nmel=20, duration=950, normalize=True, shift_pct=0, verbose=False):
     """

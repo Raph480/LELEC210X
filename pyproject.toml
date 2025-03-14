@@ -10,6 +10,7 @@ version = "0.1.0"
 dependencies = [
     "tensorflow>=2.18.0",
     "keras-tuner>=1.4.7",
+    "pathlib>=1.0.1",
 ]
 
 [tool.ruff]

@@ -9,7 +9,7 @@ import time
 
 import pickle
 from classification.datasets import Dataset
-from classification.utils.audio_student import AudioUtil, Feature_vector_DS
+from classification.Q2.audio_student import AudioUtil, Feature_vector_DS
 from classification.utils.plots import (
     plot_decision_boundaries,
     plot_specgram,

@@ -336,6 +336,7 @@ pandocfilters==1.5.1
     # via nbconvert
 parso==0.8.4
     # via jedi
+pathlib==1.0.1
 pexpect==4.9.0
     # via ipython
 pillow==10.4.0

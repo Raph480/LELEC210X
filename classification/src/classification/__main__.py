@@ -15,6 +15,9 @@ from classification.utils.plots import plot_specgram
 
 from tensorflow.keras.models import load_model
 
+
+#TODO: Thresholding to sound detection to avoid sending packets every 5s
+
 load_dotenv()
 
 # Constants
@@ -75,6 +78,7 @@ def main(
 
         for payload in _input:
             if PRINT_PREFIX in payload:
+
                 payload = payload[len(PRINT_PREFIX):]
                 melvec = payload_to_melvecs(payload, melvec_length, n_melvecs)
                 logger.info(f"Parsed payload into Mel vectors: {melvec}")
@@ -82,16 +86,22 @@ def main(
                 msg_counter += 1
                 print(f"MEL Spectrogram #{msg_counter}")
 
+
                 # Reshape and normalize feature vector
                 fv = melvec.reshape(1, -1)
                 fv = fv / np.linalg.norm(fv)
 
                 # Make prediction
-                pred = model_rf.predict(fv)
-                proba = model_rf.predict_proba(fv)
-                predicted_class = pred[0]
+                #pred = model_rf.predict(fv)
+                #proba = model_rf.predict_proba(fv)
+                #predicted_class = pred[0]
+
+                # Make prediction
+                proba = model.predict(fv)
+                predicted_class = np.argmax(proba, axis=1)[0]
                 print(f"Predicted class: {predicted_class}")
                 print(f"Predicted probabilities: {proba}")
+
 
                 # Log prediction
                 log.write(f"{msg_counter}\t{predicted_class}\n")

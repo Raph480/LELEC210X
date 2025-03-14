@@ -36,6 +36,13 @@ class Dataset:
         :param format: The sound files format, use
             `'*'` to include all formats.
         """
+        
+        if isinstance(folder, str):
+            folder = Path(folder)  # Convert string to Path object
+
+        if not folder.exists() or not folder.is_dir():
+            raise FileNotFoundError(f"Error: The folder '{folder}' does not exist or is not a directory.")
+
         files = {}
 
         for file in sorted(folder.glob("**/*." + format)):
