@@ -21,7 +21,10 @@ def get_cls_from_path(file: Path) -> str:
 
 class Dataset:
     def __init__(
-        self, folder: Path = Path(__file__).parent / "soundfiles", format: str = "wav"
+        self, 
+        folder: Path = Path(__file__).parent / "soundfiles", 
+        format: str = "wav",
+        filter_str: str = None,
     ):
         """
         Initialize a dataset from a given folder, including
@@ -46,8 +49,14 @@ class Dataset:
         files = {}
 
         for file in sorted(folder.glob("**/*." + format)):
-            cls = get_cls_from_path(file)
-            files.setdefault(cls, []).append(file)
+            if filter_str:
+                if filter_str in file.stem:
+                    cls = get_cls_from_path(file)
+                    files.setdefault(cls, []).append(file)
+            else:
+                if "background" not in file.stem or "merged" in file.stem:
+                    cls = get_cls_from_path(file)
+                    files.setdefault(cls, []).append(file)
 
         self.files = files
         self.nclass = len(files)

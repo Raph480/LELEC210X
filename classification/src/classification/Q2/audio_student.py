@@ -400,7 +400,6 @@ class Feature_vector_DS:
                 aud = AudioUtil.time_shift(aud, self.shift_pct)  
                 #print("time shift")          
             if ("add_bg" in self.data_aug):
-                #print("add bg")
                 ds_bg = self.bg_dataset
                 aud = AudioUtil.add_bg(
                     aud,
