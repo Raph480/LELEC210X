@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_15a3c2bd19b76b41c47686a6220883ec" kind="dir">
+    <compoundname>bindings</compoundname>
+    <innerdir refid="dir_8ee9bd8ce8fab1a6036fc185978d501a">docstrings</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/"/>
+  </compounddef>
+</doxygen>

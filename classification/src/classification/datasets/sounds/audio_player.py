@@ -36,6 +36,8 @@ def play_wav_files(folder_path, play_random=False, delay=0, log_file="play_log.t
         
         for index, wav_file in enumerate(wav_files, start=0):
             if index >= 120:
+            #if (0 <= index <= 10) or (40 <= index <= 50) or (80 <= index <= 90) or (120 <= index <= 130):
+
                 file_path = os.path.join(folder_path, wav_file)
                 
                 # Extract class name (portion before the first '_')
@@ -67,5 +69,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
-    folder = 'soundfiles'
+    folder = 'Q2_sounds'
     play_wav_files(folder, args.random, args.delay, args.log)

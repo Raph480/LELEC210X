@@ -77,6 +77,15 @@ class AudioUtil:
 
         return (resig, newsr)
 
+    @staticmethod
+    def compute_energy(signal, frame_size):
+        """Compute short-term energy of the signal. Used for the pad_trunc function."""
+        energy = np.array([
+            np.sum(signal[i : i + frame_size] ** 2)
+            for i in range(0, len(signal) - frame_size, frame_size // 2)
+        ])
+        return energy
+
     def pad_trunc(audio, max_ms) -> Tuple[ndarray, int]:
         """
         Pad (or truncate) the signal to a fixed length 'max_ms' in milliseconds.
@@ -91,9 +100,34 @@ class AudioUtil:
         if sig_len > max_len:
             # Truncate the signal to the given length at random position
             # begin_len = random.randint(0, max_len)
-            begin_len = 0
-            sig = sig[begin_len : begin_len + max_len]
+            #begin_len = 0
+            #sig = sig[begin_len : begin_len + max_len]
+            
+            # Compute short-term energy
+            frame_size = int(sr * 0.02)  # 20ms frames
+            energy = AudioUtil.compute_energy(sig, frame_size)
 
+            # Find high-energy regions
+            threshold = np.percentile(energy, 90)  # Top 30% energy
+            high_energy_indices = np.where(energy >= threshold)[0]
+
+            if len(high_energy_indices) > 0:
+                best_start = high_energy_indices[0] * (frame_size // 2)
+            else:
+                best_start = 0  # Fallback to the beginning
+
+            # Randomly select a start point between 10% and 70% of the final signal
+            # Calculate the range for random offset
+            min_offset = int(0.1 * max_len)  # 10% of max_len
+            max_offset = int(0.7 * max_len)  # 70% of max_len
+
+            # Apply a random offset within this range
+            random_offset = np.random.randint(min_offset, max_offset)
+
+            # Ensure we don't start before the beginning of the signal
+            begin_len = max(0, min(best_start - random_offset, sig_len - max_len))
+            sig = sig[begin_len : begin_len + max_len]
+            
         elif sig_len < max_len:
             # Length of padding to add at the beginning and end of the signal
             pad_begin_len = random.randint(0, max_len - sig_len)
@@ -347,7 +381,9 @@ class Feature_vector_DS:
         Nft=512, # Number of points of the FFT, x axis
         nmel=20, # Number of mel bands, y axis
         duration=500, #duration of the audio signal 
-        shift_pct=0.4, # percentage of total
+        fs=11025, # sampling rate
+
+        shift_pct=0, # percentage of total
         normalize=False, # Normalize the energy of the signal
         data_aug=None, # Data augmentation options
         pca=None, # PCA object

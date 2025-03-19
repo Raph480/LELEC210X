@@ -1,0 +1,305 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="sink__fpga__pydoc__template_8h" kind="file" language="C++">
+    <compoundname>sink_fpga_pydoc_template.h</compoundname>
+    <includes local="yes">pydoc_macros.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>sink_fpga_pydoc_template.h</label>
+        <link refid="sink__fpga__pydoc__template_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>pydoc_macros.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="sink__fpga__pydoc__template_8h_1a74021f021dcdfbb22891787b79c5529d" prot="public" static="no">
+        <name>D</name>
+        <param><defname>...</defname></param>
+        <initializer><ref refid="build_2python_2bindings_2pydoc__macros_8h_1a4e578031ec998eaeb933d5caa6a7d28a" kindref="member">DOC</ref>(gr,limesdr_fpga, __VA_ARGS__ )</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="6" column="10" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a6e7a96c9f4ece62cbab26f0eacc2c576" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="15" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a9fbab7b2a0523adb8dbc341981d7595b" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_sink_0</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_sink_0</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="18" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a6b4ee8bd2e2dcb21e63be6f4cd344bb6" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_sink_1</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_sink_1</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="21" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a339fe93db9517fa84e93830dcf3a9d4f" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_make</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_make</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="24" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a409da2b4f3c2f371852f3870f818dc4c" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_set_center_freq</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_set_center_freq</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="27" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a8f6ee13ca77cda01b8e80e201c71f345" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_set_antenna</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_set_antenna</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="30" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a3a45cca43f2fd03d08cfc1deb39d6f05" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_set_nco</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_set_nco</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="33" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1ae9b3685be2edf1b4723a3bb2b867b18d" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_set_bandwidth</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_set_bandwidth</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="36" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1ac24566c8e8c53c3b5a696d1b59e30b48" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_set_digital_filter</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_set_digital_filter</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="39" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a1d2b54920a071a8decf334db49e5de2b" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_set_gain</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_set_gain</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="42" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a3ed8cb876f704210af129a8b4fa24e7a" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_set_sample_rate</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_set_sample_rate</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="45" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1ab499aaed5c38f04e40cf45c910d4b9d2" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_set_oversampling</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_set_oversampling</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="48" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a87a34948706716e5017623ca6e43721a" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_calibrate</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_calibrate</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="51" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a4f6ed6867edc7e7ce38701ea4cf7b516" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_set_buffer_size</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_set_buffer_size</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="54" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a91ac61eaa632a11830297a34eec2ede6" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_set_tcxo_dac</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_set_tcxo_dac</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="57" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1aa80390fc05b6b06bef721deec5cb3267" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_write_lms_reg</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_write_lms_reg</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="60" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1ab0cea1c2ae81d162865866ab6d2e9911" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_set_gpio_dir</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_set_gpio_dir</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="63" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1a8259476055c1eb7064245c32f2048585" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_write_gpio</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_write_gpio</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="66" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sink__fpga__pydoc__template_8h_1acf1960b0139c220f747d131e0b98f223" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* __doc_gr_limesdr_fpga_sink_fpga_read_gpio</definition>
+        <argsstring></argsstring>
+        <name>__doc_gr_limesdr_fpga_sink_fpga_read_gpio</name>
+        <initializer>= R&quot;doc()doc&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" line="69" column="20" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/sink_fpga_pydoc_template.h"/>
+  </compounddef>
+</doxygen>

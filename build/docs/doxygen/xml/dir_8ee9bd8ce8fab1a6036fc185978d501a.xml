@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_8ee9bd8ce8fab1a6036fc185978d501a" kind="dir">
+    <compoundname>docstrings</compoundname>
+    <innerfile refid="sink__fpga__pydoc__template_8h">sink_fpga_pydoc_template.h</innerfile>
+    <innerfile refid="source__fpga__pydoc__template_8h">source_fpga_pydoc_template.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/python/bindings/docstrings/"/>
+  </compounddef>
+</doxygen>

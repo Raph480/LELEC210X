@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="sink__fpga__impl_8h" kind="file" language="C++">
+    <compoundname>sink_fpga_impl.h</compoundname>
+    <includes refid="device__handler__fpga_8h" local="yes">device_handler_fpga.h</includes>
+    <includes refid="sink__fpga_8h" local="no">limesdr_fpga/sink_fpga.h</includes>
+    <incdepgraph>
+      <node id="9">
+        <label>list</label>
+      </node>
+      <node id="14">
+        <label>stdint.h</label>
+      </node>
+      <node id="5">
+        <label>gnuradio/logger.h</label>
+      </node>
+      <node id="7">
+        <label>cmath</label>
+      </node>
+      <node id="16">
+        <label>gnuradio/sync_block.h</label>
+      </node>
+      <node id="11">
+        <label>string</label>
+      </node>
+      <node id="18">
+        <label>gnuradio/attributes.h</label>
+      </node>
+      <node id="3">
+        <label>lime/LimeSuite.h</label>
+      </node>
+      <node id="1">
+        <label>sink_fpga_impl.h</label>
+        <link refid="sink__fpga__impl_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>vector</label>
+      </node>
+      <node id="4">
+        <label>lime/limeRFE.h</label>
+      </node>
+      <node id="6">
+        <label>math.h</label>
+      </node>
+      <node id="8">
+        <label>iostream</label>
+      </node>
+      <node id="17">
+        <label>limesdr_fpga/api.h</label>
+        <link refid="api_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>fpga_register_map.h</label>
+        <link refid="fpga__register__map_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>device_handler_fpga.h</label>
+        <link refid="device__handler__fpga_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>mutex</label>
+      </node>
+      <node id="15">
+        <label>limesdr_fpga/sink_fpga.h</label>
+        <link refid="sink__fpga_8h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl" prot="public">gr::limesdr_fpga::sink_fpga_impl</innerclass>
+    <innerclass refid="structgr_1_1limesdr__fpga_1_1sink__fpga__impl_1_1constant__data" prot="private">gr::limesdr_fpga::sink_fpga_impl::constant_data</innerclass>
+    <innernamespace refid="namespacegr">gr</innernamespace>
+    <innernamespace refid="namespacegr_1_1limesdr__fpga">gr::limesdr_fpga</innernamespace>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="sink__fpga__impl_8h_1ad6ad3ffdbfa8f7a181221fb2b7b221a7" prot="public" static="yes" mutable="no">
+        <type>const pmt::pmt_t</type>
+        <definition>const pmt::pmt_t TIME_TAG</definition>
+        <argsstring></argsstring>
+        <name>TIME_TAG</name>
+        <initializer>= pmt::string_to_symbol(&quot;tx_time&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/sink_fpga_impl.h" line="28" column="25" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/sink_fpga_impl.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/sink_fpga_impl.h"/>
+  </compounddef>
+</doxygen>

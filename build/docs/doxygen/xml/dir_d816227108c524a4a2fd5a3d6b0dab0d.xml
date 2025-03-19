@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_d816227108c524a4a2fd5a3d6b0dab0d" kind="dir">
+    <compoundname>doxygen</compoundname>
+    <innerdir refid="dir_0c944f7a7d962be07819ccdeba6022f2">other</innerdir>
+    <innerfile refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h">telecom/gr-limesdr-3-10/docs/doxygen/pydoc_macros.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/docs/doxygen/"/>
+  </compounddef>
+</doxygen>

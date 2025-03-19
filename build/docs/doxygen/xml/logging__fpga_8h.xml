@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="logging__fpga_8h" kind="file" language="C++">
+    <compoundname>logging_fpga.h</compoundname>
+    <includes local="no">lime/Logger.h</includes>
+    <includes local="no">gnuradio/logger.h</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>lime/Logger.h</label>
+      </node>
+      <node id="3">
+        <label>gnuradio/logger.h</label>
+      </node>
+      <node id="1">
+        <label>logging_fpga.h</label>
+        <link refid="logging__fpga_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="logging__fpga_8h_1ade3d4e46b0113420d5b03f5db82de945" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void set_limesuite_logger</definition>
+        <argsstring>(void)</argsstring>
+        <name>set_limesuite_logger</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/logging_fpga.h" line="29" column="6" declfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/logging_fpga.h" declline="29" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="logging__fpga_8h_1a00c2de46f1c3297c220670c7cfab4d1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void suppress_limesuite_logging</definition>
+        <argsstring>(void)</argsstring>
+        <name>suppress_limesuite_logging</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/logging_fpga.h" line="32" column="6" declfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/logging_fpga.h" declline="32" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/logging_fpga.h"/>
+  </compounddef>
+</doxygen>
