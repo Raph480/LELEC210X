@@ -37,6 +37,7 @@ class Dataset:
             `'*'` to include all formats.
         """
         files = {}
+        self.size = 0
 
         for file in sorted(folder.glob("**/*." + format)):
             cls = get_cls_from_path(file)

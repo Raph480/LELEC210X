@@ -9,6 +9,9 @@ import soundfile as sf
 from numpy import ndarray
 from scipy.signal import fftconvolve
 from scipy import signal
+
+import classification.utils.mcu_emulation as mcu
+
 # -----------------------------------------------------------------------------
 """
 Synthesis of the classes in :
@@ -23,14 +26,17 @@ class AudioUtil:
     Define a new class with util functions to process an audio signal.
     """
 
-    def open(audio_file) -> Tuple[ndarray, int]:
+    def open(audio_file, dtype=np.int16) -> Tuple[ndarray, int]:
         """
         Load an audio file.
 
         :param audio_file: The path to the audio file.
         :return: The audio signal as a tuple (signal, sample_rate).
         """
-        sig, sr = sf.read(audio_file)
+        # data, sr = sf.read("birds_00.wav", dtype=np.int16)
+        # return (data, sr)
+
+        sig, sr = sf.read(audio_file, dtype=dtype)
         if sig.ndim > 1:
             sig = sig[:, 0]
         return (sig, sr)
@@ -74,7 +80,6 @@ class AudioUtil:
 
         # Resample the signal using scipy.signal.resample
         resig = signal.resample(sig, new_len)
-
         return (resig, newsr)
 
     def pad_trunc(audio, max_ms) -> Tuple[ndarray, int]:
@@ -330,19 +335,33 @@ class Feature_vector_DS:
     def __init__(
         self,
         dataset,
-        Nft=512, # Number of points of the FFT, x axis
-        nmel=20, # Number of mel bands, y axis
-        duration=500, #duration of the audio signal 
+        N_melvec = 20, # Number of mel bands
+        melvec_length = 20, # Length of each mel band
+        samples_per_melvec = 512, # Number of samples per mel band = Nft
+        window_type = "hamming", # Type of window
+        sr = 11025, # Sampling frequency
+        dtype = np.int16, # Data type
+        
+    #     Nft=512, # Number of points of the FFT, x axis
+    #     nmel=20, # Number of mel bands, y axis
+    #     duration=500, #duration of the audio signal 
         shift_pct=0.4, # percentage of total
         normalize=False, # Normalize the energy of the signal
         data_aug=None, # Data augmentation options
         pca=None, # PCA object
     ):
         self.dataset = dataset
-        self.Nft = Nft
-        self.nmel = nmel
-        self.duration = duration  # ms
-        self.sr = 11025 # sampling rate
+        self.N_melvec = N_melvec
+        self.melvec_length = melvec_length
+        self.samples_per_melvec = samples_per_melvec
+        self.window_type = window_type
+        self.sr = sr
+        self.dtype = dtype
+        # self.Nft = Nft
+        # self.nmel = nmel
+        # self.duration = duration  # ms
+        # self.sr = 11025 # sampling rate
+        self.duration = N_melvec * samples_per_melvec / sr * 1000
         self.shift_pct = shift_pct  # percentage of total
         self.normalize = normalize
         self.data_aug = data_aug
@@ -351,9 +370,9 @@ class Feature_vector_DS:
             self.data_aug_factor += len(self.data_aug)
         else:
             self.data_aug = [self.data_aug]
-        self.ncol = int(
-            self.duration * self.sr / (1e3 * self.Nft)
-        )  # number of columns in melspectrogram
+        # self.ncol = int(
+        #     self.duration * self.sr / (1e3 * self.Nft)
+        # )  # number of columns in melspectrogram
         self.pca = pca
 
     def __len__(self) -> int:
@@ -373,6 +392,7 @@ class Feature_vector_DS:
         aud = AudioUtil.resample(aud, self.sr)
         aud = AudioUtil.time_shift(aud, self.shift_pct)
         aud = AudioUtil.pad_trunc(aud, self.duration)
+        return aud # la suite est-elle utile ?
         if self.data_aug is not None:
             if "add_bg" in self.data_aug:
                 aud = AudioUtil.add_bg(
@@ -389,8 +409,8 @@ class Feature_vector_DS:
             if "scaling" in self.data_aug:
                 aud = AudioUtil.scaling(aud, scaling_limit=5)
 
-        # aud = AudioUtil.normalize(aud, target_dB=10)
-        aud = (aud[0] / np.max(np.abs(aud[0])), aud[1])
+        # aud = AudioUtil.normalize(aud, target_dB=10) # we cannot normalize the signal here, because we need to normalize the spectrogram
+        #aud = (aud[0] / np.max(np.abs(aud[0])), aud[1])
         return aud
 
     def __getitem__(self, cls_index: Tuple[str, int]) -> Tuple[ndarray, int]:
@@ -399,16 +419,20 @@ class Feature_vector_DS:
 
         :param cls_index: Class name and index.
         """
-        aud = self.get_audiosignal(cls_index)
-        sgram = AudioUtil.melspectrogram(aud, Nmel=self.nmel, Nft=self.Nft)
+        
+        aud = self.get_audiosignal(cls_index)[0]
+        #sgram = AudioUtil.melspectrogram(aud, Nmel=self.nmel, Nft=self.Nft)
+        sgram = mcu.melspectrogram(audio=aud, N_melvec=self.N_melvec, melvec_length=self.melvec_length, samples_per_melvec=self.samples_per_melvec, N_Nft=self.samples_per_melvec, window_type=self.window_type, sr=self.sr, dtype=self.dtype)
+        
         if self.data_aug is not None:
             if "aug_sgram" in self.data_aug:
                 sgram = AudioUtil.spectro_aug_timefreq_masking(
                     sgram, max_mask_pct=0.1, n_freq_masks=2, n_time_masks=2
                 )
 
-        sgram_crop = sgram[:, : self.ncol]
-        fv = sgram_crop.flatten()  # feature vector
+        #sgram_crop = sgram[:, : self.ncol]
+        #fv = sgram_crop.flatten()  # feature vector
+        fv = sgram.flatten()
         if self.normalize:
             fv /= np.linalg.norm(fv)
         if self.pca is not None:

@@ -36,6 +36,7 @@ def parse_buffer(line):
 
 
 def reader(port=None):
+
     ser = serial.Serial(port=port, baudrate=115200)
     while True:
         line = ""
@@ -79,11 +80,12 @@ if __name__ == "__main__":
         # Load the model from pickle file
 
         #model_rf = pickle.load(open("../../classification/data/models/final_model_5s_norm.pkl", "rb"))
-        model_rf = pickle.load(open("../../classification/data/models/final_model_with_txt_aug.pkl", "rb"))
-        print(f"Model {type(model_rf).__name__} has been loaded from pickle file.\n")
-
+        #model_rf = pickle.load(open("../../classification/data/models/final_model_with_txt_aug.pkl", "rb"))
+        #print(f"Model {type(model_rf).__name__} has been loaded from pickle file.\n")
+        
         plt.figure(figsize=(8, 6))
         for melvec in input_stream:
+
             melvec = melvec[4:-8]
             msg_counter += 1
 

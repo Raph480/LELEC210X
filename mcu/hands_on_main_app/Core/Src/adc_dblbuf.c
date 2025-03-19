@@ -81,7 +81,7 @@ static void encode_packet(uint8_t *packet, uint32_t* packet_cnt) {
 
 static void send_spectrogram() {
 	uint8_t packet[PACKET_LENGTH];
-
+	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
 	start_cycle_count();
 	encode_packet(packet, &packet_cnt);
 	stop_cycle_count("Encode packet");
@@ -91,6 +91,7 @@ static void send_spectrogram() {
 	stop_cycle_count("Send packet");
 
 	print_encoded_packet(packet);
+	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
 }
 
 static void ADC_Callback(int buf_cplt) {
@@ -119,10 +120,14 @@ static void ADC_Callback(int buf_cplt) {
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {
+	printf("CpltCallback begins\n");
 	ADC_Callback(1);
+	printf("CpltCallback ends\n");
 }
 
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc)
 {
+	printf("HalfCallback begins\n");
 	ADC_Callback(0);
+	printf("HalfCallback end\n");
 }
