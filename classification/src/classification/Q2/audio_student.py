@@ -9,6 +9,9 @@ import soundfile as sf
 from numpy import ndarray
 from scipy.signal import fftconvolve
 from scipy import signal
+
+import mcu_emulation as mcu
+
 # -----------------------------------------------------------------------------
 """
 Synthesis of the classes in :
@@ -30,6 +33,7 @@ class AudioUtil:
         :param audio_file: The path to the audio file.
         :return: The audio signal as a tuple (signal, sample_rate).
         """
+        
         sig, sr = sf.read(audio_file)
         if sig.ndim > 1:
             sig = sig[:, 0]
@@ -56,7 +60,7 @@ class AudioUtil:
         C = np.sqrt(10 ** (target_dB / 10))
         sign *= C
         return (sign, sr)
-
+    
     def resample(audio, newsr=11025) -> Tuple[ndarray, int]:
         """
         Resample to target sampling frequency.
@@ -64,6 +68,7 @@ class AudioUtil:
         :param audio: The audio signal as a tuple (signal, sample_rate).
         :param newsr: The target sampling frequency.
         """
+        
         sig, sr = audio
 
         # Calculate the resampling factor
@@ -74,8 +79,10 @@ class AudioUtil:
 
         # Resample the signal using scipy.signal.resample
         resig = signal.resample(sig, new_len)
+        #resig = signal.resample_poly(sig, newsr, sr)
 
         return (resig, newsr)
+
 
     @staticmethod
     def compute_energy(signal, frame_size):
@@ -142,7 +149,7 @@ class AudioUtil:
 
         return (sig, sr)
 
-    def time_shift(audio, shift_limit=0.4) -> Tuple[ndarray, int]:
+    def time_shift(audio, shift_limit=1) -> Tuple[ndarray, int]:
         """
         Shifts the signal to the left or right by some percent. Values at the end are 'wrapped around' to the start of the transformed signal.
 
@@ -151,7 +158,17 @@ class AudioUtil:
         """
         sig, sr = audio
         sig_len = len(sig)
-        shift_amt = int(random.random() * shift_limit * sig_len)
+
+        # Define min and max shift bounds
+        min_shift = int(0.1 * sig_len)  # minimum 10% shift
+        max_shift = int(shift_limit * sig_len)
+
+        # Avoid edge cases where max_shift < min_shift
+        if max_shift <= min_shift:
+            shift_amt = min_shift  # or just skip shifting
+        else:
+            shift_amt = random.randint(min_shift, max_shift)
+
         return (np.roll(sig, shift_amt), sr)
 
     def scaling(audio, scaling_limit=5) -> Tuple[ndarray, int]:
@@ -223,14 +240,37 @@ class AudioUtil:
         :return: The mixed audio signal and sample rate.
         """
         
-        sig, sr = audio  # Unpack the signal and sample rate
+        #Shift without wrapping around
+        sig, sr = audio
+        sig_len = len(sig)
+
+        # Define min and max shift bounds
+        min_shift = int(0.1 * sig_len)  # minimum 10% shift
+        max_shift = int(0.9 * sig_len)  #maximum 90% shift
+
+        if max_shift <= min_shift:
+            shift_amt = min_shift
+        else:
+            shift_amt = random.randint(min_shift, max_shift)
+
+        # Randomly decide left or right shift
+        direction = random.choice(["left", "right"])
+
+        if direction == "right":
+            shifted = np.zeros_like(sig)
+            shifted[shift_amt:] = sig[:-shift_amt]
+        else:  # left shift
+            shifted = np.zeros_like(sig)
+            shifted[:-shift_amt] = sig[shift_amt:]
+        
+        sig = shifted
 
         for _ in range(num_sources):
             # Randomly select a background sound
             class_name = random.choice(list(dataset.files.keys()))  # Select a random class
             index = random.randint(0, len(dataset.files[class_name]) - 1)  # Select a random index
             bg_audio_path = dataset.__getitem__((class_name, index))  # Retrieve the file path
-
+            
             # Load the background sound
             bg_audio, bg_sr = AudioUtil.open(bg_audio_path)
 
@@ -250,8 +290,18 @@ class AudioUtil:
             else:
                 start_idx = 0  # Use entire background sound if shorter than max_samples
 
+
+            # Normalize the main signal
+            sig_max = np.max(np.abs(sig))  # Get the max amplitude of the main signal
+            bg_audio_max = np.max(np.abs(bg_audio))  # Get the max amplitude of the background sound
+
+            # Normalize both signals to the same amplitude
+            sig = sig / sig_max  # Normalize main signal
+            bg_audio = bg_audio / bg_audio_max  # Normalize background sound
+            
             # Scale amplitude
             bg_audio = bg_audio * amplitude_limit
+
 
             # Ensure it matches the length of the main signal
             if len(bg_audio) < len(sig):
@@ -259,6 +309,9 @@ class AudioUtil:
 
             # Mix background sound into the main signal
             sig = sig + bg_audio[:len(sig)]
+
+            #Denormalize the signal
+            sig = sig * sig_max
 
         return (sig, sr)
 
@@ -378,10 +431,14 @@ class Feature_vector_DS:
         #AJOUTER     
         self,
         dataset,
-        Nft=512, # Number of points of the FFT, x axis
-        nmel=20, # Number of mel bands, y axis
-        duration=500, #duration of the audio signal 
-        fs=11025, # sampling rate
+
+        dtype = np.int16,
+        n_melvec=20, # Number of mel bands, y axis
+        melvec_height=20, # Number of mel bands
+        Nft=512, # Number of points of the FFT, x axis = samples_per_melvec
+        samples_per_melvec=512, # Number of samples per melvec
+        window_type = 'hamming',
+        sr=11025, # sampling rate
 
         shift_pct=0, # percentage of total
         normalize=False, # Normalize the energy of the signal
@@ -391,24 +448,35 @@ class Feature_vector_DS:
         bg_amplitude_limit = 0,
         noise_sigma= 0.001,
         scaling_limit = 5,
+
     ):
-    
+
         self.dataset = dataset
         self.Nft = Nft
-        self.nmel = nmel
-        self.duration = duration  # ms
-        self.sr = 10200 # sampling rate
+        self.n_melvec = n_melvec
+        self.melvec_height = melvec_height
+        #self.samples_per_melvec = samples_per_melvec
+        self.samples_per_melvec = Nft
+        self.duration = n_melvec * Nft / sr * 1000
+        self.sr = sr # sampling rate
+        self.window_type = window_type
+        self.dtype = dtype
+
+
         self.shift_pct = shift_pct  # percentage of total
         self.normalize = normalize
         self.data_aug = data_aug
         self.data_aug_factor = 1
+
         if isinstance(self.data_aug, list):
             self.data_aug_factor += len(self.data_aug)
         else:
             self.data_aug = [self.data_aug]
-        self.ncol = int(
-            self.duration * self.sr / (1e3 * self.Nft)
-        )  # number of columns in melspectrogram
+
+        #self.ncol = int(
+        #    self.duration * self.sr / (1e3 * self.Nft)
+        #)  # number of columns in melspectrogram
+
         self.pca = pca
         self.bg_dataset = bg_dataset
         self.bg_amplitude_limit = bg_amplitude_limit
@@ -428,35 +496,47 @@ class Feature_vector_DS:
         :param cls_index: Class name and index.
         """
         audio_file = self.dataset[cls_index]
-        aud = AudioUtil.open(audio_file)
-        aud = AudioUtil.resample(aud, self.sr)
-        aud = AudioUtil.pad_trunc(aud, self.duration)
+        aud_sr = AudioUtil.open(audio_file)
+        
+        aud_sr = AudioUtil.resample(aud_sr, self.sr)
+        aud_sr = AudioUtil.pad_trunc(aud_sr, self.duration)
+
+        
         if self.data_aug is not None:
             if "time_shift" in self.data_aug:
-                aud = AudioUtil.time_shift(aud, self.shift_pct)  
+                aud_sr = AudioUtil.time_shift(aud_sr, self.shift_pct)  
                 #print("time shift")          
-            if ("add_bg" in self.data_aug):
+            elif ("add_bg" in self.data_aug):
                 ds_bg = self.bg_dataset
-                aud = AudioUtil.add_bg(
-                    aud,
+                aud_sr = AudioUtil.add_bg(
+                    aud_sr,
                     ds_bg,
                     num_sources=1,
                     max_ms=self.duration,
                     amplitude_limit=self.bg_amplitude_limit,
                 )
-            if "add_echo" in self.data_aug:
+            elif "add_echo" in self.data_aug:
                 #print("echo")
-                aud = AudioUtil.add_echo(aud)
-            if "add_noise" in self.data_aug:
+                aud_sr = AudioUtil.add_echo(aud_sr)
+            elif "add_noise" in self.data_aug:
                 #print("noise")
-                aud = AudioUtil.add_noise(aud, sigma=self.noise_sigma)
-            if "scaling" in self.data_aug:
+                aud_sr = AudioUtil.add_noise(aud_sr, sigma=self.noise_sigma)
+            elif "scaling" in self.data_aug:
                 #print("scaling")
-                aud = AudioUtil.scaling(aud, scaling_limit=self.scaling_limit)
+                aud_sr = AudioUtil.scaling(aud_sr, scaling_limit=self.scaling_limit)
 
         # aud = AudioUtil.normalize(aud, target_dB=10)
-        aud = (aud[0] / np.max(np.abs(aud[0])), aud[1])
-        return aud
+        # aud = (aud[0] / np.max(np.abs(aud[0])), aud[1]) Problème si normalisation ici!
+
+        aud = aud_sr[0]
+        sr = aud_sr[1]
+
+        # Convert to fixed point 16 bits - important
+        aud = mcu.float2fixed(aud, maxval=1, dtype=np.int16)
+
+        aud_sr = (aud, sr)  # Convert to tuple (signal, sample_rate)
+
+        return aud_sr
 
     def __getitem__(self, cls_index: Tuple[str, int]) -> Tuple[ndarray, int]:
         """
@@ -464,21 +544,51 @@ class Feature_vector_DS:
 
         :param cls_index: Class name and index.
         """
-        aud = self.get_audiosignal(cls_index)
-        sgram = AudioUtil.melspectrogram(aud, Nmel=self.nmel, Nft=self.Nft)
+        #aud = self.get_audiosignal(cls_index) #POUR MA VERSION
+        #get audio signal donne un tuple( signal, sample_rate)
+        aud_sr = self.get_audiosignal(cls_index) #- RAPHAEL
+        aud = aud_sr[0] #get the signal
+        sr = aud_sr[1] #get the sample rate
+        #Set audio type to int16
+        aud = aud_sr[0].astype(np.int16)
+        
+        #melvec = AudioUtil.melspectrogram(aud, Nmel=self.n_melvec, Nft=self.Nft)
+
+        melspec = mcu.melspectrogram(aud, N_melvec=self.n_melvec, melvec_height=self.melvec_height,
+                                      samples_per_melvec=self.samples_per_melvec, N_Nft=self.Nft,
+                                    window_type=self.window_type, sr=sr, dtype=self.dtype)    
+
+
         if self.data_aug is not None:
-            if "aug_sgram" in self.data_aug:
-                sgram = AudioUtil.spectro_aug_timefreq_masking(
-                    sgram, max_mask_pct=0.1, n_freq_masks=2, n_time_masks=2
+            if "aug_melvec" in self.data_aug:
+                melspec = AudioUtil.spectro_aug_timefreq_masking(
+                    melspec, max_mask_pct=0.1, n_freq_masks=2, n_time_masks=2
                 )
 
-        sgram_crop = sgram[:, : self.ncol]
-        fv = sgram_crop.flatten()  # feature vector
+        #Transform back to float64
+        if self.dtype == np.int8:
+            melspec = mcu.fixed_array_to_float(melspec, 7)
+        elif self.dtype == np.int16:
+            melspec = mcu.fixed_array_to_float(melspec, 15)
+        elif self.dtype == np.int32:
+            melspec = mcu.fixed_array_to_float(melspec, 31)
+        else: 
+            #error
+            raise ValueError("Unsupported dtype: {}".format(self.dtype))
+
+
+        melspec = melspec.T
+        melspec = melspec.flatten()
+
+    
+        #Normalize the melspec between 0 and 1
+        #melvec = (melvec - np.min(melvec)) / (np.max(melvec) - np.min(melvec))
+
         if self.normalize:
-            fv /= np.linalg.norm(fv)
+            melspec /= np.linalg.norm(melspec)
         if self.pca is not None:
-            fv = self.pca.transform([fv])[0]
-        return fv
+            melspec = self.pca.transform([melspec])[0]
+        return melspec
 
     def display(self, cls_index: Tuple[str, int], show_img = False):
         """
@@ -491,7 +601,7 @@ class Feature_vector_DS:
         if show_img:
             plt.figure(figsize=(4, 3))
             plt.imshow(
-                AudioUtil.melspectrogram(audio, Nmel=self.nmel, Nft=self.Nft),
+                mcu.melspectrogram(audio, Nmel=self.n_melvec, Nft=self.Nft),
                 cmap="jet",
                 origin="lower",
                 aspect="auto",
