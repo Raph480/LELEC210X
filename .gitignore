@@ -899,3 +899,9 @@ mcu/Tests/test_raph/Core/Startup/startup_stm32l4a6zgtx.s
 mcu/Tests/test_raph/hands_on_main_app.ioc
 mcu/Tests/test_raph/STM32L4A6ZGTX_FLASH.ld
 mcu/Tests/test_raph/STM32L4A6ZGTX_RAM.ld
+
+mcu/hands_on_audio_double_buffer/audio_files/
+
+mcu/hands_on_feature_vectors/melspectrograms_plots/
+
+mcu/Tests/
