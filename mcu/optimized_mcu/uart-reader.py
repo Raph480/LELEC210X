@@ -79,6 +79,11 @@ if __name__ == "__main__":
                 temp_melvec[0::2] = (melvec & 0xFF).astype(np.uint8)  # Extract lower byte
                 temp_melvec[1::2] = (melvec >> 8).astype(np.uint8)    # Extract upper byte
                 melvec = temp_melvec
+            else:
+                #invert the bytes to go from little endian to big endian
+                melvec = melvec.view(np.uint8).reshape(-1, 2)[:, ::-1].flatten()
+                melvec = melvec.view(dt)
+                
 
             #np.savetxt(f"melspectrograms_plots/melvec_{msg_counter}.txt", melvec, fmt="%04x", delimiter="\n")
 

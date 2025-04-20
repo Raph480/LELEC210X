@@ -77,10 +77,9 @@ static void encode_packet(uint8_t *packet, uint32_t* packet_cnt) {
 	for (size_t i = 0; i < N_MELVECS; i++) {
 		for (size_t j = 0; j < MELVEC_LENGTH; j++) {
 			#if SEND_8BIT_MELS
-				(packet + PACKET_HEADER_LENGTH)[i * MELVEC_LENGTH + j] = mel_vectors[i][j] & 0xFF;
+				(packet + PACKET_HEADER_LENGTH)[i * MELVEC_LENGTH + j] = mel_vectors[i][j] >> (8 -BIT_SENSITIVITY);
 			#else
 				// BE encoding of each mel coef
-
 				(packet + PACKET_HEADER_LENGTH)[(i * MELVEC_LENGTH + j) * 2]   = mel_vectors[i][j] >> 8;
 				(packet + PACKET_HEADER_LENGTH)[(i * MELVEC_LENGTH + j) * 2 + 1] = mel_vectors[i][j] & 0xFF;
 			#endif
@@ -113,6 +112,8 @@ static void send_spectrogram() {
 
 	//start_cycle_count();
 
+	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
+
 #if DYNAMIC_CLOCK
 
 	RCC_ClkInitTypeDef clk_init = {0};
@@ -137,11 +138,12 @@ static void send_spectrogram() {
 
 #endif
 
-
+	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
 
 	//stop_cycle_count("Send packet");
-
+#if (DEBUGP == 1)
 	print_encoded_packet(packet);
+#endif
 }
 
 

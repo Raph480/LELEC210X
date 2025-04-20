@@ -17,7 +17,8 @@
 
 // Radio parameters
 #define ENABLE_RADIO 1
-#define SEND_8BIT_MELS 1 // Only send the 8 MSB bits of each number of the 16bit computed melspectrogram
+#define SEND_8BIT_MELS 0 // Only send the 8 MSB bits of each number of the 16bit computed melspectrogram
+#define BIT_SENSITIVITY 3 // If SEND_8BIT_MELS enabled, increase sensitivity, recommended to 3 (risks of overflow if higher)
 
 // General UART enable/disable (disable for low-power operation)
 #define ENABLE_UART 1

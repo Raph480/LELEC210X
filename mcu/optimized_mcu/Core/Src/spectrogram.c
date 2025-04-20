@@ -116,12 +116,11 @@ void Spectrogram_Compute(q15_t *samples, q15_t *melvec) {
     }
     stop_cycle_count("Step 3.4");
 
-
     // STEP 4: Apply Mel transform using optimized sparse multiplication
 
     start_cycle_count();  // Start counting cycles
     for (int i = 0; i < MELVEC_LENGTH; i++) {
-        int16_t *hz2mel_row = &hz2mel_mat[i*256+start_index[i]];  // Correct start in sparse matrix
+        int16_t *hz2mel_row = &hz2mel_mat[i*SAMPLES_PER_MELVEC/2 +start_index[i]];  // Correct start in sparse matrix
         int16_t *fftmag_row = &buf[start_index[i]];  // Corresponding FFT values
         int count = nonzero_count[i];  // Number of nonzero elements
 

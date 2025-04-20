@@ -161,6 +161,8 @@ int main(void)
   RetargetInit(&hlpuart1);
   DEBUG_PRINT("Hello world\r\n");
 
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
