@@ -141,10 +141,10 @@ def plot_specgram(
 
     return None
     
-def melspectrogram(audio, N_melvec=20, melvec_length=20, samples_per_melvec=512, N_Nft=512, window_type="hamming", fs2=11025, flag_8bit=False):
+def melspectrogram(audio, N_melvec=20, melvec_length=20, samples_per_melvec=512, N_Nft=512, window_type="hamming", fs2=11025, flag_8bit=False, bit_sensitivity=0):
     raw_audio_from_adc = (audio + (1 << 14)) >> 3  # Recover the original signal from the ADC 
     audio = (raw_audio_from_adc - (1 << 11)) << 4  # Conversion to the recently used format (to avoid empty melspecs if 8-bit final cast)
-    
+
     if window_type == "hamming":
         hamming_window = np.hamming(N_Nft)
         window = float2fixed(hamming_window, maxval = 1, dtype=np.int16)
@@ -165,7 +165,7 @@ def melspectrogram(audio, N_melvec=20, melvec_length=20, samples_per_melvec=512,
         Spectrogram_Compute(samples, melspec[i], window, hz2mel_mat, melvec_length, samples_per_melvec)
 
     if flag_8bit:
-        melspec = melspec >> 8  # Convert to 8-bit format
+        melspec = melspec >> (8 -bit_sensitivity)  # Convert to 8-bit format
 
     return melspec
 
@@ -181,19 +181,20 @@ if __name__ == "__main__":
     MELVEC_LENGTH = 20
     N_NFT = 512
     WINDOW_TYPE = "hamming"
-    FLAG_8BIT = False
-    # fs = 11025 
+    FLAG_8BIT = True
+    BIT_SENSITIVITY = 3 #(3 MSBs bits never used because of arm functions)
+    fs = 11025 
 
     # # generate a 512 array of a pure sine at 2500Hz, f=44100Hz
     # f = 2500
     # fs = 44100
     # t = np.arange(0, SAMPLES_PER_MELVEC, 1)
-    # data = (np.sin(2 * np.pi * f * t / fs)* 32767).astype(np.int16)
-    
+    # data = (np.sin(2 * np.pi * f * t / fs)* 32767/2).astype(np.int16)
+    # fs= 11025
 
     data, fs = sf.read("chainsaw_low_20-000.wav", dtype=np.int16)
 
-    melspec = melspectrogram(data, N_melvec=N_MELVEC, melvec_length=MELVEC_LENGTH, samples_per_melvec=SAMPLES_PER_MELVEC, N_Nft=N_NFT, window_type=WINDOW_TYPE, fs2=fs, flag_8bit=FLAG_8BIT)    
+    melspec = melspectrogram(data, N_melvec=N_MELVEC, melvec_length=MELVEC_LENGTH, samples_per_melvec=SAMPLES_PER_MELVEC, N_Nft=N_NFT, window_type=WINDOW_TYPE, fs2=fs, flag_8bit=FLAG_8BIT, bit_sensitivity=BIT_SENSITIVITY)    
 
     print(melspec[0])
     plot_specgram(melspec.T, plt.gca(), is_mel=True, title="Mel Spectrogram", xlabel="Time [s]", ylabel="Frequency [Mel]", textlabel="Mel Spectrogram", cmap="jet", cb=True, tf=N_MELVEC)
