@@ -47,6 +47,7 @@ class Dataset:
             raise FileNotFoundError(f"Error: The folder '{folder}' does not exist or is not a directory.")
 
         files = {}
+        self.size = 0
 
         for file in sorted(folder.glob("**/*." + format)):
             if filter_str:

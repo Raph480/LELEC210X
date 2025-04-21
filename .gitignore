@@ -4,6 +4,9 @@ __pycache__/
 .mypy_cache/
 .ipynb_checkpoints
 *-checkpoint.ipynb/
+*.pickle
+*.log
+*.egg-info/
 
 # Leaderboard
 
@@ -94,3 +97,811 @@ fpga/*/simulation/
 fpga/*/timing/
 fpga/*/*_sim/
 fpga/incremental_db/
+mcu/Tests/hands_on_audio_2/.cproject
+mcu/Tests/hands_on_audio_2/.mxproject
+mcu/Tests/hands_on_audio_2/.project
+mcu/Tests/hands_on_audio_2/.vscode/settings.json
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/cachel1_armv7.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/cmsis_armcc.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/cmsis_armclang.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/cmsis_compiler.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/cmsis_gcc.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/cmsis_iccarm.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/cmsis_version.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_armv81mml.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_armv8mbl.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_armv8mml.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_cm0.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_cm0plus.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_cm1.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_cm23.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_cm3.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_cm33.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_cm35p.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_cm4.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_cm55.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_cm7.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_sc000.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/core_sc300.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/mpu_armv7.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/mpu_armv8.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/pmu_armv8.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core/Include/tz_context.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_armcc.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_armclang.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_compiler.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_cp15.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_gcc.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_iccarm.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core_A/Include/core_ca.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/Core_A/Include/irq_ctrl.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/DSP/Include/arm_math.h
+mcu/Tests/hands_on_audio_2/ARM_CMSIS/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a
+mcu/Tests/hands_on_audio_2/Core/Inc/adc.h
+mcu/Tests/hands_on_audio_2/Core/Inc/adc_dblbuf.h
+mcu/Tests/hands_on_audio_2/Core/Inc/aes_ref.h
+mcu/Tests/hands_on_audio_2/Core/Inc/arm_absmax_q15.h
+mcu/Tests/hands_on_audio_2/Core/Inc/config.h
+mcu/Tests/hands_on_audio_2/Core/Inc/dma.h
+mcu/Tests/hands_on_audio_2/Core/Inc/eval_radio.h
+mcu/Tests/hands_on_audio_2/Core/Inc/gpio.h
+mcu/Tests/hands_on_audio_2/Core/Inc/main.h
+mcu/Tests/hands_on_audio_2/Core/Inc/packet.h
+mcu/Tests/hands_on_audio_2/Core/Inc/retarget.h
+mcu/Tests/hands_on_audio_2/Core/Inc/s2lp.h
+mcu/Tests/hands_on_audio_2/Core/Inc/s2lp_regs.h
+mcu/Tests/hands_on_audio_2/Core/Inc/spectrogram.h
+mcu/Tests/hands_on_audio_2/Core/Inc/spectrogram_tables.h
+mcu/Tests/hands_on_audio_2/Core/Inc/spi.h
+mcu/Tests/hands_on_audio_2/Core/Inc/stm32l4xx_hal_conf.h
+mcu/Tests/hands_on_audio_2/Core/Inc/stm32l4xx_it.h
+mcu/Tests/hands_on_audio_2/Core/Inc/tim.h
+mcu/Tests/hands_on_audio_2/Core/Inc/usart.h
+mcu/Tests/hands_on_audio_2/Core/Inc/utils.h
+mcu/Tests/hands_on_audio_2/Core/Src/.project
+mcu/Tests/hands_on_audio_2/Core/Src/adc.c
+mcu/Tests/hands_on_audio_2/Core/Src/adc_dblbuf.c
+mcu/Tests/hands_on_audio_2/Core/Src/aes_ref.c
+mcu/Tests/hands_on_audio_2/Core/Src/arm_absmax_q15.c
+mcu/Tests/hands_on_audio_2/Core/Src/dma.c
+mcu/Tests/hands_on_audio_2/Core/Src/eval_radio.c
+mcu/Tests/hands_on_audio_2/Core/Src/gpio.c
+mcu/Tests/hands_on_audio_2/Core/Src/main.c
+mcu/Tests/hands_on_audio_2/Core/Src/packet.c
+mcu/Tests/hands_on_audio_2/Core/Src/retarget.c
+mcu/Tests/hands_on_audio_2/Core/Src/s2lp.c
+mcu/Tests/hands_on_audio_2/Core/Src/spectrogram.c
+mcu/Tests/hands_on_audio_2/Core/Src/spi.c
+mcu/Tests/hands_on_audio_2/Core/Src/stm32l4xx_hal_msp.c
+mcu/Tests/hands_on_audio_2/Core/Src/stm32l4xx_it.c
+mcu/Tests/hands_on_audio_2/Core/Src/sysmem.c
+mcu/Tests/hands_on_audio_2/Core/Src/system_stm32l4xx.c
+mcu/Tests/hands_on_audio_2/Core/Src/tim.c
+mcu/Tests/hands_on_audio_2/Core/Src/usart.c
+mcu/Tests/hands_on_audio_2/Core/Src/utils.c
+mcu/Tests/hands_on_audio_2/Core/Startup/startup_stm32l4a6zgtx.s
+mcu/Tests/hands_on_audio_2/hands_on_main_app.ioc
+mcu/Tests/hands_on_audio_2/STM32L4A6ZGTX_FLASH.ld
+mcu/Tests/hands_on_audio_2/STM32L4A6ZGTX_RAM.ld
+mcu/Tests/hands_on_audio_3 - Copie/.cproject
+mcu/Tests/hands_on_audio_3 - Copie/.mxproject
+mcu/Tests/hands_on_audio_3 - Copie/.project
+mcu/Tests/hands_on_audio_3 - Copie/.vscode/settings.json
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/cachel1_armv7.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/cmsis_armcc.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/cmsis_armclang.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/cmsis_compiler.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/cmsis_gcc.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/cmsis_iccarm.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/cmsis_version.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_armv81mml.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_armv8mbl.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_armv8mml.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_cm0.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_cm0plus.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_cm1.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_cm23.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_cm3.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_cm33.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_cm35p.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_cm4.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_cm55.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_cm7.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_sc000.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/core_sc300.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/mpu_armv7.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/mpu_armv8.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/pmu_armv8.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core/Include/tz_context.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_armcc.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_armclang.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_compiler.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_cp15.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_gcc.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_iccarm.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core_A/Include/core_ca.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/Core_A/Include/irq_ctrl.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/DSP/Include/arm_math.h
+mcu/Tests/hands_on_audio_3 - Copie/ARM_CMSIS/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/adc.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/adc_dblbuf.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/aes_ref.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/arm_absmax_q15.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/config.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/dma.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/eval_radio.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/gpio.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/main.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/packet.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/retarget.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/s2lp.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/s2lp_regs.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/spectrogram.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/spectrogram_tables.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/spi.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/stm32l4xx_hal_conf.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/stm32l4xx_it.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/tim.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/usart.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Inc/utils.h
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/.project
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/adc.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/adc_dblbuf.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/aes_ref.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/arm_absmax_q15.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/dma.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/eval_radio.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/gpio.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/main.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/packet.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/retarget.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/s2lp.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/spectrogram.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/spi.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/stm32l4xx_hal_msp.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/stm32l4xx_it.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/sysmem.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/system_stm32l4xx.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/tim.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/usart.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Src/utils.c
+mcu/Tests/hands_on_audio_3 - Copie/Core/Startup/startup_stm32l4a6zgtx.s
+mcu/Tests/hands_on_audio_3 - Copie/hands_on_main_app.ioc
+mcu/Tests/hands_on_audio_3 - Copie/STM32L4A6ZGTX_FLASH.ld
+mcu/Tests/hands_on_audio_3 - Copie/STM32L4A6ZGTX_RAM.ld
+mcu/Tests/hands_on_audio_3/.cproject
+mcu/Tests/hands_on_audio_3/.mxproject
+mcu/Tests/hands_on_audio_3/.project
+mcu/Tests/hands_on_audio_3/.vscode/settings.json
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/cachel1_armv7.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/cmsis_armcc.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/cmsis_armclang.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/cmsis_compiler.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/cmsis_gcc.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/cmsis_iccarm.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/cmsis_version.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_armv81mml.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_armv8mbl.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_armv8mml.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_cm0.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_cm0plus.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_cm1.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_cm23.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_cm3.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_cm33.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_cm35p.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_cm4.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_cm55.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_cm7.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_sc000.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/core_sc300.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/mpu_armv7.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/mpu_armv8.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/pmu_armv8.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core/Include/tz_context.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_armcc.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_armclang.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_compiler.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_cp15.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_gcc.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_iccarm.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core_A/Include/core_ca.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/Core_A/Include/irq_ctrl.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/DSP/Include/arm_math.h
+mcu/Tests/hands_on_audio_3/ARM_CMSIS/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a
+mcu/Tests/hands_on_audio_3/Core/Inc/adc.h
+mcu/Tests/hands_on_audio_3/Core/Inc/adc_dblbuf.h
+mcu/Tests/hands_on_audio_3/Core/Inc/arm_absmax_q15.h
+mcu/Tests/hands_on_audio_3/Core/Inc/config.h
+mcu/Tests/hands_on_audio_3/Core/Inc/dma.h
+mcu/Tests/hands_on_audio_3/Core/Inc/gpio.h
+mcu/Tests/hands_on_audio_3/Core/Inc/main.h
+mcu/Tests/hands_on_audio_3/Core/Inc/retarget.h
+mcu/Tests/hands_on_audio_3/Core/Inc/spi.h
+mcu/Tests/hands_on_audio_3/Core/Inc/stm32l4xx_hal_conf.h
+mcu/Tests/hands_on_audio_3/Core/Inc/stm32l4xx_it.h
+mcu/Tests/hands_on_audio_3/Core/Inc/tim.h
+mcu/Tests/hands_on_audio_3/Core/Inc/usart.h
+mcu/Tests/hands_on_audio_3/Core/Inc/utils.h
+mcu/Tests/hands_on_audio_3/Core/Src/.project
+mcu/Tests/hands_on_audio_3/Core/Src/adc.c
+mcu/Tests/hands_on_audio_3/Core/Src/adc_dblbuf.c
+mcu/Tests/hands_on_audio_3/Core/Src/arm_absmax_q15.c
+mcu/Tests/hands_on_audio_3/Core/Src/dma.c
+mcu/Tests/hands_on_audio_3/Core/Src/gpio.c
+mcu/Tests/hands_on_audio_3/Core/Src/main.c
+mcu/Tests/hands_on_audio_3/Core/Src/retarget.c
+mcu/Tests/hands_on_audio_3/Core/Src/spi.c
+mcu/Tests/hands_on_audio_3/Core/Src/stm32l4xx_hal_msp.c
+mcu/Tests/hands_on_audio_3/Core/Src/stm32l4xx_it.c
+mcu/Tests/hands_on_audio_3/Core/Src/sysmem.c
+mcu/Tests/hands_on_audio_3/Core/Src/system_stm32l4xx.c
+mcu/Tests/hands_on_audio_3/Core/Src/tim.c
+mcu/Tests/hands_on_audio_3/Core/Src/usart.c
+mcu/Tests/hands_on_audio_3/Core/Src/utils.c
+mcu/Tests/hands_on_audio_3/Core/Startup/startup_stm32l4a6zgtx.s
+mcu/Tests/hands_on_audio_3/hands_on_main_app.ioc
+mcu/Tests/hands_on_audio_3/STM32L4A6ZGTX_FLASH.ld
+mcu/Tests/hands_on_audio_3/STM32L4A6ZGTX_RAM.ld
+mcu/Tests/hands_on_audio_acquisition_test/.cproject
+mcu/Tests/hands_on_audio_acquisition_test/.mxproject
+mcu/Tests/hands_on_audio_acquisition_test/.project
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-000.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-001.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-002.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-003.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-004.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-005.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-006.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-007.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-008.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-009.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-010.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-011.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-012.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-013.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-014.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-015.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-016.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-017.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-018.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-019.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-020.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-021.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-022.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-023.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-024.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-025.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-026.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-027.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-028.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-029.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-030.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-031.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-032.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-033.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-034.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-035.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-036.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-037.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-038.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-039.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-040.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-041.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-042.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-043.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-044.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-045.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-046.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-047.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-048.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-049.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-050.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-051.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-052.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-053.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-054.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-055.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-056.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-057.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-058.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-059.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-060.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-061.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-062.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-063.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-064.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-065.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-066.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-067.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-0total.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-1.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-1total.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-2.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-2total.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-3.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-3total.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-4.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/acq-4total.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-000.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-001.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-002.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-003.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-004.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-005.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-006.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-007.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-008.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-009.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-010.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-011.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-012.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-013.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-014.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-015.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-016.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-017.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-018.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-019.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-020.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-021.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-022.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-023.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-024.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-025.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-026.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-027.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-028.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-029.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-030.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-031.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-032.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-033.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-034.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-035.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-036.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-037.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-038.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-039.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-040.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-041.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-042.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-043.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-044.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-045.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-046.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-047.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-048.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-049.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-050.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-051.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-052.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/avicii-053.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-000.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-001.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-002.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-003.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-004.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-005.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-006.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-007.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-008.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-009.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-010.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-011.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-012.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-013.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-014.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-015.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-016.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-017.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-018.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-019.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/coldplay-020.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-0.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-1.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-10.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-11.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-12.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-13.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-14.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-15.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-16.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-17.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-18.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-19.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-2.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-20.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-3.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-4.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-5.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-6.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-7.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-8.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dailymix1-9.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-0total.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-1.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-1total.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-2.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-2total.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-3.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-3total.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-4.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-4total.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-5.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-5total.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-6.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/dimanche-6total.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/merged_avicii.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/merged_coldplay.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/merged_dailymix1.wav
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/merged_mixtape.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-1.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-10.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-11.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-12.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-13.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-14.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-15.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-16.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-17.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-18.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-19.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-2.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-20.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-21.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-22.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-23.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-24.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-25.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-26.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-27.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-28.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-29.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-3.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-30.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-31.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-32.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-33.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-34.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-35.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-36.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-37.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-38.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-39.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-4.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-40.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-41.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-42.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-43.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-44.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-45.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-46.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-47.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-48.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-49.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-5.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-50.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-51.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-52.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-53.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-54.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-55.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-56.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-57.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-58.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-59.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-6.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-60.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-61.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-62.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-63.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-64.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-65.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-66.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-67.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-68.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-69.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-7.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-70.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-71.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-72.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-73.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-74.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-75.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-76.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-77.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-78.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-79.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-8.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-80.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-81.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-82.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-83.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-84.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/mixtape-9.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 0.5s -0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 1 2-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 1-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 1s pb1-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 2s  pb1-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 2s 2-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 2s 2-1.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 2s 3-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 2s 4 -0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 3 2s-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 3 2s-1.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 3,25s 1 -0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 3,25s 1 -1.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 3,25s 1 -2.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 3,25s 1 -3.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 3,5s 2 -0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 3s 1-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 3s 2 -0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 3s 2-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 3s 2-1.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 4s 1-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 4s 2-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 4s 2-1.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test 4s 3 -0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test buffer maj -0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test buffer maj -1.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test dimanche 1 -0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test3,5s 1-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test3,5s 2-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_files/test_after_1-0.ogg
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/acq-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/acq-1.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/acq-2.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 0.5s -0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 1-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 1s 2-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 1s pb1-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 2s  pb1-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 2s 2-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 2s 2-1.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 2s 3-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 2s 4 -0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 3 2s-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 3,25s 1 -0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 3,25s 1 -1.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 3,25s 1 -2.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 3,25s 1 -3.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 3,5s 2 -0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 3s 1-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 3s 2 -0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 3s 2-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 3s 2-1.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 4s 1-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 4s 2-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 4s 2-1.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test 4s 3 -0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test buffer maj -0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test buffer maj -1.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test dimanche 1 -0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test3,5s 1-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test3,5s 2-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/test_after_1-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/vendredi-0.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/vendredi-1.pdf
+mcu/Tests/hands_on_audio_acquisition_test/audio_plots/vendredi-2.pdf
+mcu/Tests/hands_on_audio_acquisition_test/basic-uart-reader.py
+mcu/Tests/hands_on_audio_acquisition_test/Core/Inc/adc.h
+mcu/Tests/hands_on_audio_acquisition_test/Core/Inc/dma.h
+mcu/Tests/hands_on_audio_acquisition_test/Core/Inc/gpio.h
+mcu/Tests/hands_on_audio_acquisition_test/Core/Inc/main.h
+mcu/Tests/hands_on_audio_acquisition_test/Core/Inc/retarget.h
+mcu/Tests/hands_on_audio_acquisition_test/Core/Inc/stm32l4xx_hal_conf.h
+mcu/Tests/hands_on_audio_acquisition_test/Core/Inc/stm32l4xx_it.h
+mcu/Tests/hands_on_audio_acquisition_test/Core/Inc/tim.h
+mcu/Tests/hands_on_audio_acquisition_test/Core/Inc/usart.h
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/adc.c
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/dma.c
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/gpio.c
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/main.c
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/main.OTHER
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/retarget.c
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/stm32l4xx_hal_msp.c
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/stm32l4xx_it.c
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/syscalls.c
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/sysmem.c
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/system_stm32l4xx.c
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/tim.c
+mcu/Tests/hands_on_audio_acquisition_test/Core/Src/usart.c
+mcu/Tests/hands_on_audio_acquisition_test/Core/Startup/startup_stm32l4a6zgtx.s
+mcu/Tests/hands_on_audio_acquisition_test/h2b_1_sample_two_states.c
+mcu/Tests/hands_on_audio_acquisition_test/h2b_2__sin_acq.c
+mcu/Tests/hands_on_audio_acquisition_test/h2b_3_double_buffering.c
+mcu/Tests/hands_on_audio_acquisition_test/hands_on_audio_acquisition.ioc
+mcu/Tests/hands_on_audio_acquisition_test/hands_on_audio_acquisition.iocOTHER
+mcu/Tests/hands_on_audio_acquisition_test/merge_audios.py
+mcu/Tests/hands_on_audio_acquisition_test/plot_ogg.py
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/AFE_power_19mV.csv
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/AFE_power_19mV.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/AFE_power_19mV_mask1.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/AFE_power_19mV_piechart_1.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/classic_usage_buffer10k_CORRECTED.csv
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/classic_usage_buffer10k_CORRECTED.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/classic_usage_buffer10k_CORRECTED_mask1.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/classic_usage_buffer10k_CORRECTED_mask2.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/classic_usage_buffer10k_CORRECTED_mask3.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/classic_usage_buffer10k_CORRECTED_mask4.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/classic_usage_buffer10k_CORRECTED_piechart_1.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/classic_usage_buffer10k_CORRECTED_piechart_2.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/classic_usage_buffer10k_CORRECTED_piechart_3.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/classic_usage_buffer10k_CORRECTED_piechart_4.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/MCU_2_power.csv
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/MCU_2_power.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/MCU_2_power2.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/MCU_2_power_mask1.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/MCU_2_power_mask2.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/MCU_2_power_piechart_1.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/MCU_2_power_piechart_2.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/MCU_power.csv
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/plot_R2.py
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/power subtasks v1.csv
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/power subtasks v2.csv
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/Radio_power.csv
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/Radio_power.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/Radio_power2.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/Radio_power_mask1.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/Radio_power_mask2.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/Radio_power_mask3.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/Radio_power_piechart_1.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/Radio_power_piechart_2.svg
+mcu/Tests/hands_on_audio_acquisition_test/plots R2/Radio_power_piechart_3.svg
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/adc.cyclo
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/adc.d
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/adc.o
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/adc.su
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/dma.cyclo
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/dma.d
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/dma.o
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/dma.su
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/gpio.cyclo
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/gpio.d
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/gpio.o
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/gpio.su
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/main.cyclo
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/main.d
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/main.o
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/main.su
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/retarget.cyclo
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/retarget.d
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/retarget.o
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/retarget.su
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/stm32l4xx_hal_msp.cyclo
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/stm32l4xx_hal_msp.d
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/stm32l4xx_hal_msp.o
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/stm32l4xx_hal_msp.su
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/stm32l4xx_it.cyclo
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/stm32l4xx_it.d
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/stm32l4xx_it.o
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/stm32l4xx_it.su
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/subdir.mk
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/sysmem.cyclo
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/sysmem.d
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/sysmem.o
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/sysmem.su
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/system_stm32l4xx.cyclo
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/system_stm32l4xx.d
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/system_stm32l4xx.o
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/system_stm32l4xx.su
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/tim.cyclo
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/tim.d
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/tim.o
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/tim.su
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/usart.cyclo
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/usart.d
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/usart.o
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Src/usart.su
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Startup/startup_stm32l4a6zgtx.d
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Startup/startup_stm32l4a6zgtx.o
+mcu/Tests/hands_on_audio_acquisition_test/Release/Core/Startup/subdir.mk
+mcu/Tests/hands_on_audio_acquisition_test/Release/hands_on_audio_acquisition.map
+mcu/Tests/hands_on_audio_acquisition_test/Release/makefile
+mcu/Tests/hands_on_audio_acquisition_test/Release/objects.list
+mcu/Tests/hands_on_audio_acquisition_test/Release/objects.mk
+mcu/Tests/hands_on_audio_acquisition_test/Release/sources.mk
+mcu/Tests/hands_on_audio_acquisition_test/STM32L4A6ZGTX_FLASH.ld
+mcu/Tests/hands_on_audio_acquisition_test/STM32L4A6ZGTX_RAM.ld
+mcu/Tests/hands_on_audio_acquisition_test/uart-reader.py
+mcu/Tests/test_raph/.cproject
+mcu/Tests/test_raph/.mxproject
+mcu/Tests/test_raph/.project
+mcu/Tests/test_raph/.vscode/settings.json
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/cachel1_armv7.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/cmsis_armcc.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/cmsis_armclang.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/cmsis_compiler.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/cmsis_gcc.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/cmsis_iccarm.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/cmsis_version.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_armv81mml.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_armv8mbl.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_armv8mml.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_cm0.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_cm0plus.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_cm1.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_cm23.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_cm3.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_cm33.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_cm35p.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_cm4.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_cm55.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_cm7.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_sc000.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/core_sc300.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/mpu_armv7.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/mpu_armv8.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/pmu_armv8.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core/Include/tz_context.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_armcc.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_armclang.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_compiler.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_cp15.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_gcc.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core_A/Include/cmsis_iccarm.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core_A/Include/core_ca.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/Core_A/Include/irq_ctrl.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/DSP/Include/arm_math.h
+mcu/Tests/test_raph/ARM_CMSIS/CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a
+mcu/Tests/test_raph/Core/Inc/adc.h
+mcu/Tests/test_raph/Core/Inc/adc_dblbuf.h
+mcu/Tests/test_raph/Core/Inc/aes_ref.h
+mcu/Tests/test_raph/Core/Inc/arm_absmax_q15.h
+mcu/Tests/test_raph/Core/Inc/config.h
+mcu/Tests/test_raph/Core/Inc/dma.h
+mcu/Tests/test_raph/Core/Inc/eval_radio.h
+mcu/Tests/test_raph/Core/Inc/gpio.h
+mcu/Tests/test_raph/Core/Inc/main.h
+mcu/Tests/test_raph/Core/Inc/packet.h
+mcu/Tests/test_raph/Core/Inc/retarget.h
+mcu/Tests/test_raph/Core/Inc/s2lp.h
+mcu/Tests/test_raph/Core/Inc/s2lp_regs.h
+mcu/Tests/test_raph/Core/Inc/spectrogram.h
+mcu/Tests/test_raph/Core/Inc/spectrogram_tables.h
+mcu/Tests/test_raph/Core/Inc/spi.h
+mcu/Tests/test_raph/Core/Inc/stm32l4xx_hal_conf.h
+mcu/Tests/test_raph/Core/Inc/stm32l4xx_it.h
+mcu/Tests/test_raph/Core/Inc/tim.h
+mcu/Tests/test_raph/Core/Inc/usart.h
+mcu/Tests/test_raph/Core/Inc/utils.h
+mcu/Tests/test_raph/Core/Src/.project
+mcu/Tests/test_raph/Core/Src/adc.c
+mcu/Tests/test_raph/Core/Src/adc_dblbuf.c
+mcu/Tests/test_raph/Core/Src/aes_ref.c
+mcu/Tests/test_raph/Core/Src/arm_absmax_q15.c
+mcu/Tests/test_raph/Core/Src/dma.c
+mcu/Tests/test_raph/Core/Src/eval_radio.c
+mcu/Tests/test_raph/Core/Src/gpio.c
+mcu/Tests/test_raph/Core/Src/main.c
+mcu/Tests/test_raph/Core/Src/packet.c
+mcu/Tests/test_raph/Core/Src/retarget.c
+mcu/Tests/test_raph/Core/Src/s2lp.c
+mcu/Tests/test_raph/Core/Src/spectrogram.c
+mcu/Tests/test_raph/Core/Src/spi.c
+mcu/Tests/test_raph/Core/Src/stm32l4xx_hal_msp.c
+mcu/Tests/test_raph/Core/Src/stm32l4xx_it.c
+mcu/Tests/test_raph/Core/Src/sysmem.c
+mcu/Tests/test_raph/Core/Src/system_stm32l4xx.c
+mcu/Tests/test_raph/Core/Src/tim.c
+mcu/Tests/test_raph/Core/Src/usart.c
+mcu/Tests/test_raph/Core/Src/utils.c
+mcu/Tests/test_raph/Core/Startup/startup_stm32l4a6zgtx.s
+mcu/Tests/test_raph/hands_on_main_app.ioc
+mcu/Tests/test_raph/STM32L4A6ZGTX_FLASH.ld
+mcu/Tests/test_raph/STM32L4A6ZGTX_RAM.ld
+
+mcu/hands_on_audio_double_buffer/audio_files/
+
+mcu/hands_on_feature_vectors/melspectrograms_plots/
+
+mcu/Tests/

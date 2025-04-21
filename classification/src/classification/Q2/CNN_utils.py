@@ -25,7 +25,7 @@ from CNN_utils import *
 
 
 
-def get_dataset(path="../datasets/sounds/recorded_sounds/classes/",filter_str=None,  Nft=512, n_melvec=20, melvec_height = 20, samples_per_melvec=512, window_type = "hamming", sr = 10200, dtype = np.int16, normalize=True, shift_pct=0, img_idx = 0, verbose=False, play_sound = False):
+def get_dataset(path="../datasets/sounds/recorded_sounds/classes/",filter_str=None,  Nft=512, n_melvec=20, melvec_height = 20, samples_per_melvec=512, window_type = "hamming", sr = 10200, flag_8bit = False, bit_sensitivity=0, normalize=True, shift_pct=0, img_idx = 0, verbose=False, play_sound = False):
     """
     Load and initialize the dataset with necessary attributes.
     """
@@ -38,7 +38,8 @@ def get_dataset(path="../datasets/sounds/recorded_sounds/classes/",filter_str=No
         print("Number of sounds in dataset: ", len(dataset))
 
     myds = Feature_vector_DS(dataset, n_melvec=n_melvec, melvec_height=melvec_height, Nft = Nft,
-                             samples_per_melvec=samples_per_melvec, window_type=window_type, sr=sr, dtype=dtype, normalize=normalize) #Vérif si bons paramètres
+                             samples_per_melvec=samples_per_melvec, window_type=window_type, sr=sr, 
+                             flag_8bit=flag_8bit, bit_sensitivity=bit_sensitivity, normalize=normalize) #Vérif si bons paramètres
     myds.data_aug = None  # Ensure no augmentation initially
 
     if verbose:
@@ -239,7 +240,8 @@ def augment_dataset(myds, dataset, classnames, augmentations, melvec_height=20,
 
 
 def get_picklename(
-    dtype,
+    flag_8bit,
+    bit_sensitivity,
     Nft,
     samples_per_melvec,
     n_melvec,
@@ -251,24 +253,22 @@ def get_picklename(
     bg_amplitude_limit,
     physical_aug,
     prefix="../datasets/melvecs/",
-    purpose = "melvecs" #or "model"
+    purpose="melvecs"  # or "model"
 ):
     """
     Generate a unique pickle name based on dataset parameters and augmentations.
     """
-    # Convert dtype to string if it's a NumPy type
-    if hasattr(dtype, 'name'):
-        dtype_str = dtype.name
-    elif isinstance(dtype, type):
-        dtype_str = np.dtype(dtype).name
+    # Represent precision info as a string
+    if flag_8bit:
+        precision_str = f"int8s{bit_sensitivity}"  # int8 with sensitivity
     else:
-        dtype_str = str(dtype)
+        precision_str = "int16"
 
     pickle_name = prefix
 
     # Base name with physical parameters, excluding duration
     pickle_name += (
-        f"{purpose}_{dtype_str}_{Nft}_{samples_per_melvec}_"
+        f"{purpose}_{precision_str}_{Nft}_{samples_per_melvec}_"
         f"{n_melvec}_{melvec_height}_{window_type}_{int(sr)}"
     )
 
@@ -285,6 +285,7 @@ def get_picklename(
         pickle_name += "_physical_bg"
 
     return pickle_name
+
 
 
 from seaborn import heatmap

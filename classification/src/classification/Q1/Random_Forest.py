@@ -553,9 +553,8 @@ def final_model(verbose=True):
     reduction = False
     PCA_components = 7
     
-
-    augmentations = ["original", "scaling", "time_shift", "add_noise", "add_echo"]
-    
+    #augmentations = ["original", "scaling", "time_shift", "add_noise", "add_echo"] # It is useless to add "original" as it is already in the dataset
+    augmentations = []
     
     # Add real melvecs to X and y
     additionnal_melvecs = [[],[]]
@@ -574,7 +573,7 @@ def final_model(verbose=True):
             additionnal_melvecs[0].append(melvec)
             additionnal_melvecs[1].append(class_name)
     """
-
+    
     X, y, classnames = get_dataset_matrix_augmented(augmentations, additionnal_melvecs)
 
     # Splitting the dataset

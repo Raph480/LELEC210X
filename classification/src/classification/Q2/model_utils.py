@@ -22,8 +22,6 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import make_scorer
 from sklearn.model_selection import KFold
 
-
-
 ### 0. UTILS FUNCTIONS
 ###--------------------------------------------
 
@@ -40,9 +38,13 @@ def get_dataset_matrix(normalization=False, verbose=False):
 
     # Hyperparameters to tune in 2nd part of project?
     if normalization:
-        myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2, normalize=True)
+        #myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2, normalize=True)
+        myds = Feature_vector_DS(dataset, N_melvec=20, melvec_length=20, samples_per_melvec=512, window_type="hamming", sr=11025, dtype=np.int16, normalize=True)
+
     else:
-        myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2)
+        #myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2)
+        myds = Feature_vector_DS(dataset, N_melvec=20, melvec_length=20, samples_per_melvec=512, window_type="hamming", sr=11025, dtype=np.int16)
+
     
     "Some attributes..."
     myds.nmel
@@ -90,20 +92,21 @@ def get_dataset_matrix(normalization=False, verbose=False):
     return X, y, classnames 
 
 def get_dataset_matrix_augmented(augmentations, additionnal_melvecs = None):
-
+    print("Loading dataset...")
     dataset = Dataset()
     classnames = dataset.list_classes()
 
     "Creation of the dataset"
-    myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2, normalize=True)
+    #myds = Feature_vector_DS(dataset, Nft=512, nmel=20, duration=950, shift_pct=0.2, normalize=True)
+    myds = Feature_vector_DS(dataset, N_melvec=20, melvec_length=20, samples_per_melvec=512, window_type="hamming", sr=11025, dtype=np.int16)
 
-    "Some attributes..."
-    myds.nmel
-    myds.duration
-    myds.shift_pct
-    myds.sr
-    myds.data_aug
-    myds.ncol
+    # "Some attributes..."
+    # myds.nmel
+    # myds.duration
+    # myds.shift_pct
+    # myds.sr
+    # myds.data_aug
+    # myds.ncol
 
 
     idx = 0
@@ -111,39 +114,56 @@ def get_dataset_matrix_augmented(augmentations, additionnal_melvecs = None):
     ### TO RUN
     myds.data_aug = None  # Ensure
 
-    cls_index = ["birds", 4]
+    # cls_index = ["birds", 4]
 
-    sound = dataset.__getitem__(cls_index)
-    name = dataset.__getname__(cls_index)
-    audio = AudioUtil.open(sound)
+    # sound = dataset.__getitem__(cls_index)
+    # name = dataset.__getname__(cls_index)
+    # audio = AudioUtil.open(sound)
 
-    audio2 = AudioUtil.resample(audio, 11025)
-    audio2 = AudioUtil.pad_trunc(audio2, 950)
+    print(f"#{dataset.__len__()} files have been added")
+    
+
+    # audio2 = AudioUtil.resample(audio, 11025)
+    # audio2 = AudioUtil.pad_trunc(audio2, 950)
 
 
     myds.mod_data_aug(augmentations)
     #y_aug = np.repeat(classnames, dataset.naudio * myds.data_aug_factor)  # original implem = wrong !!
 
-    train_pct = 1
-
+    #train_pct = 1
     featveclen = len(myds["fire", 0])  # number of items in a feature vector
-    nitems = len(myds)  # number of sounds in the dataset
+    #print(f"featveclen: {featveclen}")
+    
+    # nitems = len(myds)  # number of sounds in the dataset
     naudio = dataset.naudio  # number of audio files in each class
     nclass = dataset.nclass  # number of classes
-    nlearn = round(naudio * train_pct)  # number of sounds among naudio for training
+    #nlearn = round(naudio * train_pct)  # number of sounds among naudio for training
 
 
     "Compute the matrixed dataset, this takes some seconds, but you can then reload it by commenting this loop and decommenting the np.load below"
     X_aug = np.zeros((myds.data_aug_factor * nclass * naudio, featveclen))
     y_aug = np.empty((myds.data_aug_factor * nclass * naudio,), dtype=object)
-    for s in range(myds.data_aug_factor):
-        for idx in range(dataset.naudio):
-            for class_idx, classname in enumerate(classnames):
-                #print(classname, idx)
-                featvec = myds[classname, idx]
-                X_aug[s * nclass * naudio + class_idx * naudio + idx, :] = featvec
-                y_aug[s * nclass * naudio + class_idx * naudio + idx] = classname
+    # for s in range(myds.data_aug_factor):
+    #     for idx in range(dataset.naudio):
+    #         for class_idx, classname in enumerate(classnames):
+    #             #print(classname, idx)
+    #             featvec = myds[classname, idx]
+    #             X_aug[s * nclass * naudio + class_idx * naudio + idx, :] = featvec
+    #             y_aug[s * nclass * naudio + class_idx * naudio + idx] = classname
 
+    for class_idx, classname in enumerate(classnames):
+        for idx in range(naudio):
+            featvec = myds[classname, idx]
+            for s in range(myds.data_aug_factor):
+                X_aug[s * nclass * naudio + class_idx * naudio + idx, :] = featvec
+                # ax = plt.gca()
+                # plot_specgram(featvec.reshape(20, 20).T, ax, title=f"{classname} - {idx+1}/{naudio} - {s+1}/{myds.data_aug_factor}", textlabel=f"{classname} - {idx+1}/{naudio} - {s+1}/{myds.data_aug_factor}")
+                # plt.show()
+                y_aug[s * nclass * naudio + class_idx * naudio + idx] = classname
+            print(f"Class {classname} - {idx+1}/{naudio} done ({(class_idx*naudio+idx)/(nclass*naudio)*100:.2f}%)")
+
+    # Note de Raph: je ne comprends pas en quoi les augmentations sont prises en compte.
+    # Dans les boucles ci-dessus, on itère sur les classes et les fichiers audio, mais on ne fait rien avec les augmentations (s)
 
     y_aug = np.array(y_aug)
 

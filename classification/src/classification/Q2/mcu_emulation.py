@@ -221,7 +221,7 @@ def melspectrogram(audio, N_melvec=20, melvec_height=20, samples_per_melvec=512,
         Spectrogram_Compute(samples, melspec[i], window, hz2mel_mat, melvec_height, samples_per_melvec, dtype)
     
     if dtype == np.int8:
-        melspec = (melspec >> 5).astype(np.int16)
+        melspec = (melspec >> 0).astype(np.int16)
     return melspec
 
 

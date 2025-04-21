@@ -10,7 +10,7 @@ from numpy import ndarray
 from scipy.signal import fftconvolve
 from scipy import signal
 
-import mcu_emulation as mcu
+import mcu_emulation_v2_1 as mcu
 
 # -----------------------------------------------------------------------------
 """
@@ -26,7 +26,7 @@ class AudioUtil:
     Define a new class with util functions to process an audio signal.
     """
 
-    def open(audio_file) -> Tuple[ndarray, int]:
+    def open(audio_file, dtype=np.int16) -> Tuple[ndarray, int]:
         """
         Load an audio file.
 
@@ -432,7 +432,8 @@ class Feature_vector_DS:
         self,
         dataset,
 
-        dtype = np.int16,
+        flag_8bit = False,
+        bit_sensitivity = 0,
         n_melvec=20, # Number of mel bands, y axis
         melvec_height=20, # Number of mel bands
         Nft=512, # Number of points of the FFT, x axis = samples_per_melvec
@@ -460,7 +461,8 @@ class Feature_vector_DS:
         self.duration = n_melvec * Nft / sr * 1000
         self.sr = sr # sampling rate
         self.window_type = window_type
-        self.dtype = dtype
+        self.flag_8bit = flag_8bit
+        self.bit_sensitivity = bit_sensitivity
 
 
         self.shift_pct = shift_pct  # percentage of total
@@ -556,7 +558,8 @@ class Feature_vector_DS:
 
         melspec = mcu.melspectrogram(aud, N_melvec=self.n_melvec, melvec_height=self.melvec_height,
                                       samples_per_melvec=self.samples_per_melvec, N_Nft=self.Nft,
-                                    window_type=self.window_type, sr=sr, dtype=self.dtype)    
+                                    window_type=self.window_type, sr=sr, 
+                                    flag_8bit=self.flag_8bit, bit_sensitivity=self.bit_sensitivity)    
 
 
         if self.data_aug is not None:
@@ -565,29 +568,12 @@ class Feature_vector_DS:
                     melspec, max_mask_pct=0.1, n_freq_masks=2, n_time_masks=2
                 )
 
-        #Transform back to float64
-        if self.dtype == np.int8:
-            melspec = mcu.fixed_array_to_float(melspec, 7)
-        elif self.dtype == np.int16:
-            melspec = mcu.fixed_array_to_float(melspec, 15)
-        elif self.dtype == np.int32:
-            melspec = mcu.fixed_array_to_float(melspec, 31)
-        else: 
-            #error
-            raise ValueError("Unsupported dtype: {}".format(self.dtype))
-
+        melspec = mcu.fixed_array_to_float(melspec, 15)
 
         melspec = melspec.T
         melspec = melspec.flatten()
-
-    
-        #Normalize the melspec between 0 and 1
-        #melvec = (melvec - np.min(melvec)) / (np.max(melvec) - np.min(melvec))
-
-        if self.normalize:
-            melspec /= np.linalg.norm(melspec)
-        if self.pca is not None:
-            melspec = self.pca.transform([melspec])[0]
+        melspec /= np.linalg.norm(melspec)  # Normalize the feature vector
+        
         return melspec
 
     def display(self, cls_index: Tuple[str, int], show_img = False):

@@ -35,13 +35,14 @@ def self_made_builder_factory(input_shape):
 
 
 
-def model_creation_evaluation(dtype, Nft, n_melvec, melvec_height, window_type, sr, shift_nb=0,
+def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr, shift_nb=0,
         bg_amplitude_limit=[], physical_bg=False):
 
     print("NEW MODEL")
     print("------------------------------------")
     print("Physical HP: ")
-    print("dtype: ", dtype)
+    print("flag_8bit,: ", flag_8bit)
+    print("bit_sensitivity: ", bit_sensitivity)
     print("Nft: ", Nft)
     print("n_melvec: ", n_melvec)
     print("melvec_height: ", melvec_height)
@@ -53,12 +54,12 @@ def model_creation_evaluation(dtype, Nft, n_melvec, melvec_height, window_type, 
     #--------------------------------
     myds, dataset, classnames = get_dataset(path="../datasets/sounds/recorded_sounds/trainset/", filter_str=None, #"_1_"
         Nft=Nft, n_melvec=n_melvec, melvec_height=melvec_height, samples_per_melvec=samples_per_melvec,
-        window_type=window_type, sr = sr, dtype=dtype,
+        window_type=window_type, sr = sr, flag_8bit=flag_8bit, bit_sensitivity=bit_sensitivity,
         normalize=True, shift_pct=0, verbose=False, img_idx = img_idx, play_sound=False)
     
     myds_test, dataset_test, _ = get_dataset(path="../datasets/sounds/recorded_sounds/testset/", filter_str=None, #"_1_"
         Nft=Nft, n_melvec=n_melvec, melvec_height=melvec_height, samples_per_melvec=samples_per_melvec,
-        window_type=window_type, sr = sr, dtype=dtype,
+        window_type=window_type, sr = sr, flag_8bit=flag_8bit, bit_sensitivity=bit_sensitivity,
         normalize=True, shift_pct=0, verbose=False, img_idx = img_idx, play_sound=False)
 
 
@@ -74,14 +75,14 @@ def model_creation_evaluation(dtype, Nft, n_melvec, melvec_height, window_type, 
     if "physical_bg" in augmentations:
         my_phy_ds, phy_bg_dataset, classnames = get_dataset(path="../datasets/sounds/recorded_sounds/trainset/", filter_str="_background_",
         Nft=Nft, n_melvec=n_melvec, melvec_height=melvec_height, samples_per_melvec=samples_per_melvec,
-        window_type=window_type, sr = sr, dtype=dtype,
+        window_type=window_type, sr = sr, flag_8bit= flag_8bit, bit_sensitivity= bit_sensitivity,
         normalize=True, shift_pct=0, verbose=False, img_idx = img_idx, play_sound=False)
     else :
         my_phy_ds = None
         phy_bg_dataset = None
 
     pickle_name = get_picklename(
-        dtype,
+        flag_8bit, bit_sensitivity,
         Nft,
         samples_per_melvec,
         n_melvec,
@@ -110,7 +111,7 @@ def model_creation_evaluation(dtype, Nft, n_melvec, melvec_height, window_type, 
                         load_matrix=False, pickle_name=pickle_name) #load and save parameters
 
     pickle_name_test = get_picklename(
-    dtype,
+    flag_8bit, bit_sensitivity,
     Nft,
     samples_per_melvec,
     n_melvec,
@@ -165,7 +166,7 @@ def model_creation_evaluation(dtype, Nft, n_melvec, melvec_height, window_type, 
 
     #5. Final model
     model_name = get_picklename(
-        dtype,
+        flag_8bit, bit_sensitivity,
         Nft,
         samples_per_melvec,
         n_melvec,
@@ -212,7 +213,7 @@ def model_creation_evaluation(dtype, Nft, n_melvec, melvec_height, window_type, 
     return kfold_acc, kfold_recall, kfold_f1, train_confmat, train_report, test_accuracy, test_confmat, test_report
 
 
-def search_hp(dtype, Nft, n_melvec, melvec_height, window_type, sr, 
+def search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr, 
               shift_nb, bg_amplitude_limit, physical_bg,      
         hp_list, name, preprefix, hp_name, verbose=False):
     """
@@ -257,6 +258,10 @@ def search_hp(dtype, Nft, n_melvec, melvec_height, window_type, sr,
 
         if hp_name == 'n_melvec':
             local_n_melvec = hp_value
+        elif hp_name == 'bit_sensitivity':
+            local_flag_8bit = True
+            local_bit_sensitivity = hp_value
+            print("Bit Sensitivity: ", bit_sensitivity)
         elif hp_name == 'sr':
             print("original_duration: ", original_duration)
             local_sr = hp_value
@@ -288,7 +293,7 @@ def search_hp(dtype, Nft, n_melvec, melvec_height, window_type, sr,
 
         individual_time_start = time.time()
         kfold_acc, kfold_recall, kfold_f1, train_confmat, train_report, \
-            test_accuracy, test_confmat, test_report = model_creation_evaluation(dtype, local_Nft, local_n_melvec, local_melvec_height, local_window_type, local_sr,
+            test_accuracy, test_confmat, test_report = model_creation_evaluation(local_flag_8bit, local_bit_sensitivity, local_Nft, local_n_melvec, local_melvec_height, local_window_type, local_sr,
                                                                                  local_shift_nb, local_bg_amplitude_limit, local_physical_bg)
     
         
@@ -417,10 +422,12 @@ def plot_mean_results(HP, name, show):
 
 if __name__ == '__main__':
 
-    mean_name = "MEAN_friday18"
-    HPs = ["bg_amplitude_limit", "melvec_height", "n_melvec", "Nft", "physical_bg", "shift_nb", "sr", "window_type"]
-    for HP in HPs:
-        plot_mean_results(HP, mean_name, show=True)
+    #mean_name = "MEAN_friday18"
+    #HPs = ["bg_amplitude_limit", "melvec_height", "n_melvec", "Nft", "physical_bg", "shift_nb", "sr", "window_type"]
+    #for HP in HPs:
+    #    plot_mean_results(HP, mean_name, show=True)
+    
+    do_bit_sensitivity = True
     do_melvec = False
     do_sr = False
     do_melvec_height = False
@@ -434,11 +441,12 @@ if __name__ == '__main__':
 
     verbose = False #To show graphs
     preprefix = "../datasets/GSresults/"
-    name = "friday18_global_tests_same_tuner"
+    name = "monday21_4"
 
     #Physical HP
     #------------------------------------
-    original_dtype = np.int16
+    original_flag_8bit = False
+    original_bit_sensitivity = 0
     original_Nft = 512
     original_samples_per_melvec = original_Nft
     original_n_melvec = 10
@@ -451,7 +459,9 @@ if __name__ == '__main__':
     original_bg_amplitude_limit = []
     original_physical_bg = False
 
-    dtype = original_dtype
+
+    flag_8bit = original_flag_8bit
+    bit_sensitivity = original_bit_sensitivity
     Nft = original_Nft
     samples_per_melvec = original_samples_per_melvec
     n_melvec = original_n_melvec
@@ -493,14 +503,28 @@ if __name__ == '__main__':
 
 
     prefix = preprefix
-            #1. N MELVEC
+    
+    #0  BIT SENSITIVITY
+    #-----------------------------------------------
+    if do_bit_sensitivity:
+        print("BIT SENSITIVITY")
+        print("------------------------------------")
+        bit_sensitivity_list = [0,1,2,3,4,5,6,7,8]
+        flag_8bit = True
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,
+                  shift_nb, bg_amplitude_limit, physical_bg,
+                  bit_sensitivity_list, name, prefix, hp_name='bit_sensitivity', verbose=verbose)
+        bit_sensitivity = original_bit_sensitivity
+        flag_8bit = original_flag_8bit
+    
+    #1. N MELVEC
     #-----------------------------------------------
     if do_melvec:
 
         print("N MELVEC")
         print("------------------------------------")
         n_melvec_list = [2,4,8,12,16,20,24,28,32]
-        search_hp(dtype, Nft, n_melvec, melvec_height, window_type, sr,   
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,   
                   shift_nb, bg_amplitude_limit, physical_bg,     
                   n_melvec_list, name, prefix, hp_name='n_melvec', verbose=verbose)
         n_melvec = original_n_melvec
@@ -512,7 +536,7 @@ if __name__ == '__main__':
         print("SAMPLING RATE")
         print("------------------------------------")
         sr_list= [25000,12000,10200,8400,6800,5100,3400]
-        search_hp(dtype, Nft, n_melvec, melvec_height, window_type, sr,     
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,     
                   shift_nb, bg_amplitude_limit, physical_bg,   
                   sr_list, name, preprefix, hp_name='sr', verbose=verbose)
         sr = original_sr
@@ -525,7 +549,7 @@ if __name__ == '__main__':
         print("MELVEC HEIGHT")
         print("------------------------------------")
         melvec_height_list = [2,4,8,10,16,22,30]
-        search_hp(dtype, Nft, n_melvec, melvec_height, window_type, sr,        
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,        
                   shift_nb, bg_amplitude_limit, physical_bg,
                   melvec_height_list, name, prefix, hp_name='melvec_height', verbose=verbose)
         melvec_height = original_melvec_height
@@ -537,7 +561,7 @@ if __name__ == '__main__':
         print("WINDOW TYPE")
         print("------------------------------------")
         window_type_list = ["hamming", "hanning", "blackman", "rectangular", "triangular"]
-        search_hp(dtype, Nft, n_melvec, melvec_height, window_type, sr,       
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,       
                   shift_nb, bg_amplitude_limit, physical_bg, 
                   window_type_list, name, prefix, hp_name='window_type', verbose=verbose)
         window_type = original_window_type
@@ -549,7 +573,7 @@ if __name__ == '__main__':
         print("NFFT")
         print("------------------------------------")
         Nft_list = [128, 256, 512, 1024, 2048]
-        search_hp(dtype, Nft, n_melvec, melvec_height, window_type, sr,        
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,        
                   shift_nb, bg_amplitude_limit, physical_bg,
                   Nft_list, name, prefix, hp_name='Nft', verbose=verbose)
         Nft = original_Nft
@@ -568,7 +592,7 @@ if __name__ == '__main__':
         augmentations = ["time_shift"] 
         shift_nb = original_shift_nb                  if "time_shift" in augmentations else 0
                 
-        search_hp(dtype, Nft, n_melvec, melvec_height, window_type, sr,    
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,    
                   shift_nb, bg_amplitude_limit, physical_bg,    
                   shift_nb_list, name, prefix, hp_name='shift_nb', verbose=verbose)
         shift_nb = original_shift_nb
@@ -581,7 +605,7 @@ if __name__ == '__main__':
         print("------------------------------------")
         augmentations = ["physical_bg"]
         physical_bg = [False, True]
-        search_hp(dtype, Nft, n_melvec, melvec_height, window_type, sr,  
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,  
                   shift_nb, bg_amplitude_limit, physical_bg,      
                   physical_bg, name, prefix, hp_name='physical_bg', verbose=verbose)
         physical_bg = original_physical_bg
@@ -597,7 +621,7 @@ if __name__ == '__main__':
 
         augmentations = ["add_bg"]
 
-        search_hp(dtype, Nft, n_melvec, melvec_height, window_type, sr,     
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,     
                   shift_nb, bg_amplitude_limit, physical_bg,   
                   bg_amplitude_limit_list, name, prefix, hp_name='bg_amplitude_limit', verbose=verbose)
         bg_amplitude_limit = original_bg_amplitude_limit
