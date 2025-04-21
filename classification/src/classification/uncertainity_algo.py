@@ -1,7 +1,8 @@
 import numpy as np
+import requests 
+DTYPE = np.dtype(np.uint16).newbyteorder("<")
+np.set_printoptions(precision=2, suppress=True)
 
-
-import numpy as np
 
 def entropy(probabilities):
     """Compute the entropy of a probability distribution."""
@@ -9,105 +10,123 @@ def entropy(probabilities):
     probabilities = np.clip(probabilities, 1e-10, 1)  # Avoid log(0)
     return -np.sum(probabilities * np.log2(probabilities))
 
-# Example: 4-class probability distributions
-probs1 = [0.25, 0.25, 0.25, 0.25]  # Maximum uncertainty
-probs2 = [0.99, 0.0, 0.0, 0.01]   # Low uncertainty
 
-print("Entropy 1:", entropy(probs1))  # High entropy
-print("Entropy 2:", entropy(probs2))  # Low entropy
+class DoubleRunningSumDetector:
+    def __init__(self, N_STS=50, N_LTS=5000, K=1, BASELINE=2048):
+        """Initialize the double running sum algorithm."""
+        self.N_STS = N_STS  # Short-term sum window size
+        self.N_LTS = N_LTS  # Long-term sum window size
+        self.K = K  # Scaling factor (not used explicitly, can be added later)
+        self.BASELINE = BASELINE  # Baseline level for signal shift
+
+        # Buffers for short-term and long-term sums
+        self.sts_buffer = np.zeros(self.N_STS)
+        self.lts_buffer = np.zeros(self.N_LTS)
+
+        # Running sums
+        self.sts_sum = 0.0
+        self.lts_sum = 0.0
+
+        # Indexes for circular buffer updates
+        self.sts_idx = 0
+        self.lts_idx = 0
+
+    def reset(self):
+        """Reset the detector state."""
+        self.sts_buffer.fill(0)
+        self.lts_buffer.fill(0)
+        self.sts_sum = 0.0
+        self.lts_sum = 0.0
+        self.sts_idx = 0
+        self.lts_idx = 0
 
 
-def generate_probabilities(num_samples=10, num_classes=4):
-    """Generate random probability distributions that sum to 1."""
-    samples = np.random.dirichlet(np.ones(num_classes), size=num_samples)
-    return samples
+    def update(self, sample, threshold_factor=1.0):
+        """
+        Process one sample and update the running sums.
+
+        Args:
+            sample (float or int): Single ADC sample
+            threshold_factor (float): Scaling factor for detection sensitivity
+
+        Returns:
+            bool: True if a signal packet is detected, False otherwise
+        """
+        sample_shifted = float(sample) - self.BASELINE
+        sample_mag = abs(sample_shifted)
+
+        # Update short-term sum
+        self.sts_sum -= self.sts_buffer[self.sts_idx]
+        self.sts_buffer[self.sts_idx] = sample_mag
+        self.sts_sum += sample_mag
+        self.sts_idx = (self.sts_idx + 1) % self.N_STS
+
+        # Update long-term sum
+        self.lts_sum -= self.lts_buffer[self.lts_idx]
+        self.lts_buffer[self.lts_idx] = self.sts_buffer[(self.sts_idx + self.N_STS - 1) % self.N_STS]
+        self.lts_sum += self.lts_buffer[self.lts_idx]
+        self.lts_idx = (self.lts_idx + 1) % self.N_LTS
+
+        # Normalize running sums
+        norm_sts = self.sts_sum / self.N_STS
+        norm_lts = self.lts_sum / self.N_LTS
+
+        print(f"STS: {norm_sts}, LTS: {threshold_factor * norm_lts}")
+
+        #TODO: Adapt to return a value between 0 and 1 instead of True/False
+        #If norm_sts > thresh * norm_lts, then value returned is 1
+        #else, the returned value is close to one if the difference is small, and close to 0 if the difference is high
+
+        # Compute confidence score between 0 and 1
+        if norm_sts > threshold_factor * norm_lts:
+            return 1.0
+        else:
+            # Confidence decreases as STS diverges from threshold
+            ratio = norm_sts / (threshold_factor * norm_lts + 1e-6)  # prevent div by 0
+            return max(0.0, min(ratio, 1.0))  # clamp to [0, 1]
 
 
-class UncertaintyTracker:
-    def __init__(self, window_size=5, alpha=0.7):
-        self.window_size = window_size
-        self.alpha = alpha  # For exponential moving average
-        self.prob_history = []  # Stores past probability distributions
-        self.entropy_history = []  # Stores past entropy values
+
+
+def compute_uncertainity(payloads, probas, idx, DTYPE, detector, a_sum, b_entropy, save_payloads=None):
+    """Returns the uncertainity of the packet given the double sum and model predictions."""    
+
+    predicted_class = np.argmax(probas)
+    class_names = ["chainsaw", "fire", "fireworks", "gun"]
+    predicted_class_name = class_names[predicted_class]
+
+    print(f"Predicted probabilities: {probas*100}")
+    print("Theoretical class: ", predicted_class_name)
+
+    uncertainty = 0
+
+    #WARNING: was originally payload but changed to fv #TO NOT NORMALIZE BEFORE
+    #1. Double running sum
+    if detector: # Detector set to none for multiple packets
+        adc_samples = np.array(
+            [int(payloads[i : i + 4], 16) for i in range(0, len(payloads), 4)],
+            dtype=DTYPE
+        )
+
+        if idx >= len(adc_samples):
+            print("Index out of range for adc_samples - init of detector")
+            detector.reset()
+
+        if not detector.update(adc_samples[idx], threshold_factor=1.0):
+            uncertainty += a_sum
+            print("Double sum uncertainity: ", uncertainty)
+
+    #2. Entropy
+    en = entropy(probas)
     
-    def entropy(self, probabilities):
-        """Compute entropy of a probability distribution."""
-        probabilities = np.clip(probabilities, 1e-10, 1)  # Avoid log(0)
-        return -np.sum(probabilities * np.log2(probabilities))
-    
-    def update(self, probs):
-        """Update the history with new probabilities and compute uncertainty."""
-        ent = self.entropy(probs)
+    entropy_normalized = en * 1 / 0.7  # Normalize entropy
+    #print("Entropy: ", en)
+    #print("Normalized entropy: ", entropy_normalized)
 
-        # Store probabilities and entropy
-        self.prob_history.append(probs)
-        self.entropy_history.append(ent)
+    uncertainty += b_entropy * entropy_normalized 
+    #print("Entropy uncertainty: ", b_entropy * entropy_normalized)
 
-        # Keep only the last `window_size` elements
-        if len(self.prob_history) > self.window_size:
-            self.prob_history.pop(0)
-            self.entropy_history.pop(0)
-        
-        # Compute moving average of entropy
-        moving_avg_entropy = np.mean(self.entropy_history)
+    #print("Final Uncertainty: ", uncertainty)
 
-        # Compute exponential moving average for probabilities
-        smoothed_probs = np.average(self.prob_history, axis=0, weights=np.linspace(1, self.alpha, len(self.prob_history)))
+    return uncertainty 
 
-        return smoothed_probs, moving_avg_entropy
-
-
-
-
-
-
-
-
-
-"""
-# Generate 20 test cases
-test_cases = generate_probabilities(num_samples=20)
-
-# Print test cases
-for i, probs in enumerate(test_cases):
-    print(f"Case {i+1}: {probs}")
-    print("Entropy:", entropy(probs))
-    print()
-"""
-
-
-
-
-
-"""
-# Example usage
-tracker = UncertaintyTracker(window_size=3)
-
-test_probs = [
-    [0.9, 0.05, 0.03, 0.02],  # High confidence
-    [0.85, 0.08, 0.05, 0.02],  # Still confident
-    [0.7, 0.2, 0.08, 0.02],  # Slightly more uncertain
-    [0.6, 0.25, 0.1, 0.05],  # More uncertain
-    [0.5, 0.3, 0.15, 0.05],  # High uncertainty
-    [0.3, 0.3, 0.2, 0.2],  # Very uncertain
-    [0.4, 0.4, 0.1, 0.1],  # Uncertainty persists
-    [0.6, 0.3, 0.08, 0.02],  # Slight recovery
-    [0.75, 0.15, 0.07, 0.03],  # Confidence increasing
-    [0.85, 0.1, 0.03, 0.02],  # Almost confident again
-    [0.9, 0.05, 0.03, 0.02],  # Fully confident again
-    [0.8, 0.1, 0.05, 0.05],  # Slight dip but still confident
-    [0.6, 0.25, 0.1, 0.05],  # Sudden uncertainty
-    [0.5, 0.3, 0.15, 0.05],  # Uncertainty remains
-    [0.4, 0.3, 0.2, 0.1],  # Even more uncertain
-    [0.3, 0.3, 0.2, 0.2],  # Highly uncertain
-    [0.5, 0.3, 0.15, 0.05],  # Starting to recover
-    [0.6, 0.25, 0.1, 0.05],  # Getting better
-    [0.75, 0.15, 0.07, 0.03],  # Near confident again
-    [0.9, 0.05, 0.03, 0.02],  # Back to full confidence
-]
-
-
-for i, probs in enumerate(test_probs):
-    smoothed_probs, avg_entropy = tracker.update(probs)
-    print(f"Step {i+1}: Smoothed Probs: {smoothed_probs}, Avg Entropy: {avg_entropy}")
-"""

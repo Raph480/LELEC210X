@@ -316,7 +316,8 @@ def search_hp(dtype, Nft, n_melvec, melvec_height, window_type, sr,
                     name=name, prefix=prefix, verbose=verbose)
 
 
-def plot_mean_results(HP):
+def plot_mean_results(HP, name, show):
+    descending = False
     if HP == "melvec_height":
         path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_wednesday16_global_tests_same_tuner_2_2_30.csv"
         path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_wednesday16_global_tests_same_tuner_2_30.csv"
@@ -326,6 +327,8 @@ def plot_mean_results(HP):
         path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_monday14_global_tests_same_tuner_2_30.csv"
         path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_friday18_global_tests_same_tuner_2_30.csv"
         xlabel = "melvec_height"
+        paths = [path1, path2, path3, path4, path5, path6, path7]
+
 
     elif HP == "n_melvec":
         path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_wednesday16_global_tests_same_tuner_2_2_32.csv"
@@ -336,17 +339,88 @@ def plot_mean_results(HP):
         path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_monday14_global_tests_same_tuner_2_32.csv"
         path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_friday18_global_tests_same_tuner_2_32.csv"
         xlabel = "n_melvec"
+        paths = [path1, path2, path3, path4, path5, path6, path7]
 
 
-    paths = [path1, path2, path3, path4, path5, path6, path7]
+    elif HP == "Nft":
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_wednesday16_global_tests_same_tuner_128_2048.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_wednesday16_global_tests_same_tuner_2_128_2048.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_tusday17_global_tests_same_tuner_128_2048.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_tusday17_global_tests_same_tuner_2_128_2048.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_tuesday15_global_tests_same_tuner_128_2048.csv"
+        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_monday14_global_tests_same_tuner_128_2048.csv"
+        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_friday18_global_tests_same_tuner_128_2048.csv"
+        xlabel = "Nft"
+        paths = [path1, path2, path3, path4, path5, path6, path7]
 
-    plot_csv_files(paths, xlabel)
+    
+    elif HP == "sr":
+        path1 = "LELEC210X/classification/src/classification/datasets/GSresults/sr/results_wednesday16_global_tests_same_tuner_25000_3400.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_wednesday16_global_tests_same_tuner_2_25000_3400.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_tusday17_global_tests_same_tuner_25000_3400.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_tusday17_global_tests_same_tuner_2_25000_3400.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_tuesday15_global_tests_same_tuner_25000_3400.csv" 
+        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_monday14_global_tests_same_tuner_25000_3400.csv"
+        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_friday18_global_tests_same_tuner_25000_3400.csv"
+        xlabel = "sr"
+        paths = [path1, path2, path3, path4, path5, path6, path7]
+
+    
+    elif HP == "window_type":
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_wednesday16_global_tests_same_tuner_hamming_triangular.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_wednesday16_global_tests_same_tuner_2_hamming_triangular.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_tusday17_global_tests_same_tuner_hamming_triangular.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_tusday17_global_tests_same_tuner_2_hamming_triangular.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_tuesday15_global_tests_same_tuner_hamming_triangular.csv"
+        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_monday14_global_tests_same_tuner_hamming_triangular.csv"
+        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_friday18_global_tests_same_tuner_hamming_triangular.csv"
+        xlabel = "window_type"
+        paths = [path1, path2, path3, path4, path5, path6, path7]
+
+    
+    elif HP == "shift_nb":
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday16_global_tests_same_tuner_2_0_7.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday16_global_tests_same_tuner_0_7.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_tusday17_global_tests_same_tuner_0_7.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_tusday17_global_tests_same_tuner_2_0_7.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_tuesday15_global_tests_same_tuner_0_7.csv"
+        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_monday14_global_tests_same_tuner_0_7.csv"
+        xlabel = "shift_nb"
+        paths = [path1, path2, path3, path4, path5, path6]
+
+
+    elif HP == "physical_bg":
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_wednesday16_global_tests_same_tuner_False_True.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_wednesday16_global_tests_same_tuner_2_False_True.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_tusday17_global_tests_same_tuner_False_True.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_tusday17_global_tests_same_tuner_2_False_True.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_tuesday15_global_tests_same_tuner_False_True.csv"
+        xlabel = "physical_bg"
+        paths = [path1, path2, path3, path4, path5]
+
+
+    elif HP == "bg_amplitude_limit":
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_wednesday16_global_tests_same_tuner_2_[]_[0.1, 0.316, 0.5, 1].csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_wednesday16_global_tests_same_tuner_[]_[0.1, 0.316, 0.5, 1].csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_tusday17_global_tests_same_tuner_2_[]_[0.1, 0.316, 0.5, 1].csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_tusday17_global_tests_same_tuner_[]_[0.1, 0.316, 0.5, 1].csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_tuesday15_global_tests_same_tuner_[]_[0.1, 0.316, 0.5, 1].csv"
+        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_monday14_global_tests_same_tuner_[0.1]_[0.1, 0.316, 0.5, 1].csv"
+        xlabel = "bg_amplitude_limit"
+        paths = [path1, path2, path3, path4, path5, path6]
+        descending = True
+
+    prefix = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/"
+    prefix += HP + "/" + name
+    plot_csv_files(paths, xlabel, descending, save=prefix, show=show)
 
 
 if __name__ == '__main__':
 
-    plot_mean_results("n_melvec")
-
+    mean_name = "MEAN_friday18"
+    HPs = ["bg_amplitude_limit", "melvec_height", "n_melvec", "Nft", "physical_bg", "shift_nb", "sr", "window_type"]
+    for HP in HPs:
+        plot_mean_results(HP, mean_name, show=True)
     do_melvec = False
     do_sr = False
     do_melvec_height = False

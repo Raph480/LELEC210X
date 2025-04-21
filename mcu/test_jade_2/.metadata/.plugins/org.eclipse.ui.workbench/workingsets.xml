@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1744206310507_0" label="Java Main Sources" name="Java Main Sources"/>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1744206310517_1" label="Java Test Sources" name="Java Test Sources"/>
+<workingSet editPageId="org.eclipse.cdt.ui.CElementWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1744206525741_3" label="tets" name="tets"/>
+<workingSet editPageId="org.eclipse.cdt.ui.CElementWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1744206673334_4" label="test" name="test"/>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1744206762817_5" label="test2" name="test2"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1744206311659_2" label="Window Working Set" name="Aggregate for window 1744206311658"/>
+<mruList name="test2"/>
+<mruList name="test"/>
+<mruList name="tets"/>
+</workingSetManager>

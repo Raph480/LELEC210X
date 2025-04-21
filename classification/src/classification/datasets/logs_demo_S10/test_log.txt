@@ -1,0 +1,46 @@
+PACKET # 0
+----------------
+Processing packet (listening=True)
+PACKET # 1
+----------------
+Processing packet (listening=True)
+PACKET # 2
+----------------
+Processing packet (listening=True)
+No packets received during listening time!
+PACKET # 3
+----------------
+Processing packet (listening=True)
+PACKET # 4
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 154ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 187ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 40.88, LTS: 0.04088
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 34ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 66ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 81.8, LTS: 0.0818
+MODEL 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 110ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 147ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+Final probabilities:  [-0.  3. -0. -0.]
+Final Sent class:  fire
+-------------------------------
+
+PACKET # 5
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 61ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 103ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 122.74, LTS: 0.12274
+Final probabilities:  [-0.  1. -0. -0.]
+Final Sent class:  fire
+-------------------------------
+

@@ -458,7 +458,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_csv_files(file_paths, xlabel="HPs"):
+def plot_csv_files(file_paths, xlabel="HPs", descending=False, show=True, save = 'None'):
     # List to collect DataFrames
     all_data = []
 
@@ -470,7 +470,7 @@ def plot_csv_files(file_paths, xlabel="HPs"):
     # Concatenate all DataFrames
     combined_df = pd.concat(all_data)
 
-    # Group by HPs and calculate mean and variance
+    # Group by HPs and calculate mean and std
     stats = combined_df.groupby('HPs').agg(
         kfold_accuracy_mean=('kfold_accuracy', 'mean'),
         kfold_accuracy_std=('kfold_accuracy', 'std'),
@@ -478,18 +478,21 @@ def plot_csv_files(file_paths, xlabel="HPs"):
         test_accuracy_std=('test_accuracy', 'std')
     ).reset_index()
 
+    # Sort by HPs in ascending or descending order
+    stats = stats.sort_values('HPs', ascending=not descending)
+
     # Plotting
     plt.figure(figsize=(10, 6))
 
     # Plot K-Fold Accuracy with error bars
     plt.errorbar(stats['HPs'], stats['kfold_accuracy_mean'],
                  yerr=stats['kfold_accuracy_std'], fmt='-o',
-                 capsize=5, label='K-Fold Accuracy')
+                 capsize=5, label='K-Fold Accuracy', color='blue')
 
     # Plot Test Accuracy with error bars
     plt.errorbar(stats['HPs'], stats['test_accuracy_mean'],
                  yerr=stats['test_accuracy_std'], fmt='-o',
-                 capsize=5, label='Test Accuracy', color='orange')
+                 capsize=5, label='Test Accuracy', color='green')
 
     plt.xlabel(xlabel)
     plt.ylabel("Accuracy")
@@ -497,4 +500,9 @@ def plot_csv_files(file_paths, xlabel="HPs"):
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.show()
+   
+    if save:
+        plt.savefig(save + '.svg')
+    
+    if show:
+        plt.show()

@@ -1,4 +1,4 @@
-15:56:27 **** Incremental Build of configuration Debug for project hands_on_main_app ****
+15:57:06 **** Build of configuration Debug for project hands_on_main_app ****
 make -j8 all 
 arm-none-eabi-size  hands_on_main_app.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  hands_on_main_app.elf
 Finished building: default.size.stdout
  
 
-15:56:27 Build Finished. 0 errors, 0 warnings. (took 494ms)
+15:57:06 Build Finished. 0 errors, 0 warnings. (took 439ms)
 
