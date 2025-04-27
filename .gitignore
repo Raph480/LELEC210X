@@ -17,6 +17,10 @@ package.json
 node_modules/
 moresoundfiles/
 
+# Datasets for the model
+/LELEC210X/classification/src/classification/datasets/melvecs/HP_tuning/
+
+
 # TeX
 
 tex/*/*.aux
@@ -905,3 +909,4 @@ mcu/hands_on_audio_double_buffer/audio_files/
 mcu/hands_on_feature_vectors/melspectrograms_plots/
 
 mcu/Tests/
+

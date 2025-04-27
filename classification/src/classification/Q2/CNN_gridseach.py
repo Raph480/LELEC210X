@@ -9,19 +9,36 @@ from tensorflow.keras.utils import to_categorical
 import numpy as np
 
 
+#D. Self-made 1
 def self_made_builder_factory(input_shape):
     #Enable to pass input_shape to the function
     def self_made_builder(hp):
         model = tf.keras.Sequential()
-        model.add(tf.keras.layers.Flatten(input_shape=input_shape))
+        model.add(tf.keras.Input(shape = input_shape))
+        model.add(tf.keras.layers.Flatten())
 
         hp_activation = hp.Choice('activation', values=['relu', 'tanh', 'sigmoid'])
-        hp_layer_1 = hp.Int('layer_1', min_value=1, max_value=512, step=32)
-        hp_layer_2 = hp.Int('layer_2', min_value=1, max_value=512, step=32)
+
+        for i in range(hp.Int("num_layers", 1,3)):
+            model.add(
+                tf.keras.layers.Dense(
+                    # Tune number of units separately.
+                    units=hp.Int(f"layer_{i}", min_value=32, max_value=512, step=32),
+                    activation=hp_activation,
+                )
+            )
+            ## Add dropout after each dense layer
+            #model.add(
+            #    tf.keras.layers.Dropout(
+            #        rate=hp.Float(f"dropout_rate_{i}", min_value=0.1, max_value=0.5, step=0.1)
+            #    )
+            #)
+        #hp_layer_1 = hp.Int('layer_1', min_value=1, max_value=512, step=32)
+        #hp_layer_2 = hp.Int('layer_2', min_value=1, max_value=512, step=32)
         hp_learning_rate = hp.Choice('learning_rate', values=[1e-2, 1e-3, 1e-4]) 
 
-        model.add(tf.keras.layers.Dense(units=hp_layer_1, activation=hp_activation))
-        model.add(tf.keras.layers.Dense(units=hp_layer_2, activation=hp_activation))
+        #model.add(tf.keras.layers.Dense(units=hp_layer_1, activation=hp_activation))
+        #model.add(tf.keras.layers.Dense(units=hp_layer_2, activation=hp_activation))
         model.add(tf.keras.layers.Dense(4, activation='softmax'))
 
         opt = tf.keras.optimizers.Adam(learning_rate=hp_learning_rate)
@@ -35,10 +52,11 @@ def self_made_builder_factory(input_shape):
 
 
 
-def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr, shift_nb=0,
-        bg_amplitude_limit=[], physical_bg=False):
 
-    print("NEW MODEL")
+def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr, shift_nb=0,
+        bg_amplitude_limit=[], physical_bg=False, augmentations = []):
+
+    print("NEW CREATION EVALUATION")
     print("------------------------------------")
     print("Physical HP: ")
     print("flag_8bit,: ", flag_8bit)
@@ -48,20 +66,25 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
     print("melvec_height: ", melvec_height)
     print("window_type: ", window_type)
     print("sampling rate: ", sr)
-
+    img_idx = 0
+    test_img_idx = 0
+    verbose = False
+    plot_indexes = []
+    play_sound = False
+    samples_per_melvec = Nft
 
     #1. Import classical  - #2. Train-test split
     #--------------------------------
-    myds, dataset, classnames = get_dataset(path="../datasets/sounds/recorded_sounds/trainset/", filter_str=None, #"_1_"
+    #Does not take the background noise and youtube sounds into account
+    myds, dataset, classnames = get_dataset(path="../datasets/sounds/recorded_sounds/trainset_with_new/", filter_str=None,
         Nft=Nft, n_melvec=n_melvec, melvec_height=melvec_height, samples_per_melvec=samples_per_melvec,
-        window_type=window_type, sr = sr, flag_8bit=flag_8bit, bit_sensitivity=bit_sensitivity,
-        normalize=True, shift_pct=0, verbose=False, img_idx = img_idx, play_sound=False)
-    
-    myds_test, dataset_test, _ = get_dataset(path="../datasets/sounds/recorded_sounds/testset/", filter_str=None, #"_1_"
-        Nft=Nft, n_melvec=n_melvec, melvec_height=melvec_height, samples_per_melvec=samples_per_melvec,
-        window_type=window_type, sr = sr, flag_8bit=flag_8bit, bit_sensitivity=bit_sensitivity,
-        normalize=True, shift_pct=0, verbose=False, img_idx = img_idx, play_sound=False)
+        window_type=window_type, sr = sr, flag_8bit = flag_8bit, bit_sensitivity=bit_sensitivity,
+        normalize=True, shift_pct=0, verbose=False, img_idx = img_idx, play_sound=True)
 
+    myds_test, dataset_test, _ = get_dataset(path="../datasets/sounds/recorded_sounds/testset_with_new/", filter_str=None, #"_background_",
+        Nft=Nft, n_melvec=n_melvec, melvec_height=melvec_height, samples_per_melvec=samples_per_melvec,
+        window_type=window_type, sr = sr,  flag_8bit = flag_8bit, bit_sensitivity=bit_sensitivity,
+        normalize=True, shift_pct=0, verbose=False, img_idx = test_img_idx, play_sound=False)
 
 
     #3. Dataset augmentations
@@ -72,66 +95,67 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
     else :
         bg_dataset = None
 
-    if "physical_bg" in augmentations:
-        my_phy_ds, phy_bg_dataset, classnames = get_dataset(path="../datasets/sounds/recorded_sounds/trainset/", filter_str="_background_",
+    if  physical_bg:
+        my_phy_ds, phy_bg_dataset, classnames = get_dataset(path="../datasets/sounds/recorded_sounds/trainset_with_new/", filter_str="_background_",
         Nft=Nft, n_melvec=n_melvec, melvec_height=melvec_height, samples_per_melvec=samples_per_melvec,
-        window_type=window_type, sr = sr, flag_8bit= flag_8bit, bit_sensitivity= bit_sensitivity,
+        window_type=window_type, sr = sr,  flag_8bit = flag_8bit, bit_sensitivity=bit_sensitivity,
         normalize=True, shift_pct=0, verbose=False, img_idx = img_idx, play_sound=False)
     else :
         my_phy_ds = None
         phy_bg_dataset = None
 
-    pickle_name = get_picklename(
-        flag_8bit, bit_sensitivity,
-        Nft,
-        samples_per_melvec,
-        n_melvec,
-        melvec_height,
-        window_type,
-        sr,
-        augmentations,
-        shift_nb,
-        bg_amplitude_limit,
-        physical_bg,
+    physical_aug = ("physical_bg" in augmentations) or physical_bg
+
+
+    pickle_name = get_picklename( flag_8bit, bit_sensitivity,Nft,samples_per_melvec,n_melvec,melvec_height,window_type,sr,augmentations,shift_nb,bg_amplitude_limit,physical_aug,
         prefix="../datasets/melvecs/HP_tuning/",
         purpose = "melvecs" # "model"
     )
+    #pickle_name+="_1_"
     print("pickle_name: ", pickle_name)
 
+    #---------------------------------
+
     #Visualisation purposes
-    verbose = False
-    play_sound = False
-
-
+    img_idx = 10
+    print("TRAIN SET")
     X_train, y_train = augment_dataset(myds, dataset, classnames, augmentations, melvec_height=melvec_height,
                         shift_nb = shift_nb, #numbers of shifts done
                         bg_dataset = bg_dataset, bg_amplitude_limit=bg_amplitude_limit, #dataset used for background noise, background amplitudes
                         physical_bg_dataset = phy_bg_dataset,my_phy_ds = my_phy_ds, #dataset used for physical background noises
                         verbose=verbose, img_idx=img_idx, aug_indexes=plot_indexes, play_sound=play_sound, #verbose parameters
-                        load_matrix=False, pickle_name=pickle_name) #load and save parameters
+                        load_matrix=load_matrix, pickle_name=pickle_name) #load and save parameters
+
+
+    print("TEST SET")
+    plot_indexes = [0]
+    verbose = False
+    play_sound = False
+
+
+    augmentations_test = [] 
+    nb_shift_test = 0
 
     pickle_name_test = get_picklename(
-    flag_8bit, bit_sensitivity,
-    Nft,
-    samples_per_melvec,
-    n_melvec,
-    melvec_height,
-    window_type,
-    sr,
-    augmentations,
-    shift_nb,
-    bg_amplitude_limit,
-    physical_bg,
-    prefix="../datasets/melvecs/HP_tuning/",
-    purpose = "melvecs_test" # "model"
+        flag_8bit, bit_sensitivity,Nft,samples_per_melvec,n_melvec,melvec_height,window_type,sr,augmentations_test,nb_shift_test,bg_amplitude_limit,physical_aug,
+        prefix="../datasets/melvecs/HP_tuning/",
+        purpose = "melvecs_test" # "model"
     )
+    #pickle_name_test+="_1_"
+    print("pickle_name_test: ", pickle_name_test)
 
-    X_test, y_test = augment_dataset(myds_test, dataset_test, classnames, augmentations = [], melvec_height=melvec_height,    
-                    shift_nb = 0, #numbers of shifts done
+
+    X_test, y_test = augment_dataset(myds_test, dataset_test, classnames, augmentations = augmentations_test
+                                    , melvec_height=melvec_height,
+                                    
+                    shift_nb = nb_shift_test, #numbers of shifts done
                     bg_dataset = None, bg_amplitude_limit=[], #dataset used for background noise, background amplitudes
                     physical_bg_dataset = phy_bg_dataset,my_phy_ds = my_phy_ds, #dataset used for physical background noises
                     verbose=verbose, img_idx=img_idx, aug_indexes=plot_indexes, play_sound=play_sound, #verbose parameters
-                load_matrix=False, pickle_name=pickle_name_test) #load and save parameters
+                load_matrix=load_matrix_test, pickle_name=pickle_name_test) #load and save parameters
+
+    #Print shape of the test set
+    print("X_test shape: ", X_test.shape)
 
     # Transform the labels to integers and save mapping
     label_to_id = {label: i for i, label in enumerate(classnames)}
@@ -140,18 +164,40 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
     y_test = np.array([label_to_id[label] for label in y_test])
 
 
+    #Shuffle X_train and y_train
+    indices = np.arange(len(X_train))
+    np.random.shuffle(indices)
+    X_train = X_train[indices]
+    y_train = y_train[indices]
+
+    # Identify invalid samples (all zeros or NaNs)
+    invalid_mask = np.any(np.isnan(X_train), axis=tuple(range(1, X_train.ndim))) | \
+                np.all(X_train == 0, axis=tuple(range(1, X_train.ndim)))
+
+    # Invert the mask to get valid entries
+    valid_mask = ~invalid_mask
+
+    # Filter X_train and y_train
+    X_train = X_train[valid_mask]
+    y_train = y_train[valid_mask]
+
+    print(f"Removed {np.sum(invalid_mask)} invalid samples!")
+    print(f"X_train shape after removing invalid samples: {X_train.shape}")
+
+
+
     #4. Modelling
     #----------------------------
-    label_encoder = LabelEncoder()
-    y_train = label_encoder.fit_transform(y_train)  # Convert labels to numbers
-
+    #label_encoder = LabelEncoder()
+    #y_train = label_encoder.fit_transform(y_train)  # Convert labels to numbers
+    validation_split = 0.3
     def create_tuner(hypermodel):
         return kt.Hyperband(hypermodel,
                         objective='val_accuracy',
                         max_epochs=epochs_tuner,
                         factor=3,
                         directory='hp_dir',
-                        project_name='tuner1',
+                        project_name='basic_ref_model',
                         overwrite=False)
 
 
@@ -163,59 +209,81 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
     stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience)
 
     tuner.search(X_train, y_train, epochs=epochs, validation_split=validation_split, callbacks=[stop_early])
+    #tuner.results_summary()
 
     #5. Final model
+    validation_split = 0.3
+    stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience, restore_best_weights=True)
+
+
     model_name = get_picklename(
-        flag_8bit, bit_sensitivity,
-        Nft,
-        samples_per_melvec,
-        n_melvec,
-        melvec_height,
-        window_type,
-        sr,
-        augmentations,
-        shift_nb,
-        bg_amplitude_limit,
-        physical_bg,
+        flag_8bit, bit_sensitivity,Nft,samples_per_melvec,n_melvec,melvec_height,window_type,sr,augmentations,shift_nb,
+        bg_amplitude_limit,physical_aug,
         prefix="../datasets/models/",
         purpose = "model"
     )
 
     best_hps = tuner.get_best_hyperparameters(num_trials = 1)[0]
+    print("Best hyperparameters: ", best_hps.values)
 
-    model = tuner.hypermodel.build(best_hps)
-    history = model.fit(X_train, y_train, epochs=epochs, validation_split=validation_split, callbacks=[stop_early])
-
+    #Temporary model to find the best number of epochs - avoid overfitting
+    temp_model = tuner.hypermodel.build(best_hps)
+    history = temp_model.fit(X_train, y_train, epochs=epochs, validation_split=validation_split, callbacks=[stop_early])
     val_acc_per_epoch = history.history['val_accuracy']
     best_epoch = val_acc_per_epoch.index(max(val_acc_per_epoch)) + 1
     print('Best epoch: %d' % (best_epoch,))
 
-    hypermodel = tuner.hypermodel.build(best_hps)
-
-    # Retrain the model
-    hypermodel.fit(X_train, y_train, epochs=best_epoch, validation_split=validation_split)
-
     #Final results
     #------------------------------
+    #Remove tensorflow warnings
+    tf.data.experimental.enable_debug_mode()
 
-    # Train evaluation -  K-Fold cross-validation
-    kfold_acc, kfold_recall, kfold_f1 = perform_kfold(model, X_train, y_train, k=k, epochs=epochs_kfold)
+    #Train the model with the best hyperparameters and best epoch
+    hypermodel = tuner.hypermodel.build(best_hps)
+    hp_learning_rate = best_hps.get('learning_rate')
+    opt = tf.keras.optimizers.Adam(learning_rate=hp_learning_rate)
+    hypermodel.compile(optimizer=opt,
+                        loss='sparse_categorical_crossentropy',
+                        metrics=['accuracy'])
+    hypermodel.fit(X_train, y_train, epochs=best_epoch, validation_split=validation_split) #validation_split=validation_split)
+    k = 5
+    epochs_kfold = 20
+    save_model = False
 
-    # Test evaluation
-    train_confmat, train_report, \
-    test_accuracy, test_confmat, test_report = evaluate_model(model, X_train, y_train, classnames, X_test, y_test)
+    #Clone the model for k-fold
+    kfold_model = tf.keras.models.clone_model(hypermodel)
+    #Get the best tuning rate from the best hyperparameters
+    hp_learning_rate = best_hps.get('learning_rate')
+    opt = tf.keras.optimizers.Adam(learning_rate=hp_learning_rate)
+    kfold_model.compile(optimizer=opt,
+                        loss='sparse_categorical_crossentropy',
+                        metrics=['accuracy'])
+
+
+    # Make sure to recompile
+    # Train of the model & evaluation -  K-Fold cross-validation
+    kfold_acc, kfold_recall, kfold_f1 = perform_kfold(kfold_model, X_train, y_train, k=k, epochs=epochs_kfold)
+
+
+
+
+    #Train- Test evaluation
+    train_confmat, train_report, test_accuracy, test_confmat, test_report= evaluate_model(hypermodel, 
+                            X_train, y_train, classnames, X_test, y_test,show_confusion=False)
+
 
     if (X_test is not None):
+        predictions = hypermodel.predict(X_test)
         eval_result = hypermodel.evaluate(X_test, y_test)
-        acc_test = eval_result[1]
         print("[test loss, test accuracy]:", eval_result)
+
 
     return kfold_acc, kfold_recall, kfold_f1, train_confmat, train_report, test_accuracy, test_confmat, test_report
 
 
 def search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr, 
               shift_nb, bg_amplitude_limit, physical_bg,      
-        hp_list, name, preprefix, hp_name, verbose=False):
+        hp_list, name, preprefix, hp_name, verbose=False, augmentations = []):
     """
     Generalized hyperparameter search function.
 
@@ -251,6 +319,8 @@ def search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_t
         local_melvec_height = melvec_height
         local_window_type = window_type
         local_Nft = Nft
+        local_flag_8bit = flag_8bit
+        local_bit_sensitivity = bit_sensitivity
 
         local_shift_nb = shift_nb
         local_bg_amplitude_limit = bg_amplitude_limit
@@ -281,6 +351,7 @@ def search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_t
             print("Shift number: ", shift_nb)
         elif hp_name == 'bg_amplitude_limit':
             local_bg_amplitude_limit = hp_value
+            local_shift_nb = 4
             print("Background amplitude limit: ", bg_amplitude_limit)
         elif hp_name == 'physical_bg':
             local_physical_bg = hp_value
@@ -294,7 +365,7 @@ def search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_t
         individual_time_start = time.time()
         kfold_acc, kfold_recall, kfold_f1, train_confmat, train_report, \
             test_accuracy, test_confmat, test_report = model_creation_evaluation(local_flag_8bit, local_bit_sensitivity, local_Nft, local_n_melvec, local_melvec_height, local_window_type, local_sr,
-                                                                                 local_shift_nb, local_bg_amplitude_limit, local_physical_bg)
+                                                                                 local_shift_nb, local_bg_amplitude_limit, local_physical_bg, augmentations = augmentations)
     
         
         individual_time_stop = time.time()
@@ -320,114 +391,128 @@ def search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_t
                     xlabel=hp_name, title=f'Model performance vs. {hp_name}',
                     name=name, prefix=prefix, verbose=verbose)
 
-
-def plot_mean_results(HP, name, show):
-    descending = False
-    if HP == "melvec_height":
-        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_wednesday16_global_tests_same_tuner_2_2_30.csv"
-        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_wednesday16_global_tests_same_tuner_2_30.csv"
-        path3=  "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_tusday17_global_tests_same_tuner_2_30.csv"
-        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_tusday17_global_tests_same_tuner_2_2_30.csv"
-        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_tuesday15_global_tests_same_tuner_2_30.csv"
-        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_monday14_global_tests_same_tuner_2_30.csv"
-        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_friday18_global_tests_same_tuner_2_30.csv"
-        xlabel = "melvec_height"
-        paths = [path1, path2, path3, path4, path5, path6, path7]
+import itertools
+import json
+from datetime import datetime
+import os
 
 
-    elif HP == "n_melvec":
-        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_wednesday16_global_tests_same_tuner_2_2_32.csv"
-        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_wednesday16_global_tests_same_tuner_2_32.csv"
-        path3=  "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_tusday17_global_tests_same_tuner_2_32.csv"
-        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_tusday17_global_tests_same_tuner_2_2_32.csv"
-        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_tuesday15_global_tests_same_tuner_2_32.csv"
-        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_monday14_global_tests_same_tuner_2_32.csv"
-        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_friday18_global_tests_same_tuner_2_32.csv"
-        xlabel = "n_melvec"
-        paths = [path1, path2, path3, path4, path5, path6, path7]
+def exhaustive_grid_search(hyperparams_grid, sr_dic, sr_lim_dic, log_dir="logs"):
+    os.makedirs(log_dir, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    raw_log_file = os.path.join(log_dir, f"grid_search_raw_{timestamp}.log")
+    sorted_log_file = os.path.join(log_dir, f"grid_search_sorted_{timestamp}.log")
 
+    # Generate all hyperparameter combinations
+    keys = list(hyperparams_grid.keys())
+    values = list(hyperparams_grid.values())
+    combinations = list(itertools.product(*values))
 
-    elif HP == "Nft":
-        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_wednesday16_global_tests_same_tuner_128_2048.csv"
-        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_wednesday16_global_tests_same_tuner_2_128_2048.csv"
-        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_tusday17_global_tests_same_tuner_128_2048.csv"
-        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_tusday17_global_tests_same_tuner_2_128_2048.csv"
-        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_tuesday15_global_tests_same_tuner_128_2048.csv"
-        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_monday14_global_tests_same_tuner_128_2048.csv"
-        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_friday18_global_tests_same_tuner_128_2048.csv"
-        xlabel = "Nft"
-        paths = [path1, path2, path3, path4, path5, path6, path7]
+    #Fixed parameters
+    flag_8bit = True
+    Nft = 512
 
-    
-    elif HP == "sr":
-        path1 = "LELEC210X/classification/src/classification/datasets/GSresults/sr/results_wednesday16_global_tests_same_tuner_25000_3400.csv"
-        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_wednesday16_global_tests_same_tuner_2_25000_3400.csv"
-        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_tusday17_global_tests_same_tuner_25000_3400.csv"
-        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_tusday17_global_tests_same_tuner_2_25000_3400.csv"
-        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_tuesday15_global_tests_same_tuner_25000_3400.csv" 
-        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_monday14_global_tests_same_tuner_25000_3400.csv"
-        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_friday18_global_tests_same_tuner_25000_3400.csv"
-        xlabel = "sr"
-        paths = [path1, path2, path3, path4, path5, path6, path7]
+    #Augmentations parameters
+    augmentations = []
+    shift_nb = 0 if "time_shift" in augmentations else 0
+    bg_amplitude_limit = [] if "add_bg" in augmentations else []
+    physical_bg = False if "physical_bg" in augmentations else False
 
-    
-    elif HP == "window_type":
-        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_wednesday16_global_tests_same_tuner_hamming_triangular.csv"
-        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_wednesday16_global_tests_same_tuner_2_hamming_triangular.csv"
-        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_tusday17_global_tests_same_tuner_hamming_triangular.csv"
-        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_tusday17_global_tests_same_tuner_2_hamming_triangular.csv"
-        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_tuesday15_global_tests_same_tuner_hamming_triangular.csv"
-        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_monday14_global_tests_same_tuner_hamming_triangular.csv"
-        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_friday18_global_tests_same_tuner_hamming_triangular.csv"
-        xlabel = "window_type"
-        paths = [path1, path2, path3, path4, path5, path6, path7]
+    results = []
 
-    
-    elif HP == "shift_nb":
-        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday16_global_tests_same_tuner_2_0_7.csv"
-        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday16_global_tests_same_tuner_0_7.csv"
-        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_tusday17_global_tests_same_tuner_0_7.csv"
-        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_tusday17_global_tests_same_tuner_2_0_7.csv"
-        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_tuesday15_global_tests_same_tuner_0_7.csv"
-        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_monday14_global_tests_same_tuner_0_7.csv"
-        xlabel = "shift_nb"
-        paths = [path1, path2, path3, path4, path5, path6]
+    with open(raw_log_file, 'w', buffering=1) as raw_log:
+        for combo in combinations:
+            hyperparams = dict(zip(keys, combo))
+            try:
+                # Unpack hyperparameters
+                window_type = hyperparams["window_type"]
+                n_melvec = hyperparams["n_melvec"]
+                melvec_height = hyperparams["melvec_height"]
+                bit_sensitivity = hyperparams["bit_sensitivity"]
 
+                #sr is defined from n_melvec
+                sr = sr_dic[n_melvec]
+                sr_limit = sr_lim_dic[melvec_height]
+                if sr > sr_limit:
+                    print(f"Skipping combination due to sr limit: {sr} > {sr_limit}")
+                    kfold_acc, test_acc = 0, 0
+                    continue
 
-    elif HP == "physical_bg":
-        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_wednesday16_global_tests_same_tuner_False_True.csv"
-        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_wednesday16_global_tests_same_tuner_2_False_True.csv"
-        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_tusday17_global_tests_same_tuner_False_True.csv"
-        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_tusday17_global_tests_same_tuner_2_False_True.csv"
-        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_tuesday15_global_tests_same_tuner_False_True.csv"
-        xlabel = "physical_bg"
-        paths = [path1, path2, path3, path4, path5]
+                kfold_acc, _, _, _, _, test_acc, _, _ = model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr, 
+                                                                                    shift_nb, bg_amplitude_limit, physical_bg, augmentations)
+                metrics = {
+                    "kfold_acc": kfold_acc,
+                    "test_accuracy": test_acc,
+                }
+            except Exception as e:
+                #get the name of the exception
+                print(f"Error occurred for hyperparameters {hyperparams}: {e}")
+                metrics = {"error": str(e)}
+            result = {
+                "hyperparameters": hyperparams,
+                "results": metrics
+            }
+            results.append(result)
+            raw_log.write(json.dumps(result) + "\n")
+            raw_log.flush()  # Ensure the log is written immediately
 
+    # Filter out failed runs
+    successful_results = [r for r in results if "error" not in r["results"]]
 
-    elif HP == "bg_amplitude_limit":
-        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_wednesday16_global_tests_same_tuner_2_[]_[0.1, 0.316, 0.5, 1].csv"
-        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_wednesday16_global_tests_same_tuner_[]_[0.1, 0.316, 0.5, 1].csv"
-        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_tusday17_global_tests_same_tuner_2_[]_[0.1, 0.316, 0.5, 1].csv"
-        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_tusday17_global_tests_same_tuner_[]_[0.1, 0.316, 0.5, 1].csv"
-        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_tuesday15_global_tests_same_tuner_[]_[0.1, 0.316, 0.5, 1].csv"
-        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_monday14_global_tests_same_tuner_[0.1]_[0.1, 0.316, 0.5, 1].csv"
-        xlabel = "bg_amplitude_limit"
-        paths = [path1, path2, path3, path4, path5, path6]
-        descending = True
+    # Sort by training score (assuming higher is better)
+    sorted_results = sorted(successful_results, key=lambda x: x["results"].get("kfold_acc", 0), reverse=True)
 
-    prefix = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/"
-    prefix += HP + "/" + name
-    plot_csv_files(paths, xlabel, descending, save=prefix, show=show)
+    with open(sorted_log_file, 'w') as sorted_log:
+        for result in sorted_results:
+            sorted_log.write(json.dumps(result) + "\n")
+
+    print(f"Grid search completed. Raw log: {raw_log_file}, Sorted log: {sorted_log_file}")
 
 
 if __name__ == '__main__':
 
-    #mean_name = "MEAN_friday18"
-    #HPs = ["bg_amplitude_limit", "melvec_height", "n_melvec", "Nft", "physical_bg", "shift_nb", "sr", "window_type"]
-    #for HP in HPs:
-    #    plot_mean_results(HP, mean_name, show=True)
-    
-    do_bit_sensitivity = True
+    do_exhaustive_grid_search = True
+    do_idv_grid_search = False
+    do_mean_results = False
+
+    #EXHAUSTIVE GRID SEARCH
+    #------------------------------------
+    if do_exhaustive_grid_search:
+        preprefix = "../datasets/exhaustiveGSresults/"
+        hyperparams_grid = {
+        "window_type": ["hamming", "hanning", "blackman", "rectangular", "triangular"],
+        "n_melvec": [5, 10, 15, 20, 25],
+        "melvec_height": [5,10,15,20,25,30],
+        "bit_sensitivity": [3,4,5],
+        }
+
+        sr_dic = {5: 1969,10: 3938,15: 5908,20: 7877, 25: 9318}
+        sr_lim_dic = {5: 9619,10:9552,15:9487,20:9408,25:9318,30:9217}
+        load_matrix = True
+        load_matrix_test = True
+        verbose = False
+        img_idx = 1
+        plot_indexes = []
+        epochs = 30
+        epochs_tuner = 8
+        patience = 3
+        exhaustive_grid_search(hyperparams_grid, sr_dic, sr_lim_dic, log_dir=preprefix)
+
+    #MEAN RESULTS OF INDIVIDUAL GRID SEARCH
+    #--------------------------------------------------
+    if do_mean_results:
+        mean_name = "MEAN_friday25"
+        HPs = ["bit_sensitivity", "melvec_height", "n_melvec", "Nft", "physical_bg", "shift_nb", "sr", "window_type"]
+        for HP in HPs:
+            plot_mean_results(HP, mean_name, show=True)
+        #plot_mean_results("bg_amplitude_limit", mean_name, show=True)
+
+    #INDIVIDUAL GRID SEARCH CODE
+    #---------------------------------------------------
+    if do_idv_grid_search == False:
+        exit()
+
+    do_bit_sensitivity = False
     do_melvec = False
     do_sr = False
     do_melvec_height = False
@@ -441,7 +526,7 @@ if __name__ == '__main__':
 
     verbose = False #To show graphs
     preprefix = "../datasets/GSresults/"
-    name = "monday21_4"
+    original_name = "thursday24_global_updated_night"
 
     #Physical HP
     #------------------------------------
@@ -485,13 +570,14 @@ if __name__ == '__main__':
     physical_bg = original_physical_bg
 
     plot_indexes = [0,1]
-    load_matrix = False
+    load_matrix = True
+    load_matrix_test = True
 
 
     #CNN architecture
     #----------------------------------------------
     #Tuner
-    epochs= 10
+    epochs= 50
     validation_split=0.2
     patience  = 5
 
@@ -503,6 +589,7 @@ if __name__ == '__main__':
 
 
     prefix = preprefix
+    name = original_name
     
     #0  BIT SENSITIVITY
     #-----------------------------------------------
@@ -516,6 +603,21 @@ if __name__ == '__main__':
                   bit_sensitivity_list, name, prefix, hp_name='bit_sensitivity', verbose=verbose)
         bit_sensitivity = original_bit_sensitivity
         flag_8bit = original_flag_8bit
+
+        name  = original_name + "_2_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,
+                  shift_nb, bg_amplitude_limit, physical_bg,
+                  bit_sensitivity_list, name, prefix, hp_name='bit_sensitivity', verbose=verbose)
+        bit_sensitivity = original_bit_sensitivity
+        flag_8bit = original_flag_8bit
+
+        name = original_name + "_3_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,
+                  shift_nb, bg_amplitude_limit, physical_bg,
+                  bit_sensitivity_list, name, prefix, hp_name='bit_sensitivity', verbose=verbose)
+        bit_sensitivity = original_bit_sensitivity
+        flag_8bit = original_flag_8bit
+        name = original_name
     
     #1. N MELVEC
     #-----------------------------------------------
@@ -529,6 +631,19 @@ if __name__ == '__main__':
                   n_melvec_list, name, prefix, hp_name='n_melvec', verbose=verbose)
         n_melvec = original_n_melvec
 
+        name = original_name + "_2_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,   
+                  shift_nb, bg_amplitude_limit, physical_bg,     
+                  n_melvec_list, name, prefix, hp_name='n_melvec', verbose=verbose)
+        n_melvec = original_n_melvec
+
+        name = original_name + "_3_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,   
+                  shift_nb, bg_amplitude_limit, physical_bg,     
+                  n_melvec_list, name, prefix, hp_name='n_melvec', verbose=verbose)
+        n_melvec = original_n_melvec
+        name = original_name
+
 
      #2. SAMPLING RATE
     #-----------------------------------------------
@@ -540,6 +655,17 @@ if __name__ == '__main__':
                   shift_nb, bg_amplitude_limit, physical_bg,   
                   sr_list, name, preprefix, hp_name='sr', verbose=verbose)
         sr = original_sr
+        name = original_name + "_2_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,     
+                  shift_nb, bg_amplitude_limit, physical_bg,   
+                  sr_list, name, preprefix, hp_name='sr', verbose=verbose)
+        sr = original_sr
+        name = original_name + "_3_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,     
+                  shift_nb, bg_amplitude_limit, physical_bg,   
+                  sr_list, name, preprefix, hp_name='sr', verbose=verbose)
+        sr = original_sr
+        name = original_name
 
 
     #3. MELVEC HEIGHT
@@ -554,6 +680,20 @@ if __name__ == '__main__':
                   melvec_height_list, name, prefix, hp_name='melvec_height', verbose=verbose)
         melvec_height = original_melvec_height
 
+        name = original_name + "_2_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,        
+                  shift_nb, bg_amplitude_limit, physical_bg,
+                  melvec_height_list, name, prefix, hp_name='melvec_height', verbose=verbose)
+        melvec_height = original_melvec_height
+
+        name = original_name + "_3_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,        
+                  shift_nb, bg_amplitude_limit, physical_bg,
+                  melvec_height_list, name, prefix, hp_name='melvec_height', verbose=verbose)
+        melvec_height = original_melvec_height
+        name = original_name
+
+
     #4. WINDOW TYPE
     #-----------------------------------------------
     if do_window_type:
@@ -565,6 +705,20 @@ if __name__ == '__main__':
                   shift_nb, bg_amplitude_limit, physical_bg, 
                   window_type_list, name, prefix, hp_name='window_type', verbose=verbose)
         window_type = original_window_type
+
+        name = original_name + "_2_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,       
+                  shift_nb, bg_amplitude_limit, physical_bg, 
+                  window_type_list, name, prefix, hp_name='window_type', verbose=verbose)
+        window_type = original_window_type
+
+        name = original_name + "_3_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,       
+                  shift_nb, bg_amplitude_limit, physical_bg, 
+                  window_type_list, name, prefix, hp_name='window_type', verbose=verbose)
+        window_type = original_window_type
+        name = original_name
+
     
     #5. NFFT
     #-----------------------------------------------
@@ -577,9 +731,47 @@ if __name__ == '__main__':
                   shift_nb, bg_amplitude_limit, physical_bg,
                   Nft_list, name, prefix, hp_name='Nft', verbose=verbose)
         Nft = original_Nft
+        name = original_name + "_2_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,        
+                  shift_nb, bg_amplitude_limit, physical_bg,
+                  Nft_list, name, prefix, hp_name='Nft', verbose=verbose)
+        Nft = original_Nft
+        name = original_name + "_3_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,        
+                  shift_nb, bg_amplitude_limit, physical_bg,
+                  Nft_list, name, prefix, hp_name='Nft', verbose=verbose)
+        Nft = original_Nft
+        name = original_name
+
 
     # AUGMENTATION PARAMETERS
     # -----------------------------------------------
+
+        #8. PHYSICAL BACKGROUND NOISE
+    #-----------------------------------------------
+    if do_physical_bg:
+        print("PHYSICAL BACKGROUND NOISE")
+        print("------------------------------------")
+        augmentations = ["physical_bg"]
+        physical_bg = [False, True]
+        name = original_name + "_2_"
+
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,  
+                  shift_nb, bg_amplitude_limit, physical_bg,      
+                  physical_bg, name, prefix, hp_name='physical_bg', verbose=verbose, augmentations=augmentations)
+
+        name = original_name + "_3_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,  
+                  shift_nb, bg_amplitude_limit, physical_bg,      
+                  physical_bg, name, prefix, hp_name='physical_bg', verbose=verbose, augmentations=augmentations)
+
+        name = original_name + "_4_"
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,  
+                  shift_nb, bg_amplitude_limit, physical_bg,      
+                  physical_bg, name, prefix, hp_name='physical_bg', verbose=verbose, augmentations=augmentations)
+        physical_bg = original_physical_bg
+        name = original_name    
+
 
     #6. TIME SHIFT
     #-----------------------------------------------
@@ -587,29 +779,17 @@ if __name__ == '__main__':
         print("TIME SHIFT")
         print("------------------------------------")
         
-        shift_nb_list = [0,1,2,3,4,5,6,7]
+        shift_nb_list = [0,1,2,3,4,5,6,7,8,9,10]
+        #shift_nb_list = [8,9,10,11,12,13,14,15]
+
 
         augmentations = ["time_shift"] 
         shift_nb = original_shift_nb                  if "time_shift" in augmentations else 0
                 
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,    
                   shift_nb, bg_amplitude_limit, physical_bg,    
-                  shift_nb_list, name, prefix, hp_name='shift_nb', verbose=verbose)
+                  shift_nb_list, name, prefix, hp_name='shift_nb', verbose=verbose, augmentations=augmentations)
         shift_nb = original_shift_nb
-
-
-    #8. PHYSICAL BACKGROUND NOISE
-    #-----------------------------------------------
-    if do_physical_bg:
-        print("PHYSICAL BACKGROUND NOISE")
-        print("------------------------------------")
-        augmentations = ["physical_bg"]
-        physical_bg = [False, True]
-        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,  
-                  shift_nb, bg_amplitude_limit, physical_bg,      
-                  physical_bg, name, prefix, hp_name='physical_bg', verbose=verbose)
-        physical_bg = original_physical_bg
-    
 
 
     #7. BACKGROUND NOISE
@@ -618,11 +798,31 @@ if __name__ == '__main__':
         print("BACKGROUND NOISE")
         print("------------------------------------")
         bg_amplitude_limit_list = [[], [0.1], [0.1, 0.316], [0.1,0.316,0.5], [0.1,0.316,0.5,1]]
-
+        #bg_amplitude_limit_list = [[], [0.1], [0.1,0.1], [0.1,0.1,0.1], [0.1,0.1,0.1,0.1], [0.1,0.1,0.1,0.1,0.1]]
+        #bg_amplitude_limit_list = [[], [0.316], [0.316,0.316], [0.316,0.316,0.316], [0.316,0.316,0.316,0.316], [0.316,0.316,0.316,0.316,0.316]]
+        #bg_amplitude_limit_list = [[], 
+        #                           [0.1, 0.316], 
+        #                           [0.1,0.1,0.316,0.316]]
+                                    #[0.1, 0.1, 0.1, 0.316,0.316,0.316],
+                                   #[0.1, 0.1, 0.1, 0.1, 0.316,0.316,0.316,0.316]]
         augmentations = ["add_bg"]
 
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,     
                   shift_nb, bg_amplitude_limit, physical_bg,   
-                  bg_amplitude_limit_list, name, prefix, hp_name='bg_amplitude_limit', verbose=verbose)
+                  bg_amplitude_limit_list, name, prefix, hp_name='bg_amplitude_limit', verbose=verbose, augmentations=augmentations)
         bg_amplitude_limit = original_bg_amplitude_limit
-    
+
+        name = original_name + "_2_"
+        bg_amplitude_limit_list = [[], [0.1], [0.1,0.1], [0.1,0.1,0.1], [0.1,0.1,0.1,0.1], [0.1,0.1,0.1,0.1,0.1]]
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,     
+                  shift_nb, bg_amplitude_limit, physical_bg,   
+                  bg_amplitude_limit_list, name, prefix, hp_name='bg_amplitude_limit', verbose=verbose, augmentations=augmentations)
+        bg_amplitude_limit = original_bg_amplitude_limit
+
+        name = original_name + "_3_"
+        bg_amplitude_limit_list = [[], [0.316], [0.316,0.316], [0.316,0.316,0.316], [0.316,0.316,0.316,0.316], [0.316,0.316,0.316,0.316,0.316]]
+        search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,     
+                  shift_nb, bg_amplitude_limit, physical_bg,   
+                  bg_amplitude_limit_list, name, prefix, hp_name='bg_amplitude_limit', verbose=verbose, augmentations=augmentations)
+        bg_amplitude_limit = original_bg_amplitude_limit
+        name = original_name

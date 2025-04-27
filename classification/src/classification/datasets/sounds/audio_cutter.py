@@ -44,11 +44,39 @@ def split_wav(input_wav_path, segment_length, output_folder, name="segment"):
 
     return saved_files
 
-input_file = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/sounds/recorded_sounds/cropped_recordings/merged_gun_background.wav"
-output_folder = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/sounds/recorded_sounds/gun"
-name = "gun_4_background"
 
-seconds = 4.1
+input_file = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/sounds/recorded_sounds/cropped_recordings/merged_chainsaw_youtube.wav"
+output_folder = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/sounds/recorded_sounds/totalset/chainsaw/"
+name = "chainsaw_youtube"
+
+seconds = 4
 
 # Example usage
 split_wav(input_file, seconds, output_folder, name)
+'''
+import os
+from pydub import AudioSegment
+
+def repeat_audio_files(folder_path):
+    """
+    Repeats each .wav file in the specified folder 3 times and overwrites the original file.
+
+    Parameters:
+    folder_path (str): Path to the folder containing .wav files.
+    """
+    for filename in os.listdir(folder_path):
+        if filename.lower().endswith(".wav"):
+            full_path = os.path.join(folder_path, filename)
+            try:
+                # Load the audio file
+                audio = AudioSegment.from_wav(full_path)
+                # Repeat the audio 3 times
+                repeated_audio = audio * 3
+                # Overwrite the original file
+                repeated_audio.export(full_path, format="wav")
+                print(f"Processed: {filename}")
+            except Exception as e:
+                print(f"Failed to process {filename}: {e}")
+
+repeat_audio_files("/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/sounds/recorded_sounds/totalset/gunshot")
+'''

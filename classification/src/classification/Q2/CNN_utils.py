@@ -326,35 +326,62 @@ def show_confusion_matrix(y_predict, y_true, classnames, title=""):
     plt.show()
     return None
 
-def perform_kfold(model, X, y, k=5, epochs=5, batch_size=32):
+from sklearn.model_selection import StratifiedKFold
+
+def perform_kfold(original_model, X, y, k=5, epochs=5, batch_size=32):
+    from sklearn.model_selection import StratifiedKFold
+    from sklearn.metrics import classification_report
+    import numpy as np
+    import tensorflow as tf
+
     print("K-fold cross-validation")
-    # Ensure the model is compiled
-    
-    kf = KFold(n_splits=k, shuffle=True, random_state=42)
+    skf = StratifiedKFold(n_splits=k, shuffle=True, random_state=42)
     accuracy_scores, recall_scores, f1_scores = [], [], []
-    
-    for train_index, val_index in kf.split(X):
+
+    # Get compile parameters from model config safely
+    config = original_model.get_config()
+    loss = original_model.loss
+    optimizer_config = tf.keras.optimizers.serialize(original_model.optimizer)
+
+    # Metrics are stored in compile config under model._compile_metrics
+    # To avoid that, just re-specify known metrics manually or store them separately
+    default_metrics = ['accuracy']  # Update this if you use custom metrics
+
+    for fold, (train_index, val_index) in enumerate(skf.split(X, y)):
+        print(f"\n--- Fold {fold + 1}/{k} ---")
+
+        model = tf.keras.models.clone_model(original_model)
+        model.compile(
+            optimizer=tf.keras.optimizers.deserialize(optimizer_config),
+            loss=loss,
+            metrics=default_metrics
+        )
+
         X_train, X_val = X[train_index], X[val_index]
         y_train, y_val = y[train_index], y[val_index]
-        
+
         model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, verbose=0)
-        
+
         y_pred = np.argmax(model.predict(X_val), axis=1)
         y_true = y_val if len(y_val.shape) == 1 else np.argmax(y_val, axis=1)
-        
-        report = classification_report(y_true, y_pred, output_dict=True)
+
+        report = classification_report(y_true, y_pred, output_dict=True, zero_division=0)
         accuracy_scores.append(report['accuracy'])
         recall_scores.append(report['macro avg']['recall'])
         f1_scores.append(report['macro avg']['f1-score'])
-    
+
     kfold_acc = np.mean(accuracy_scores)
     kfold_recall = np.mean(recall_scores)
     kfold_f1 = np.mean(f1_scores)
-    print(f"KFold Accuracy: {kfold_acc:.5f}")
+
+    print(f"\nKFold Accuracy: {kfold_acc:.5f}")
     print(f"KFold Recall: {kfold_recall:.5f}")
     print(f"KFold F1-score: {kfold_f1:.5f}")
 
     return kfold_acc, kfold_recall, kfold_f1
+
+
+
 
 def evaluate_model(model, X_train, y_train, classnames, X_test=None, y_test=None, show_confusion = False):
     model.fit(X_train, y_train, epochs=5, validation_split=0.2, verbose=1)
@@ -465,6 +492,7 @@ def plot_csv_files(file_paths, xlabel="HPs", descending=False, show=True, save =
 
     # Read all CSVs and append to the list
     for file_path in file_paths:
+        print(f"Reading {file_path}")
         df = pd.read_csv(file_path)
         all_data.append(df[['HPs', 'kfold_accuracy', 'test_accuracy']])
     
@@ -507,3 +535,178 @@ def plot_csv_files(file_paths, xlabel="HPs", descending=False, show=True, save =
     
     if show:
         plt.show()
+
+
+
+
+
+def plot_mean_results(HP, name, show):
+    descending = False
+    if HP == "bit_sensitivity":
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bit_sensitivity/results_monday21_1_0_8.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bit_sensitivity/results_monday21_2_0_8.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bit_sensitivity/results_monday21_3_0_8.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bit_sensitivity/results_monday21_4_0_8.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bit_sensitivity/results_monday21_5_0_8.csv"
+        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bit_sensitivity/results_monday21_6_0_8.csv"
+        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bit_sensitivity/results_monday21_7_0_8.csv"
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bit_sensitivity/results_thursday24_global_updated_night_0_8.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bit_sensitivity/results_thursday24_global_updated_night_2__0_8.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bit_sensitivity/results_thursday24_global_updated_night_3__0_8.csv"
+
+        xlabel = "bit_sensitivity"
+        paths = [path1, path2, path3]
+    
+    elif HP == "melvec_height":
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_wednesday16_global_tests_same_tuner_2_2_30.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_wednesday16_global_tests_same_tuner_2_30.csv"
+        path3=  "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_tusday17_global_tests_same_tuner_2_30.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_tusday17_global_tests_same_tuner_2_2_30.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_tuesday15_global_tests_same_tuner_2_30.csv"
+        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_monday14_global_tests_same_tuner_2_30.csv"
+        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_friday18_global_tests_same_tuner_2_30.csv"
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_thursday24_global_updated_night_2_30.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_thursday24_global_updated_night_2__2_30.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/melvec_height/results_thursday24_global_updated_night_3__2_30.csv"
+        xlabel = "melvec_height"
+        paths = [path1, path2, path3]#, path4, path5, path6, path7]
+
+
+    elif HP == "n_melvec":
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_wednesday16_global_tests_same_tuner_2_2_32.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_wednesday16_global_tests_same_tuner_2_32.csv"
+        path3=  "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_tusday17_global_tests_same_tuner_2_32.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_tusday17_global_tests_same_tuner_2_2_32.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_tuesday15_global_tests_same_tuner_2_32.csv"
+        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_monday14_global_tests_same_tuner_2_32.csv"
+        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_friday18_global_tests_same_tuner_2_32.csv"
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_thursday24_global_updated_night_2_32.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_thursday24_global_updated_night_2__2_32.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/n_melvec/results_thursday24_global_updated_night_3__2_32.csv"
+        xlabel = "n_melvec"
+
+        paths = [path1, path2, path3] #path4, path5, path6, path7]
+
+
+    elif HP == "Nft":
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_wednesday16_global_tests_same_tuner_128_2048.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_wednesday16_global_tests_same_tuner_2_128_2048.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_tusday17_global_tests_same_tuner_128_2048.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_tusday17_global_tests_same_tuner_2_128_2048.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_tuesday15_global_tests_same_tuner_128_2048.csv"
+        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_monday14_global_tests_same_tuner_128_2048.csv"
+        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_friday18_global_tests_same_tuner_128_2048.csv"
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_thursday24_global_updated_night_128_2048.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_thursday24_global_updated_night_2__128_2048.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/Nft/results_thursday24_global_updated_night_3__128_2048.csv"
+        xlabel = "Nft"
+        paths = [path1, path2, path3]#, path4, path5, path6, path7]
+
+    
+    elif HP == "sr":
+        """
+        path1 = "LELEC210X/classification/src/classification/datasets/GSresults/sr/results_wednesday16_global_tests_same_tuner_25000_3400.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_wednesday16_global_tests_same_tuner_2_25000_3400.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_tusday17_global_tests_same_tuner_25000_3400.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_tusday17_global_tests_same_tuner_2_25000_3400.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_tuesday15_global_tests_same_tuner_25000_3400.csv" 
+        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_monday14_global_tests_same_tuner_25000_3400.csv"
+        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_friday18_global_tests_same_tuner_25000_3400.csv"
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_thursday24_global_updated_night_25000_3400.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_thursday24_global_updated_night_2__25000_3400.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/sr/results_thursday24_global_updated_night_3__25000_3400.csv"
+        xlabel = "sr"
+        paths = [path1, path2, path3]#, path4, path5, path6, path7]
+
+    
+    elif HP == "window_type":
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_wednesday16_global_tests_same_tuner_hamming_triangular.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_wednesday16_global_tests_same_tuner_2_hamming_triangular.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_tusday17_global_tests_same_tuner_hamming_triangular.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_tusday17_global_tests_same_tuner_2_hamming_triangular.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_tuesday15_global_tests_same_tuner_hamming_triangular.csv"
+        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_monday14_global_tests_same_tuner_hamming_triangular.csv"
+        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_friday18_global_tests_same_tuner_hamming_triangular.csv"
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_thursday24_global_updated_night_hamming_triangular.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_thursday24_global_updated_night_2__hamming_triangular.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_thursday24_global_updated_night_3__hamming_triangular.csv"
+        xlabel = "window_type"
+        paths = [path1, path2, path3]#, path4], path5, path6, path7]
+
+    
+    elif HP == "shift_nb":
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday16_global_tests_same_tuner_2_0_7.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday16_global_tests_same_tuner_0_7.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_tusday17_global_tests_same_tuner_0_7.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_tusday17_global_tests_same_tuner_2_0_7.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_tuesday15_global_tests_same_tuner_0_7.csv"
+        path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_monday14_global_tests_same_tuner_0_7.csv"
+        path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_tuesday22_same_tuner_2_8_15.csv"
+        path8 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_monday21_same_tuner_8_15.csv"
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday23_updated_0_7.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday23_updated_2__0_7.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday23_updated_2__3__0_7.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_thursday24_global_updated_8_15.csv"
+        xlabel = "shift_nb"
+        paths = [path1, path2, path3, path4]#, path5, path6, path7, path8]
+
+
+    elif HP == "physical_bg":
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_wednesday16_global_tests_same_tuner_False_True.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_wednesday16_global_tests_same_tuner_2_False_True.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_tusday17_global_tests_same_tuner_False_True.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_tusday17_global_tests_same_tuner_2_False_True.csv"
+        path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_tuesday15_global_tests_same_tuner_False_True.csv"
+        """
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_thursday24_global_updated_False_True.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_thursday24_global_updated_night_2__False_True.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_thursday24_global_updated_night_3__False_True.csv"
+        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/physical_bg/results_thursday24_global_updated_night_4__False_True.csv"
+        xlabel = "physical_bg"
+        paths = [path1, path2, path3, path4]#, path5]
+
+
+    elif HP == "bg_amplitude_limit":
+        """
+        #path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_wednesday16_global_tests_same_tuner_2_[]_[0.1, 0.316, 0.5, 1].csv"
+        #path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_wednesday16_global_tests_same_tuner_[]_[0.1, 0.316, 0.5, 1].csv"
+        #path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_tusday17_global_tests_same_tuner_2_[]_[0.1, 0.316, 0.5, 1].csv"
+        #path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_tusday17_global_tests_same_tuner_[]_[0.1, 0.316, 0.5, 1].csv"
+        #path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_tuesday15_global_tests_same_tuner_[]_[0.1, 0.316, 0.5, 1].csv"
+        #path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_monday14_global_tests_same_tuner_[0.1]_[0.1, 0.316, 0.5, 1].csv"
+        
+        #Only 0.1
+        #path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_monday21_same_bg_[]_[0.1, 0.1, 0.1, 0.1, 0.1].csv"
+        #path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_monday21_same_bg_2_[]_[0.1, 0.1, 0.1, 0.1, 0.1].csv"
+        #path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_monday21_same_bg_3_[]_[0.1, 0.1, 0.1, 0.1, 0.1].csv"
+        #path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_monday21_same_bg_4_[]_[0.1, 0.1, 0.1, 0.1, 0.1].csv"
+        #path5 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_monday21_same_bg_5_[]_[0.1, 0.1, 0.1, 0.1, 0.1].csv"
+        #path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_monday21_same_bg_6_[]_[0.1, 0.1, 0.1, 0.1, 0.1].csv"
+        """
+        #Only 0.316
+        #path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_tuesday22_same_tuner_[]_[0.316, 0.316, 0.316, 0.316, 0.316].csv"
+        #path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_tuesday22_same_tuner_2_[]_[0.316, 0.316, 0.316, 0.316, 0.316].csv"
+        #path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/bg_amplitude_limit/results_tuesday22_same_tuner_3_[]_[0.316, 0.316, 0.316, 0.316, 0.316].csv"
+
+        #xlabel = "bg_amplitude_limit"
+        #paths = [path1, path2, path3]
+        #descending = True
+
+    prefix = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/"
+    prefix += HP + "/" + name
+    plot_csv_files(paths, xlabel, descending, save=prefix, show=show)
+

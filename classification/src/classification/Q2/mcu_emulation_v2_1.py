@@ -179,9 +179,25 @@ def melspectrogram(audio, N_melvec=20, melvec_height=20, samples_per_melvec=512,
     if window_type == "hamming":
         hamming_window = np.hamming(N_Nft)
         window = float2fixed(hamming_window, maxval = 1, dtype=np.int16)
+    
+    elif window_type == "hanning":
+        hanning_window = np.hanning(N_Nft)
+        window = float2fixed(hanning_window, maxval = 1, dtype=np.int16)
+    
+    elif window_type == "blackman":
+        blackman_window = np.blackman(N_Nft)
+        window = float2fixed(blackman_window, maxval = 1, dtype=np.int16)
+    
+    elif window_type == "rectangular":
+         window = np.ones(N_Nft)
+         window = float2fixed(window, maxval = 1, dtype=np.int16)
+    
+    elif window_type == "triangular":
+        triangular_window = np.bartlett(N_Nft)
+        window = float2fixed(triangular_window, maxval = 1, dtype=np.int16)
     else:
         raise ValueError("Window type not supported")
-
+    
     # Hz to Mel conversion
     mel = librosa.filters.mel(sr=sr, n_fft=N_Nft, n_mels=melvec_height)  # WARNING: in MCU tables, sr = 11025
     if (sr==11025): print("WARNING: Mel filter bank is computed with sr = 11025")
@@ -193,10 +209,15 @@ def melspectrogram(audio, N_melvec=20, melvec_height=20, samples_per_melvec=512,
 
     for i in range(N_melvec):
         samples = audio[i*samples_per_melvec:(i+1)*samples_per_melvec]
+        #To solve off-by-one error
+        if len(samples) < samples_per_melvec:
+            pad_width = samples_per_melvec - len(samples)
+            samples = np.pad(samples, (0, pad_width), mode='constant')  # or mode='reflect', etc.
+
         Spectrogram_Compute(samples, melspec[i], window, hz2mel_mat, melvec_height, samples_per_melvec)
 
     if flag_8bit:
-        melspec = melspec >> (8 -bit_sensitivity)  # Convert to 8-bit format
+        melspec = melspec >> (8 -bit_sensitivity) & 0xff # Convert to 8-bit format
 
     return melspec
 
