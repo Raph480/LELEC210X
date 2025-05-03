@@ -306,13 +306,7 @@ SH.GPXTI13.0=GPIO_EXTI13
 SH.GPXTI13.ConfNb=1
 SH.GPXTI3.0=GPIO_EXTI3
 SH.GPXTI3.ConfNb=1
-<<<<<<< HEAD:mcu/hands_on_main_app_original/hands_on_main_app.ioc
 SPI1.CalculateBaudRate=24.0 MBits/s
-=======
-SPI1.BaudRatePrescaler=SPI_BAUDRATEPRESCALER_4
-SPI1.CalculateBaudRate=500.0 KBits/s
-SPI1.DataSize=SPI_DATASIZE_8BIT
->>>>>>> main:mcu/hands_on_main_app/hands_on_main_app.ioc
 SPI1.Direction=SPI_DIRECTION_2LINES
 SPI1.IPParameters=VirtualType,Mode,Direction,CalculateBaudRate
 SPI1.Mode=SPI_MODE_MASTER

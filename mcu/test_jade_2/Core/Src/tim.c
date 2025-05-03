@@ -43,11 +43,7 @@ void MX_TIM3_Init(void)
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 23;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-<<<<<<< HEAD:mcu/test_jade_2/Core/Src/tim.c
-  htim3.Init.Period = 8;
-=======
   htim3.Init.Period = 12;
->>>>>>> main:mcu/hands_on_main_app/Core/Src/tim.c
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
