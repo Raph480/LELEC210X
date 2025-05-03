@@ -1,9 +1,9 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
+  ****************************************************************************
   * @file           : main.c
   * @brief          : Main program body
-  ******************************************************************************
+  ****************************************************************************
   * @attention
   *
   * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
@@ -13,8 +13,9 @@
   * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
+
   *
-  ******************************************************************************
+  ****************************************************************************
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
@@ -56,6 +57,8 @@ volatile int state;
 volatile uint16_t ADCBuffer[2*ADC_BUF_SIZE]; /* ADC group regular conversion data (array of data) */
 volatile uint16_t* ADCData1;
 volatile uint16_t* ADCData2;
+// Flag to track ADC state
+volatile uint8_t is_acquiring = 0;
 
 volatile int state = 0; // To track the button
 uint32_t adc_value = 0; // To store ADC value
@@ -105,17 +108,47 @@ uint32_t get_signal_power(uint16_t *buffer, size_t len){
 
 //Our functions
 //--------------------------------
+
+
+
+// Function to start ADC acquisition
+void start_adc_acquisition() {
+    HAL_TIM_Base_Start(&htim3);
+    HAL_ADC_Start_DMA(&hadc1, (uint32_t *) ADCBuffer, 2*ADC_BUF_SIZE);
+    is_acquiring = 1;
+    printf("Acquisition started.\r\n");
+}
+
+// Function to stop ADC acquisition
+void stop_adc_acquisition() {
+    HAL_TIM_Base_Stop(&htim3);
+    HAL_ADC_Stop_DMA(&hadc1);
+    is_acquiring = 0;
+    printf("Acquisition stopped.\r\n");
+}
+
+
 //B1 USER BUTTON Trigger
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) { //Triggered when pressing button
+/*void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) { //Triggered when pressing button
 	if (GPIO_Pin == B1_Pin) {
 		HAL_TIM_Base_Start(&htim3);
 		HAL_ADC_Start_DMA(&hadc1, (uint32_t *) ADCBuffer, 2*ADC_BUF_SIZE);
 
 	}
+}*/
+// Button press toggles ADC acquisition
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+    if (GPIO_Pin == B1_Pin) {
+        if (is_acquiring) {
+            stop_adc_acquisition();
+        } else {
+            start_adc_acquisition();
+        }
+    }
 }
 
 //Triggered by ADC_Start_DMA when buffer is full
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc){
+/*void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc){
 
 	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);  // LED ON
 	print_buffer(ADCBuffer);
@@ -124,6 +157,16 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc){
 	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET); // LED OFF
 
 
+}*/
+// ADC Callback (data ready)
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
+    if (is_acquiring) {
+        HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);  // LED ON
+        print_buffer(ADCBuffer);  // Send data via UART
+        HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET); // LED OFF
+    } else {
+            printf("ERROR: Attempted to send data while ADC is stopped!\r\n");
+        }
 }
 
 /* USER CODE END 0 */

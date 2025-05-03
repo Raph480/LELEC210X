@@ -1,0 +1,45 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"python/bindings/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 43,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "pythonapi",
+			"destination" : "lib/python3.10/dist-packages/limesdr_fpga",
+			"paths" : 
+			[
+				"python/bindings/limesdr_fpga_python.cpython-310-x86_64-linux-gnu.so"
+			],
+			"targetId" : "limesdr_fpga_python::@2eea7b98123d8100bb1e",
+			"targetIndex" : 4,
+			"type" : "target"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "python/bindings",
+		"source" : "python/bindings"
+	}
+}

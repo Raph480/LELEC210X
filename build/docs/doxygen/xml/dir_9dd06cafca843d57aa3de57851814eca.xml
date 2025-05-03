@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_9dd06cafca843d57aa3de57851814eca" kind="dir">
+    <compoundname>lib</compoundname>
+    <innerfile refid="device__handler__fpga_8h">device_handler_fpga.h</innerfile>
+    <innerfile refid="fpga__register__map_8h">fpga_register_map.h</innerfile>
+    <innerfile refid="logging__fpga_8h">logging_fpga.h</innerfile>
+    <innerfile refid="sink__fpga__impl_8h">sink_fpga_impl.h</innerfile>
+    <innerfile refid="source__fpga__impl_8h">source_fpga_impl.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/"/>
+  </compounddef>
+</doxygen>

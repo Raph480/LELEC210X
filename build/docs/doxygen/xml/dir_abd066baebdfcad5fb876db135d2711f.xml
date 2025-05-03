@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_abd066baebdfcad5fb876db135d2711f" kind="dir">
+    <compoundname>bindings</compoundname>
+    <innerfile refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h">telecom/gr-limesdr-3-10/build/python/bindings/pydoc_macros.h</innerfile>
+    <innerfile refid="sink__fpga__pydoc_8h">sink_fpga_pydoc.h</innerfile>
+    <innerfile refid="source__fpga__pydoc_8h">source_fpga_pydoc.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/build/python/bindings/"/>
+  </compounddef>
+</doxygen>

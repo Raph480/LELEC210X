@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="fpga__register__map_8h" kind="file" language="C++">
+    <compoundname>fpga_register_map.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includedby refid="device__handler__fpga_8h" local="yes">device_handler_fpga.h</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+      <node id="1">
+        <label>fpga_register_map.h</label>
+        <link refid="fpga__register__map_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>sink_fpga_impl.h</label>
+        <link refid="sink__fpga__impl_8h"/>
+      </node>
+      <node id="4">
+        <label>source_fpga_impl.h</label>
+        <link refid="source__fpga__impl_8h"/>
+      </node>
+      <node id="1">
+        <label>fpga_register_map.h</label>
+        <link refid="fpga__register__map_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>device_handler_fpga.h</label>
+        <link refid="device__handler__fpga_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structDSPCFGParameter" prot="public">DSPCFGParameter</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="fpga__register__map_8h_1a3499e33368982f549118f4f1e9386508" prot="public" static="no">
+        <name>DSPCFGparam</name>
+        <param><defname>id</defname></param>
+        <initializer>DSPCFG_ ## id</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="15" column="9" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="fpga__register__map_8h_1a5e59656a165e5e03944f689d0efea5d7" prot="public" static="yes" mutable="no">
+        <type>const struct <ref refid="structDSPCFGParameter" kindref="compound">DSPCFGParameter</ref></type>
+        <definition>const struct DSPCFGParameter DSPCFG_PASSTHROUGH_LEN</definition>
+        <argsstring></argsstring>
+        <name>DSPCFG_PASSTHROUGH_LEN</name>
+        <initializer>= { 0x000b, 15, 0, 255, &quot;&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="1" column="0" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fpga__register__map_8h_1a0cf86b0a09073938a87b9c38096581c8" prot="public" static="yes" mutable="no">
+        <type>const struct <ref refid="structDSPCFGParameter" kindref="compound">DSPCFGParameter</ref></type>
+        <definition>const struct DSPCFGParameter DSPCFG_THRESHOLD</definition>
+        <argsstring></argsstring>
+        <name>DSPCFG_THRESHOLD</name>
+        <initializer>= { 0x000d, 7, 0, 12, &quot;&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="1" column="0" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fpga__register__map_8h_1a1d809ebb406ac14d08ec65bc7c8c0e0e" prot="public" static="yes" mutable="no">
+        <type>const struct <ref refid="structDSPCFGParameter" kindref="compound">DSPCFGParameter</ref></type>
+        <definition>const struct DSPCFGParameter DSPCFG_CLEAR_RS</definition>
+        <argsstring></argsstring>
+        <name>DSPCFG_CLEAR_RS</name>
+        <initializer>= { 0x000e, 1, 1, 0, &quot;&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="1" column="0" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fpga__register__map_8h_1aada366dcba4bcc91557410ae7043c792" prot="public" static="yes" mutable="no">
+        <type>const struct <ref refid="structDSPCFGParameter" kindref="compound">DSPCFGParameter</ref></type>
+        <definition>const struct DSPCFGParameter DSPCFG_PREAMBLE_EN</definition>
+        <argsstring></argsstring>
+        <name>DSPCFG_PREAMBLE_EN</name>
+        <initializer>= { 0x000e, 0, 0, 0, &quot;&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="1" column="0" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fpga__register__map_8h_1a7ddbc13cd15dedfb04ed211dee71941f" prot="public" static="yes" mutable="no">
+        <type>const struct <ref refid="structDSPCFGParameter" kindref="compound">DSPCFGParameter</ref></type>
+        <definition>const struct DSPCFGParameter DSPCFG_PREAMBLE_SHORT_SUM_MSB</definition>
+        <argsstring></argsstring>
+        <name>DSPCFG_PREAMBLE_SHORT_SUM_MSB</name>
+        <initializer>= { 0x000f, 15, 0, 0, &quot;&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="1" column="0" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fpga__register__map_8h_1adaf21d8eb37e442d9e84bbee1bc780bd" prot="public" static="yes" mutable="no">
+        <type>const struct <ref refid="structDSPCFGParameter" kindref="compound">DSPCFGParameter</ref></type>
+        <definition>const struct DSPCFGParameter DSPCFG_PREAMBLE_SHORT_SUM_LSB</definition>
+        <argsstring></argsstring>
+        <name>DSPCFG_PREAMBLE_SHORT_SUM_LSB</name>
+        <initializer>= { 0x0010, 15, 0, 0, &quot;&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="1" column="0" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fpga__register__map_8h_1a43d645b3adfef3dc4067879733b4564d" prot="public" static="yes" mutable="no">
+        <type>const struct <ref refid="structDSPCFGParameter" kindref="compound">DSPCFGParameter</ref></type>
+        <definition>const struct DSPCFGParameter DSPCFG_PREAMBLE_LONG_SUM_MSB</definition>
+        <argsstring></argsstring>
+        <name>DSPCFG_PREAMBLE_LONG_SUM_MSB</name>
+        <initializer>= { 0x0011, 15, 0, 0, &quot;&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="1" column="0" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fpga__register__map_8h_1a3afd4d870be16b66e66ac665f52cad85" prot="public" static="yes" mutable="no">
+        <type>const struct <ref refid="structDSPCFGParameter" kindref="compound">DSPCFGParameter</ref></type>
+        <definition>const struct DSPCFGParameter DSPCFG_PREAMBLE_LONG_SUM_LSB</definition>
+        <argsstring></argsstring>
+        <name>DSPCFG_PREAMBLE_LONG_SUM_LSB</name>
+        <initializer>= { 0x0012, 15, 0, 0, &quot;&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="1" column="0" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fpga__register__map_8h_1afb08e42da38c734d3cfc9b744d2583fa" prot="public" static="yes" mutable="no">
+        <type>const struct <ref refid="structDSPCFGParameter" kindref="compound">DSPCFGParameter</ref></type>
+        <definition>const struct DSPCFGParameter DSPCFG_PREAMBLE_COUNT_MSB</definition>
+        <argsstring></argsstring>
+        <name>DSPCFG_PREAMBLE_COUNT_MSB</name>
+        <initializer>= { 0x0013, 15, 0, 0, &quot;&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="1" column="0" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fpga__register__map_8h_1a923ca758447515effd1d96e5bc3f2bb2" prot="public" static="yes" mutable="no">
+        <type>const struct <ref refid="structDSPCFGParameter" kindref="compound">DSPCFGParameter</ref></type>
+        <definition>const struct DSPCFGParameter DSPCFG_PREAMBLE_COUNT_LSB</definition>
+        <argsstring></argsstring>
+        <name>DSPCFG_PREAMBLE_COUNT_LSB</name>
+        <initializer>= { 0x0014, 15, 0, 0, &quot;&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="1" column="0" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>List of Custom FPGA control parameters. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Julien Verecken </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h"/>
+  </compounddef>
+</doxygen>

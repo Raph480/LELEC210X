@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_388fdb649e7959d065ac9fbc210a1527" kind="dir">
+    <compoundname>gr-limesdr-3-10</compoundname>
+    <innerdir refid="dir_9ad7a56544e42b4544ba27376399c4a4">build</innerdir>
+    <innerdir refid="dir_dc409ca5c2a7cbb3c00ea529d0dd16f9">docs</innerdir>
+    <innerdir refid="dir_6906b32461a73200e3142d680af0d8b3">include</innerdir>
+    <innerdir refid="dir_9dd06cafca843d57aa3de57851814eca">lib</innerdir>
+    <innerdir refid="dir_d1ce045651a0d057c577022d80ece4e6">python</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/"/>
+  </compounddef>
+</doxygen>

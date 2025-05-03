@@ -1,0 +1,339 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "lib/libgnuradio-limesdr_fpga.so"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"install",
+			"GR_LIBRARY_FOO",
+			"target_link_libraries",
+			"add_definitions",
+			"include_directories",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"lib/CMakeLists.txt",
+			"/usr/lib/x86_64-linux-gnu/cmake/gnuradio/GrMiscUtils.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 30,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 50,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 64,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 31,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 44,
+				"parent" : 0
+			},
+			{
+				"file" : 2
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 136,
+				"parent" : 6
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 32,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fPIC   -fvisibility=hidden"
+				},
+				{
+					"fragment" : "-std=gnu++14"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 4,
+					"define" : "BOOST_ALL_NO_LIB"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "BOOST_ATOMIC_DYN_LINK"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "BOOST_PROGRAM_OPTIONS_DYN_LINK"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "BOOST_REGEX_DYN_LINK"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "BOOST_SYSTEM_DYN_LINK"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "BOOST_THREAD_DYN_LINK"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "FMT_LOCALE"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "FMT_SHARED"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "GR_CTRLPORT"
+				},
+				{
+					"backtrace" : 5,
+					"define" : "GR_LIMESDR_FPGA_VER=\"v1.0-compat-xxx-xunknown\""
+				},
+				{
+					"backtrace" : 4,
+					"define" : "GR_MPLIB_GMP"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "GR_PERFORMANCE_COUNTERS"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "SPDLOG_COMPILED_LIB"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "SPDLOG_FMT_EXTERNAL"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "SPDLOG_SHARED_LIB"
+				},
+				{
+					"define" : "gnuradio_limesdr_fpga_EXPORTS"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 7,
+					"path" : "/usr/include/lime"
+				},
+				{
+					"backtrace" : 8,
+					"path" : "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/../include"
+				},
+				{
+					"backtrace" : 4,
+					"isSystem" : true,
+					"path" : "/usr/include/python3.10"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					4
+				],
+				"standard" : "14"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3
+			]
+		}
+	],
+	"id" : "gnuradio-limesdr_fpga::@306ed2d68c6501e8728f",
+	"install" : 
+	{
+		"destinations" : 
+		[
+			{
+				"backtrace" : 3,
+				"path" : "lib/x86_64-linux-gnu"
+			},
+			{
+				"backtrace" : 3,
+				"path" : "lib/x86_64-linux-gnu"
+			}
+		],
+		"prefix" : 
+		{
+			"path" : "/usr/local"
+		}
+	},
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libgnuradio-runtime.so.3.10.1.1",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libLimeSuite.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libgnuradio-pmt.so.3.10.1.1",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libvolk.so.2.5.1",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-ldl",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.74.0",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.74.0",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.74.0",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.74.0",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libboost_atomic.so.1.74.0",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libspdlog.so.1.9.2",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libfmt.so.8.1.1",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-Wl,--as-needed",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libgmpxx.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libgmp.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lrt",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "gnuradio-limesdr_fpga",
+	"nameOnDisk" : "libgnuradio-limesdr_fpga.so",
+	"paths" : 
+	{
+		"build" : "lib",
+		"source" : "lib"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/device_handler_fpga.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/logging_fpga.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/source_fpga_impl.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lib/sink_fpga_impl.cc",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}

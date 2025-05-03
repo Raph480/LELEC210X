@@ -1,0 +1,736 @@
+PACKET # 0
+----------------
+Processing packet (listening=True)
+PACKET # 1
+----------------
+Processing packet (listening=True)
+PACKET # 2
+----------------
+Processing packet (listening=True)
+No packets received during listening time!
+PACKET # 3
+----------------
+Processing packet (listening=True)
+PACKET # 4
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 47ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 58ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 39.48, LTS: 0.03948
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 10ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [  0.   0.   0. 100.]
+Theoretical class:  gun
+STS: 77.52, LTS: 0.07752
+MODEL 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 1.  1. -0.  1.]
+Final Sent class:  chainsaw
+-------------------------------
+
+PACKET # 5
+----------------
+Skipping packet (listening=False)
+PACKET # 6
+----------------
+Processing packet (listening=True)
+PACKET # 7
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 28ms/step
+Predicted probabilities: [ 1.08  0.    0.   98.92]
+Theoretical class:  gun
+STS: 117.94, LTS: 0.11794
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 22ms/step
+Predicted probabilities: [ 3.66 96.31  0.    0.03]
+Theoretical class:  fire
+STS: 158.18, LTS: 0.15818
+MODEL 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 0.59  0.51 -0.45  0.54]
+Final Sent class:  chainsaw
+-------------------------------
+
+PACKET # 8
+----------------
+Processing packet (listening=True)
+PACKET # 9
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step
+Predicted probabilities: [ 0.    0.01  0.   99.99]
+Theoretical class:  gun
+STS: 197.66, LTS: 0.19766
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [99.99  0.    0.01  0.  ]
+Theoretical class:  chainsaw
+STS: 237.34, LTS: 0.23734
+MODEL 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 2. -0. -0.  1.]
+Final Sent class:  chainsaw
+-------------------------------
+
+PACKET # 10
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 25ms/step
+Predicted probabilities: [  0.   0.   0. 100.]
+Theoretical class:  gun
+STS: 278.2, LTS: 0.2782
+Final probabilities:  [-0. -0. -0.  1.]
+Final Sent class:  gunshot
+-------------------------------
+
+PACKET # 11
+----------------
+Skipping packet (listening=False)
+PACKET # 12
+----------------
+Skipping packet (listening=False)
+PACKET # 13
+----------------
+Processing packet (listening=True)
+PACKET # 14
+----------------
+Processing packet (listening=True)
+PACKET # 15
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step
+Predicted probabilities: [ 0.   97.08  0.    2.92]
+Theoretical class:  fire
+STS: 319.08, LTS: 0.31908
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [  0.   0.   0. 100.]
+Theoretical class:  gun
+STS: 359.78, LTS: 0.35978
+Packet # 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [ 0.01  0.    0.   99.99]
+Theoretical class:  gun
+STS: 398.62, LTS: 0.39862
+MODEL 3
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 36ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 46ms/step
+Predicted probabilities: [  0.   0.   0. 100.]
+Theoretical class:  gun
+Final probabilities:  [-0.27  0.7  -0.28  2.25]
+Final Sent class:  gunshot
+-------------------------------
+
+PACKET # 16
+----------------
+Processing packet (listening=True)
+PACKET # 17
+----------------
+Processing packet (listening=True)
+PACKET # 18
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 28ms/step
+Predicted probabilities: [  0.   0.   0. 100.]
+Theoretical class:  gun
+STS: 439.5, LTS: 0.4395
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 22ms/step
+Predicted probabilities: [ 0.01 91.86  0.    8.13]
+Theoretical class:  fire
+STS: 479.52, LTS: 0.47952
+Packet # 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [  0.   0.   0. 100.]
+Theoretical class:  gun
+STS: 520.44, LTS: 0.52044
+MODEL 3
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 0.42  0.33 -0.58  1.  ]
+Final Sent class:  gunshot
+-------------------------------
+
+PACKET # 19
+----------------
+Processing packet (listening=True)
+PACKET # 20
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 26ms/step
+Predicted probabilities: [98.85  1.14  0.    0.  ]
+Theoretical class:  chainsaw
+STS: 561.34, LTS: 0.56134
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+STS: 602.1, LTS: 0.6021
+MODEL 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 2.86 -0.12 -0.13 -0.13]
+Final Sent class:  chainsaw
+-------------------------------
+
+PACKET # 21
+----------------
+Skipping packet (listening=False)
+PACKET # 22
+----------------
+Processing packet (listening=True)
+PACKET # 23
+----------------
+Processing packet (listening=True)
+PACKET # 24
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 634.84, LTS: 0.63484
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 10ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 671.6, LTS: 0.6716
+Packet # 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 706.72, LTS: 0.70672
+MODEL 3
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 1.   3.  -0.  -0.5]
+Final Sent class:  fire
+-------------------------------
+
+PACKET # 25
+----------------
+Skipping packet (listening=False)
+PACKET # 26
+----------------
+Processing packet (listening=True)
+PACKET # 27
+----------------
+Processing packet (listening=True)
+PACKET # 28
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 746.92, LTS: 0.74692
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 787.36, LTS: 0.78736
+Packet # 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [ 0.27 99.73  0.    0.  ]
+Theoretical class:  fire
+STS: 827.86, LTS: 0.82786
+MODEL 3
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 0.96  2.96 -0.04 -0.54]
+Final Sent class:  fire
+-------------------------------
+
+PACKET # 29
+----------------
+Processing packet (listening=True)
+PACKET # 30
+----------------
+Processing packet (listening=True)
+PACKET # 31
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step
+Predicted probabilities: [ 0.02  6.35  0.15 93.47]
+Theoretical class:  gun
+STS: 868.66, LTS: 0.86866
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [  0.   0. 100.   0.]
+Theoretical class:  fireworks
+STS: 909.34, LTS: 0.90934
+Packet # 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 10ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [  0.   0.   0. 100.]
+Theoretical class:  gun
+STS: 950.3, LTS: 0.9503
+MODEL 3
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 0.48 -0.45  0.49  0.92]
+Final Sent class:  gunshot
+-------------------------------
+
+PACKET # 32
+----------------
+Skipping packet (listening=False)
+PACKET # 33
+----------------
+Processing packet (listening=True)
+PACKET # 34
+----------------
+Processing packet (listening=True)
+PACKET # 35
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 26ms/step
+Predicted probabilities: [ 0.03  0.   99.82  0.15]
+Theoretical class:  fireworks
+STS: 991.14, LTS: 0.99114
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [ 0.   99.96  0.    0.04]
+Theoretical class:  fire
+STS: 1032.1, LTS: 1.0321
+Packet # 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [89.02  5.56  0.    5.42]
+Theoretical class:  chainsaw
+STS: 1072.94, LTS: 1.07294
+MODEL 3
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [  0.   0.   0. 100.]
+Theoretical class:  gun
+Final probabilities:  [-0.01  0.15  0.09 -0.35]
+Final Sent class:  fire
+-------------------------------
+
+PACKET # 36
+----------------
+Skipping packet (listening=False)
+PACKET # 37
+----------------
+Skipping packet (listening=False)
+PACKET # 38
+----------------
+Processing packet (listening=True)
+PACKET # 39
+----------------
+Processing packet (listening=True)
+PACKET # 40
+----------------
+Processing packet (listening=True)
+PACKET # 41
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 26ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 37ms/step
+Predicted probabilities: [ 0.02 86.69  0.   13.29]
+Theoretical class:  fire
+STS: 1113.88, LTS: 1.11388
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 10ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [ 0.    0.   76.76 23.24]
+Theoretical class:  fireworks
+STS: 1154.08, LTS: 1.15408
+Packet # 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 1194.78, LTS: 1.19478
+Packet # 3
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 1234.84, LTS: 1.23484
+MODEL 3
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 22ms/step
+Predicted probabilities: [20.84 79.16  0.    0.  ]
+Theoretical class:  fire
+Final probabilities:  [-2.78  0.67 -2.22 -3.12]
+Final Sent class:  fire
+-------------------------------
+
+PACKET # 42
+----------------
+Processing packet (listening=True)
+PACKET # 43
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 28ms/step
+Predicted probabilities: [  0.   0. 100.   0.]
+Theoretical class:  fireworks
+STS: 1265.58, LTS: 1.26558
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 22ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+STS: 1289.1, LTS: 1.2891
+MODEL 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 22ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 2. -0.  1. -0.]
+Final Sent class:  chainsaw
+-------------------------------
+
+PACKET # 44
+----------------
+Processing packet (listening=True)
+PACKET # 45
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 19ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 34ms/step
+Predicted probabilities: [ 0.   86.85 12.99  0.16]
+Theoretical class:  fire
+STS: 1329.94, LTS: 1.32994
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 13ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 22ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 1370.4, LTS: 1.3704
+MODEL 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 22ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 0.18  1.05 -0.69 -0.82]
+Final Sent class:  fire
+-------------------------------
+
+PACKET # 46
+----------------
+Processing packet (listening=True)
+PACKET # 47
+----------------
+Processing packet (listening=True)
+PACKET # 48
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 28ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 1411.14, LTS: 1.41114
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 13ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 24ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 1448.2, LTS: 1.4482
+Packet # 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 1484.68, LTS: 1.48468
+MODEL 3
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 25ms/step
+Predicted probabilities: [  0.   0.   0. 100.]
+Theoretical class:  gun
+Final probabilities:  [-0.   3.  -0.   0.5]
+Final Sent class:  fire
+-------------------------------
+
+PACKET # 49
+----------------
+Processing packet (listening=True)
+PACKET # 50
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 19ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 1525.5, LTS: 1.5255
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 28ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 1565.6, LTS: 1.5656
+MODEL 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 14ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 1.  2. -0. -0.]
+Final Sent class:  fire
+-------------------------------
+
+PACKET # 51
+----------------
+Processing packet (listening=True)
+PACKET # 52
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 1606.32, LTS: 1.60632
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 10ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 1646.06, LTS: 1.64606
+MODEL 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 22ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 1.  2. -0. -0.]
+Final Sent class:  fire
+-------------------------------
+
+PACKET # 53
+----------------
+Skipping packet (listening=False)
+PACKET # 54
+----------------
+Processing packet (listening=True)
+PACKET # 55
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step
+Predicted probabilities: [  0.   0.   0. 100.]
+Theoretical class:  gun
+STS: 1686.16, LTS: 1.68616
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [  0.   0. 100.   0.]
+Theoretical class:  fireworks
+STS: 1726.5, LTS: 1.7265
+MODEL 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 25ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 1. -0.  1.  1.]
+Final Sent class:  chainsaw
+-------------------------------
+
+PACKET # 56
+----------------
+Skipping packet (listening=False)
+PACKET # 57
+----------------
+Skipping packet (listening=False)
+PACKET # 58
+----------------
+Processing packet (listening=True)
+PACKET # 59
+----------------
+Processing packet (listening=True)
+PACKET # 60
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
+Predicted probabilities: [ 0.    0.   21.24 78.76]
+Theoretical class:  gun
+STS: 1767.46, LTS: 1.76746
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 10ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 19ms/step
+Predicted probabilities: [ 0.99 99.01  0.    0.  ]
+Theoretical class:  fire
+STS: 1807.4, LTS: 1.8074
+Packet # 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+STS: 1847.68, LTS: 1.84768
+MODEL 3
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 0.83 -0.19 -0.97 -0.89]
+Final Sent class:  chainsaw
+-------------------------------
+
+PACKET # 61
+----------------
+Skipping packet (listening=False)
+PACKET # 62
+----------------
+Processing packet (listening=True)
+PACKET # 63
+----------------
+Processing packet (listening=True)
+PACKET # 64
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+STS: 1875.36, LTS: 1.87536
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 10ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [93.76  0.    0.    6.24]
+Theoretical class:  chainsaw
+STS: 1914.14, LTS: 1.91414
+Packet # 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 22ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+STS: 1947.0, LTS: 1.947
+MODEL 3
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 3.46 -0.48 -0.48 -0.92]
+Final Sent class:  chainsaw
+-------------------------------
+
+PACKET # 65
+----------------
+Skipping packet (listening=False)
+PACKET # 66
+----------------
+Skipping packet (listening=False)
+PACKET # 67
+----------------
+Skipping packet (listening=False)
+PACKET # 68
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 25ms/step
+Predicted probabilities: [26.94 73.06  0.    0.  ]
+Theoretical class:  fire
+STS: 1948.34, LTS: 1.98782
+Final probabilities:  [-0.93 -0.47 -1.2  -1.2 ]
+Final Sent class:  fire
+-------------------------------
+
+PACKET # 69
+----------------
+Skipping packet (listening=False)
+PACKET # 70
+----------------
+Processing packet (listening=True)
+PACKET # 71
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 26ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 1950.48, LTS: 2.028
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [99.19  0.    0.    0.81]
+Theoretical class:  chainsaw
+STS: 1950.7, LTS: 2.06864
+MODEL 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 1.9   0.9  -0.1  -0.09]
+Final Sent class:  chainsaw
+-------------------------------
+
+PACKET # 72
+----------------
+Skipping packet (listening=False)
+PACKET # 73
+----------------
+Skipping packet (listening=False)
+PACKET # 74
+----------------
+Processing packet (listening=True)
+PACKET # 75
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 19ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step
+Predicted probabilities: [  0. 100.   0.   0.]
+Theoretical class:  fire
+STS: 1951.22, LTS: 2.1094
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+STS: 1950.58, LTS: 2.14824
+MODEL 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 12ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 22ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 2.  1. -0. -0.]
+Final Sent class:  chainsaw
+-------------------------------
+
+PACKET # 76
+----------------
+Skipping packet (listening=False)
+PACKET # 77
+----------------
+Skipping packet (listening=False)
+PACKET # 78
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step
+Predicted probabilities: [ 0.    0.    0.95 99.05]
+Theoretical class:  gun
+STS: 1951.82, LTS: 2.18916
+Final probabilities:  [-0.11 -0.11 -0.1   0.88]
+Final Sent class:  gunshot
+-------------------------------
+
+PACKET # 79
+----------------
+Skipping packet (listening=False)
+PACKET # 80
+----------------
+Skipping packet (listening=False)
+PACKET # 81
+----------------
+Processing packet (listening=True)
+PACKET # 82
+----------------
+Processing packet (listening=True)
+PACKET # 83
+----------------
+Processing packet (listening=True)
+Packet # 0
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
+Predicted probabilities: [  0.   0.   0. 100.]
+Theoretical class:  gun
+STS: 1946.04, LTS: 2.22424
+Packet # 1
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 14ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step
+Predicted probabilities: [20.2   0.    0.04 79.76]
+Theoretical class:  gun
+STS: 1942.12, LTS: 2.2612
+Packet # 2
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step
+Predicted probabilities: [ 0.1  0.   0.  99.9]
+Theoretical class:  gun
+STS: 1938.44, LTS: 2.29822
+MODEL 3
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 11ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step
+Predicted probabilities: [100.   0.   0.   0.]
+Theoretical class:  chainsaw
+Final probabilities:  [ 0.14 -1.06 -1.06  1.24]
+Final Sent class:  gunshot
+-------------------------------
+

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_55894eca30b36c91cf70a0be91221538" kind="dir">
+    <compoundname>limesdr_fpga</compoundname>
+    <innerfile refid="api_8h">api.h</innerfile>
+    <innerfile refid="sink__fpga_8h">sink_fpga.h</innerfile>
+    <innerfile refid="source__fpga_8h">source_fpga.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/include/limesdr_fpga/"/>
+  </compounddef>
+</doxygen>

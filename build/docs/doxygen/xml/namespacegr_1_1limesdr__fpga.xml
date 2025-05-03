@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacegr_1_1limesdr__fpga" kind="namespace" language="C++">
+    <compoundname>gr::limesdr_fpga</compoundname>
+    <innerclass refid="classgr_1_1limesdr__fpga_1_1sink__fpga" prot="public">gr::limesdr_fpga::sink_fpga</innerclass>
+    <innerclass refid="classgr_1_1limesdr__fpga_1_1source__fpga" prot="public">gr::limesdr_fpga::source_fpga</innerclass>
+    <innerclass refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl" prot="public">gr::limesdr_fpga::sink_fpga_impl</innerclass>
+    <innerclass refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl" prot="public">gr::limesdr_fpga::source_fpga_impl</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/include/limesdr_fpga/sink_fpga.h" line="28" column="1"/>
+  </compounddef>
+</doxygen>

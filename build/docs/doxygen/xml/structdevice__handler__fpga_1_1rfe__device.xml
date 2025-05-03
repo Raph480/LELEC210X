@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structdevice__handler__fpga_1_1rfe__device" kind="struct" language="C++" prot="private">
+    <compoundname>device_handler_fpga::rfe_device</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdevice__handler__fpga_1_1rfe__device_1a0e77b8caf261dea749807d3985d99a3d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int device_handler_fpga::rfe_device::rx_channel</definition>
+        <argsstring></argsstring>
+        <name>rx_channel</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" line="67" column="13" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdevice__handler__fpga_1_1rfe__device_1a18d17bada2118413743cf7c7dd60a781" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int device_handler_fpga::rfe_device::tx_channel</definition>
+        <argsstring></argsstring>
+        <name>tx_channel</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" line="68" column="13" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdevice__handler__fpga_1_1rfe__device_1afcf79d9a035832d7485c11ce01be8cbc" prot="public" static="no" mutable="no">
+        <type>rfe_dev_t *</type>
+        <definition>rfe_dev_t* device_handler_fpga::rfe_device::rfe_dev</definition>
+        <argsstring></argsstring>
+        <name>rfe_dev</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" line="69" column="19" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" line="66" column="5" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" bodystart="66" bodyend="70"/>
+    <listofallmembers>
+      <member refid="structdevice__handler__fpga_1_1rfe__device_1afcf79d9a035832d7485c11ce01be8cbc" prot="public" virt="non-virtual"><scope>device_handler_fpga::rfe_device</scope><name>rfe_dev</name></member>
+      <member refid="structdevice__handler__fpga_1_1rfe__device_1a0e77b8caf261dea749807d3985d99a3d" prot="public" virt="non-virtual"><scope>device_handler_fpga::rfe_device</scope><name>rx_channel</name></member>
+      <member refid="structdevice__handler__fpga_1_1rfe__device_1a18d17bada2118413743cf7c7dd60a781" prot="public" virt="non-virtual"><scope>device_handler_fpga::rfe_device</scope><name>tx_channel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

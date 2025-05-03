@@ -1,0 +1,44 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"grc/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 20,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "share/gnuradio/grc/blocks",
+			"paths" : 
+			[
+				"grc/limesdr_fpga_source.block.yml",
+				"grc/limesdr_fpga_sink.block.yml"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "grc",
+		"source" : "grc"
+	}
+}

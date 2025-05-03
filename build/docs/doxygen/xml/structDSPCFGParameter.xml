@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structDSPCFGParameter" kind="struct" language="C++" prot="public">
+    <compoundname>DSPCFGParameter</compoundname>
+    <includes refid="fpga__register__map_8h" local="no">fpga_register_map.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structDSPCFGParameter_1a8c31a3bb9c336e34e9653310f1a89007" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t DSPCFGParameter::address</definition>
+        <argsstring></argsstring>
+        <name>address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="19" column="14" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDSPCFGParameter_1ae5acd5022942c3588a9829eb2022bc3f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t DSPCFGParameter::msb</definition>
+        <argsstring></argsstring>
+        <name>msb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="20" column="13" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDSPCFGParameter_1a0ed84c26a4a46173e8beac6c82e63405" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t DSPCFGParameter::lsb</definition>
+        <argsstring></argsstring>
+        <name>lsb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="21" column="13" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDSPCFGParameter_1a7b62e85089f7169b93c390709d8aed44" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t DSPCFGParameter::defaultValue</definition>
+        <argsstring></argsstring>
+        <name>defaultValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="22" column="14" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDSPCFGParameter_1a6026b35cdd3e50fc5b516c40c0386fd5" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* DSPCFGParameter::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="23" column="16" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structDSPCFGParameter_1aec025ca500c85ec381585b1ff35afb7e" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* DSPCFGParameter::tooltip</definition>
+        <argsstring></argsstring>
+        <name>tooltip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="24" column="16" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" line="17" column="1" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/fpga_register_map.h" bodystart="18" bodyend="25"/>
+    <listofallmembers>
+      <member refid="structDSPCFGParameter_1a8c31a3bb9c336e34e9653310f1a89007" prot="public" virt="non-virtual"><scope>DSPCFGParameter</scope><name>address</name></member>
+      <member refid="structDSPCFGParameter_1a7b62e85089f7169b93c390709d8aed44" prot="public" virt="non-virtual"><scope>DSPCFGParameter</scope><name>defaultValue</name></member>
+      <member refid="structDSPCFGParameter_1a0ed84c26a4a46173e8beac6c82e63405" prot="public" virt="non-virtual"><scope>DSPCFGParameter</scope><name>lsb</name></member>
+      <member refid="structDSPCFGParameter_1ae5acd5022942c3588a9829eb2022bc3f" prot="public" virt="non-virtual"><scope>DSPCFGParameter</scope><name>msb</name></member>
+      <member refid="structDSPCFGParameter_1a6026b35cdd3e50fc5b516c40c0386fd5" prot="public" virt="non-virtual"><scope>DSPCFGParameter</scope><name>name</name></member>
+      <member refid="structDSPCFGParameter_1aec025ca500c85ec381585b1ff35afb7e" prot="public" virt="non-virtual"><scope>DSPCFGParameter</scope><name>tooltip</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

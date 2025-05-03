@@ -1,0 +1,2 @@
+eclipse.preferences.version=1
+org.eclipse.jdt.launching.PREF_VM_XML=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<vmSettings defaultVM\="57,org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType13,1740679274374" defaultVMConnector\="">\n    <vmType id\="org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType">\n        <vm id\="1740679274374" name\="jre" path\="/opt/st/stm32cubeide_1.16.1/plugins/com.st.stm32cube.ide.jre.linux64_3.2.0.202405231314/jre"/>\n    </vmType>\n</vmSettings>\n

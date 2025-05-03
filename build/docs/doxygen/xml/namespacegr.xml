@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacegr" kind="namespace" language="C++">
+    <compoundname>gr</compoundname>
+    <innernamespace refid="namespacegr_1_1limesdr__fpga">gr::limesdr_fpga</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/include/limesdr_fpga/sink_fpga.h" line="27" column="1"/>
+  </compounddef>
+</doxygen>

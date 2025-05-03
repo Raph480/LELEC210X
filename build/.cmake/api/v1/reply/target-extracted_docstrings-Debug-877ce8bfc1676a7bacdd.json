@@ -1,0 +1,90 @@
+{
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target",
+			"GR_PYBIND_MAKE_OOT"
+		],
+		"files" : 
+		[
+			"/usr/lib/x86_64-linux-gnu/cmake/gnuradio/GrPybind.cmake",
+			"python/bindings/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 38,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 278,
+				"parent" : 1
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "gnuradio-limesdr_fpga::@306ed2d68c6501e8728f"
+		},
+		{
+			"id" : "doxygen_target::@0eb31cab11dfcb11fc01"
+		}
+	],
+	"id" : "extracted_docstrings::@2eea7b98123d8100bb1e",
+	"name" : "extracted_docstrings",
+	"paths" : 
+	{
+		"build" : "python/bindings",
+		"source" : "python/bindings"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1,
+				2
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"isGenerated" : true,
+			"path" : "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/build/python/bindings/CMakeFiles/extracted_docstrings",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/build/python/bindings/CMakeFiles/extracted_docstrings.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/build/python/bindings/extracted_docstrings.json.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

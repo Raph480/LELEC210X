@@ -16,6 +16,36 @@ def fixed_to_float(x, e):
     f = f * sign
     return f
 
+def fixed_array_to_float(x: np.ndarray, e: int) -> np.ndarray:
+    """
+    Convert a NumPy array of fixed-point integers to floating-point values.
+    
+    Parameters:
+    - x (np.ndarray): Input array of integers (e.g., int16).
+    - e (int): Exponent used for fixed-point scaling (i.e., 1 / 2**e).
+    
+    Returns:
+    - np.ndarray: Array of float64 values.
+    """
+    x = np.asarray(x)
+    
+    # Handle sign: create a mask for negative numbers
+    negative_mask = x < 0
+
+    # Convert to unsigned equivalent for bitwise operations
+    c = np.abs(x).astype(np.uint64)
+
+    # Apply two's complement conversion manually for negative values
+    c[negative_mask] = ~ (x[negative_mask] - 1)
+
+    # Scale to float
+    f = c / (2 ** e)
+
+    # Restore sign
+    f[negative_mask] *= -1
+
+    return f
+
 def float2fixed(audio, maxval=1, dtype = np.int16):
     """
     Convert signal from float format to integer fixed point, here q15_t.
@@ -164,19 +194,23 @@ def melspectrogram(audio, N_melvec=20, melvec_length=20, samples_per_melvec=512,
     return melspec
 
 
+
 if __name__ == "__main__":
     import sys
     import soundfile as sf
+    from audio_student import AudioUtil
+    from classification.datasets import Dataset
+    #classification/src/classification/datasets/__init__.py
 
     np.set_printoptions(threshold=sys.maxsize)
 
     DTYPE = np.int16
     SAMPLES_PER_MELVEC = 512
     N_MELVEC = 20 #*5
-    MELVEC_LENGTH = 20
+    MELVEC_HEIGHT = 20
     N_NFT = 512
     WINDOW_TYPE = "hamming"
-    # fs = 11025 
+    fs = 10200
 
     # generate a 512 array of a pure sine at 2500Hz, f=44100Hz
     # f = 2500
@@ -184,10 +218,80 @@ if __name__ == "__main__":
     # t = np.arange(0, SAMPLES_PER_MELVEC*20, 1)
     # data = (np.sin(2 * np.pi * f * t / fs)* 32767).astype(DTYPE)
 
-    data, sr = sf.read("birds_00.wav", dtype=np.int16)
+    aud, sr = sf.read("/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/sounds/recorded_sounds/totalset/fire/fire_1_1.wav" )
+                      
+    
+    #dataset = Dataset(folder="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/sounds/recorded_sounds/classes/test/")
+    #classnames = dataset.list_classes()
+    #cls_index = (["chainsaw",0])
+    #audio_file = dataset[cls_index]
+    #aud, sr = AudioUtil.open(audio_file)
+    #print("Initial sr: ", sr)
 
-    melspec = melspectrogram(data, N_melvec=N_MELVEC, melvec_length=MELVEC_LENGTH, samples_per_melvec=SAMPLES_PER_MELVEC, N_Nft=N_NFT, window_type=WINDOW_TYPE, sr=11025, dtype=DTYPE)    
+    aud, sr = AudioUtil.resample((aud,sr), fs)
+    print("Resampled sr: ", sr)
+    #aud = np.array(aud, dtype=DTYPE)
+    #aud = AudioUtil.pad_trunc(aud, dyrat)
 
-    print(melspec[0])
-    plot_specgram(melspec.T, plt.gca(), is_mel=True, title="Mel Spectrogram", xlabel="Time [s]", ylabel="Frequency [Mel]", textlabel="Mel Spectrogram", cmap="jet", cb=True, tf=N_MELVEC)
+    # Normalize the audio signal - TO DO NOT
+    # aud = (aud - np.mean(aud)) / np.std(aud)
+
+
+    # Convert to fixed point 16 bits
+    aud = float2fixed(aud, maxval=1, dtype=np.int16)
+
+    melspec = melspectrogram(aud, N_melvec=N_MELVEC, melvec_height=MELVEC_HEIGHT, samples_per_melvec=SAMPLES_PER_MELVEC, N_Nft=N_NFT, window_type=WINDOW_TYPE, sr=sr, dtype=DTYPE)    
+    DTYPE2 = np.int8
+    melspec2 = melspectrogram(aud, N_melvec=N_MELVEC, melvec_height=MELVEC_HEIGHT, samples_per_melvec=SAMPLES_PER_MELVEC, N_Nft=N_NFT, window_type=WINDOW_TYPE, sr=sr, dtype=DTYPE2)    
+
+    
+    #if DTYPE == np.int16:
+    #    print("ok1")
+    melspec = fixed_array_to_float(melspec, 15)
+    #if DTYPE2 == np.int8:
+    #    print("ok2")
+    melspec2 = fixed_array_to_float(melspec2, 15)
+
+    #Compare if both melspecs are the same
+    if np.array_equal(melspec, melspec2):
+        print("Both melspecs are the same")
+    else:
+        print("Melspecs are different")
+
+    #Normalize the melspec between 0 and 1
+    melspec = melspec.T
+    melspec = melspec.flatten()      
+    #melspec /= np.linalg.norm(melspec)
+
+    fig, ax = plt.subplots(figsize=(4, 3))
+
+    # Display the mel spectrogram for a single class and image index
+    img = ax.imshow(melspec.reshape((MELVEC_HEIGHT, -1)), cmap="jet", origin="lower", aspect="auto")
+    ax.set_xlabel("")
+    ax.set_ylabel("Mel bins")
+
+    # Add colorbar
+    plt.colorbar(img, ax=ax, orientation='vertical')
     plt.show()
+    
+    melspec2 = melspec2.T
+    melspec2 = melspec2.flatten()      
+    #melspec2 /= np.linalg.norm(melspec2)
+
+
+        
+    #Compare if both melspecs are the same
+    if np.array_equal(melspec, melspec2):
+        print("Both melspecs are the same")
+    else:
+        print("Melspecs are different")
+    # Plot the mel spectrogram 2
+    fig, ax = plt.subplots(figsize=(4, 3))
+    # Display the mel spectrogram for a single class and image index
+    img = ax.imshow(melspec2.reshape((MELVEC_HEIGHT, -1)), cmap="jet", origin="lower", aspect="auto")
+    ax.set_xlabel("")
+    ax.set_ylabel("Mel bins")
+    # Add colorbar
+    plt.colorbar(img, ax=ax, orientation='vertical')
+    plt.show()
+

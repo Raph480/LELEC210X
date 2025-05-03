@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structdevice__handler__fpga_1_1device" kind="struct" language="C++" prot="private">
+    <compoundname>device_handler_fpga::device</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdevice__handler__fpga_1_1device_1abf55fafb768384cee421ce3f27d97a07" prot="public" static="no" mutable="no">
+        <type>lms_device_t *</type>
+        <definition>lms_device_t* device_handler_fpga::device::address</definition>
+        <argsstring></argsstring>
+        <name>address</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" line="54" column="22" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdevice__handler__fpga_1_1device_1a77b9d2303577b4428e840fbb47bfbf6a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool device_handler_fpga::device::source_flag</definition>
+        <argsstring></argsstring>
+        <name>source_flag</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" line="58" column="14" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdevice__handler__fpga_1_1device_1af0eb2147e5e78d0d2ed60c1c8d5a78e1" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool device_handler_fpga::device::sink_flag</definition>
+        <argsstring></argsstring>
+        <name>sink_flag</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" line="59" column="14" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdevice__handler__fpga_1_1device_1a3686c031b16ac89115fd262f6e88b9bd" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int device_handler_fpga::device::source_channel_mode</definition>
+        <argsstring></argsstring>
+        <name>source_channel_mode</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" line="60" column="13" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdevice__handler__fpga_1_1device_1a8fb1d5ef4ca4c5b1570b374cef6dc577" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int device_handler_fpga::device::sink_channel_mode</definition>
+        <argsstring></argsstring>
+        <name>sink_channel_mode</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" line="61" column="13" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdevice__handler__fpga_1_1device_1abeb130b098917f4c8dca6d157c6957e1" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string device_handler_fpga::device::source_filename</definition>
+        <argsstring></argsstring>
+        <name>source_filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" line="62" column="21" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdevice__handler__fpga_1_1device_1a502935aedfbe1e31625d92f41ae941f6" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string device_handler_fpga::device::sink_filename</definition>
+        <argsstring></argsstring>
+        <name>sink_filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" line="63" column="21" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>device_handler_fpga::device</label>
+        <childnode refid="2" relation="usage">
+          <edgelabel>sink_filename</edgelabel>
+          <edgelabel>source_filename</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::basic_string&lt; Char &gt;</label>
+      </node>
+      <node id="2">
+        <label>std::string</label>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" line="52" column="5" bodyfile="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/gr-limesdr-3-10/lib/device_handler_fpga.h" bodystart="52" bodyend="64"/>
+    <listofallmembers>
+      <member refid="structdevice__handler__fpga_1_1device_1abf55fafb768384cee421ce3f27d97a07" prot="public" virt="non-virtual"><scope>device_handler_fpga::device</scope><name>address</name></member>
+      <member refid="structdevice__handler__fpga_1_1device_1a8fb1d5ef4ca4c5b1570b374cef6dc577" prot="public" virt="non-virtual"><scope>device_handler_fpga::device</scope><name>sink_channel_mode</name></member>
+      <member refid="structdevice__handler__fpga_1_1device_1a502935aedfbe1e31625d92f41ae941f6" prot="public" virt="non-virtual"><scope>device_handler_fpga::device</scope><name>sink_filename</name></member>
+      <member refid="structdevice__handler__fpga_1_1device_1af0eb2147e5e78d0d2ed60c1c8d5a78e1" prot="public" virt="non-virtual"><scope>device_handler_fpga::device</scope><name>sink_flag</name></member>
+      <member refid="structdevice__handler__fpga_1_1device_1a3686c031b16ac89115fd262f6e88b9bd" prot="public" virt="non-virtual"><scope>device_handler_fpga::device</scope><name>source_channel_mode</name></member>
+      <member refid="structdevice__handler__fpga_1_1device_1abeb130b098917f4c8dca6d157c6957e1" prot="public" virt="non-virtual"><scope>device_handler_fpga::device</scope><name>source_filename</name></member>
+      <member refid="structdevice__handler__fpga_1_1device_1a77b9d2303577b4428e840fbb47bfbf6a" prot="public" virt="non-virtual"><scope>device_handler_fpga::device</scope><name>source_flag</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

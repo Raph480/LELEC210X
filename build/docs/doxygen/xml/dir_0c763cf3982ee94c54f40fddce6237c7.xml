@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_0c763cf3982ee94c54f40fddce6237c7" kind="dir">
+    <compoundname>telecom</compoundname>
+    <innerdir refid="dir_388fdb649e7959d065ac9fbc210a1527">gr-limesdr-3-10</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/telecom/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,432 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.1" xml:lang="en-US">
+  <compound refid="structgr_1_1limesdr__fpga_1_1sink__fpga__impl_1_1constant__data" kind="struct"><name>gr::limesdr_fpga::sink_fpga_impl::constant_data</name>
+    <member refid="structgr_1_1limesdr__fpga_1_1sink__fpga__impl_1_1constant__data_1a6b665facb8ff1dfdb2eee23a22bce386" kind="variable"><name>serial</name></member>
+    <member refid="structgr_1_1limesdr__fpga_1_1sink__fpga__impl_1_1constant__data_1a61e5f00dea18cb8572437ccfb17b34be" kind="variable"><name>device_number</name></member>
+    <member refid="structgr_1_1limesdr__fpga_1_1sink__fpga__impl_1_1constant__data_1a4b8ad019c9b98a0c053bb7171ba652e1" kind="variable"><name>channel_mode</name></member>
+    <member refid="structgr_1_1limesdr__fpga_1_1sink__fpga__impl_1_1constant__data_1ab471a036d48d5fd0f195ff9aa950f4c0" kind="variable"><name>samp_rate</name></member>
+    <member refid="structgr_1_1limesdr__fpga_1_1sink__fpga__impl_1_1constant__data_1a3c85aaeb5e4c6ac5971633f8213b5183" kind="variable"><name>FIFO_size</name></member>
+  </compound>
+  <compound refid="structgr_1_1limesdr__fpga_1_1source__fpga__impl_1_1constant__data" kind="struct"><name>gr::limesdr_fpga::source_fpga_impl::constant_data</name>
+    <member refid="structgr_1_1limesdr__fpga_1_1source__fpga__impl_1_1constant__data_1a2ecbe878218ecf756dc5c353c6432f44" kind="variable"><name>serial</name></member>
+    <member refid="structgr_1_1limesdr__fpga_1_1source__fpga__impl_1_1constant__data_1a2c52767cf4bb720dbd69bcf51e661c50" kind="variable"><name>device_number</name></member>
+    <member refid="structgr_1_1limesdr__fpga_1_1source__fpga__impl_1_1constant__data_1ab991eda7093ec817f2aea84621ae1782" kind="variable"><name>channel_mode</name></member>
+    <member refid="structgr_1_1limesdr__fpga_1_1source__fpga__impl_1_1constant__data_1a38019019057214ca9eb536acd2808bac" kind="variable"><name>samp_rate</name></member>
+    <member refid="structgr_1_1limesdr__fpga_1_1source__fpga__impl_1_1constant__data_1acdcec06f20b17ff73d3651b82fd50711" kind="variable"><name>FIFO_size</name></member>
+    <member refid="structgr_1_1limesdr__fpga_1_1source__fpga__impl_1_1constant__data_1a32caead66d999531493e01d16493095c" kind="variable"><name>align</name></member>
+  </compound>
+  <compound refid="structdevice__handler__fpga_1_1device" kind="struct"><name>device_handler_fpga::device</name>
+    <member refid="structdevice__handler__fpga_1_1device_1abf55fafb768384cee421ce3f27d97a07" kind="variable"><name>address</name></member>
+    <member refid="structdevice__handler__fpga_1_1device_1a77b9d2303577b4428e840fbb47bfbf6a" kind="variable"><name>source_flag</name></member>
+    <member refid="structdevice__handler__fpga_1_1device_1af0eb2147e5e78d0d2ed60c1c8d5a78e1" kind="variable"><name>sink_flag</name></member>
+    <member refid="structdevice__handler__fpga_1_1device_1a3686c031b16ac89115fd262f6e88b9bd" kind="variable"><name>source_channel_mode</name></member>
+    <member refid="structdevice__handler__fpga_1_1device_1a8fb1d5ef4ca4c5b1570b374cef6dc577" kind="variable"><name>sink_channel_mode</name></member>
+    <member refid="structdevice__handler__fpga_1_1device_1abeb130b098917f4c8dca6d157c6957e1" kind="variable"><name>source_filename</name></member>
+    <member refid="structdevice__handler__fpga_1_1device_1a502935aedfbe1e31625d92f41ae941f6" kind="variable"><name>sink_filename</name></member>
+  </compound>
+  <compound refid="classdevice__handler__fpga" kind="class"><name>device_handler_fpga</name>
+    <member refid="classdevice__handler__fpga_1aa325fb38e6562eebf8b89889e2155514" kind="variable"><name>open_devices</name></member>
+    <member refid="classdevice__handler__fpga_1a6eb65429d4d6146a37318b65cc4fd9bd" kind="variable"><name>list_read</name></member>
+    <member refid="classdevice__handler__fpga_1ad7a0d61ba9d3a9e3db1c7dc8f1db052d" kind="variable"><name>device_count</name></member>
+    <member refid="classdevice__handler__fpga_1a61478072b1c5026aac9adc8695916ac3" kind="variable"><name>rfe_device</name></member>
+    <member refid="classdevice__handler__fpga_1a389a9b78a8b2cd45ddb0d89b9af25525" kind="variable"><name>list</name></member>
+    <member refid="classdevice__handler__fpga_1a8bfef833c682a3036ca4efa9dd0dd285" kind="variable"><name>device_vector</name></member>
+    <member refid="classdevice__handler__fpga_1aa313690d2efcfa5e6a08c7bee87b16fe" kind="variable"><name>close_flag</name></member>
+    <member refid="classdevice__handler__fpga_1a99b98d5940803a688c156842b34f38f5" kind="variable"><name>d_logger</name></member>
+    <member refid="classdevice__handler__fpga_1a6d215820c2f4f67bb8ee4df1c319a46f" kind="variable"><name>block_mutex</name></member>
+    <member refid="classdevice__handler__fpga_1aa04a711d034abc552d142cb80d669d9e" kind="function"><name>device_handler_fpga</name></member>
+    <member refid="classdevice__handler__fpga_1abec05c94161bb3c77ee23ff953030ab8" kind="function"><name>device_handler_fpga</name></member>
+    <member refid="classdevice__handler__fpga_1a3a3489ceef5f029ad4805ae8ad5080c5" kind="function"><name>operator=</name></member>
+    <member refid="classdevice__handler__fpga_1a46d6a3b482860e8baf2b259b87ecc6a5" kind="function"><name>getInstance</name></member>
+    <member refid="classdevice__handler__fpga_1a62c3ab3bd4c53bdd140078698f03f446" kind="function"><name>~device_handler_fpga</name></member>
+    <member refid="classdevice__handler__fpga_1af0a707913f5edc8af621bd2b92d2864f" kind="function"><name>error</name></member>
+    <member refid="classdevice__handler__fpga_1a25f1407ed1c3b1601be8f30d6d67ebe1" kind="function"><name>get_device</name></member>
+    <member refid="classdevice__handler__fpga_1ae49922af35edac09cbdca7eed02b52bc" kind="function"><name>open_device</name></member>
+    <member refid="classdevice__handler__fpga_1a527fd8bfd6892bb1a575f4de754c4aec" kind="function"><name>close_device</name></member>
+    <member refid="classdevice__handler__fpga_1a4e5cb2477ea20684c648b2d55b05e0fc" kind="function"><name>close_all_devices</name></member>
+    <member refid="classdevice__handler__fpga_1a8fe9abcff64adc263131768f1148da4f" kind="function"><name>check_blocks</name></member>
+    <member refid="classdevice__handler__fpga_1a8e757282d0d2bfb9cd5c2a6870f6647e" kind="function"><name>settings_from_file</name></member>
+    <member refid="classdevice__handler__fpga_1a2e84f2b6b36adf4939ac25e12ffb5ccc" kind="function"><name>enable_channels</name></member>
+    <member refid="classdevice__handler__fpga_1abe42fabe5155f21d8c5eb84cf467b2df" kind="function"><name>set_samp_rate</name></member>
+    <member refid="classdevice__handler__fpga_1a22cc3f5aaef5c8d67c6cb0e86440f3b2" kind="function"><name>set_oversampling</name></member>
+    <member refid="classdevice__handler__fpga_1a022fb2d026e78f045d432d7bbd4ca6dd" kind="function"><name>set_rf_freq</name></member>
+    <member refid="classdevice__handler__fpga_1a7e05fb6959c766990191479573323621" kind="function"><name>calibrate</name></member>
+    <member refid="classdevice__handler__fpga_1a3cd46ec88751304ba15785c45c443a6f" kind="function"><name>set_antenna</name></member>
+    <member refid="classdevice__handler__fpga_1a79bbbcecd1bc4293b1ba60db2804747e" kind="function"><name>set_analog_filter</name></member>
+    <member refid="classdevice__handler__fpga_1a516d8fedcd9447ea13eec7a7db03090a" kind="function"><name>set_digital_filter</name></member>
+    <member refid="classdevice__handler__fpga_1acb88c6894c36fef617c580f5320d4210" kind="function"><name>set_gain</name></member>
+    <member refid="classdevice__handler__fpga_1a2caedfe2693c86cc26294cac07030fed" kind="function"><name>set_nco</name></member>
+    <member refid="classdevice__handler__fpga_1af531348cdaf0952f09f63823cd3b7afc" kind="function"><name>disable_DC_corrections</name></member>
+    <member refid="classdevice__handler__fpga_1acfa390fc0b7b88e618334eaf614e58a4" kind="function"><name>set_tcxo_dac</name></member>
+    <member refid="classdevice__handler__fpga_1ae12fecfbfee5bd1ac93d97f9793df559" kind="function"><name>set_rfe_device</name></member>
+    <member refid="classdevice__handler__fpga_1a714333f10ea7ec4d2b89e17a86474654" kind="function"><name>update_rfe_channels</name></member>
+    <member refid="classdevice__handler__fpga_1a9f4f4fc7a228011c66a9feb9306a7f5f" kind="function"><name>read_spi_reg_bits</name></member>
+    <member refid="classdevice__handler__fpga_1aca9a2db25e7c9f48b689d6600d9b525c" kind="function"><name>read_spi_reg_bits</name></member>
+    <member refid="classdevice__handler__fpga_1a2168c15714b9724a2e52b7daa37e1394" kind="function"><name>modify_spi_reg_bits</name></member>
+    <member refid="classdevice__handler__fpga_1a6fb09b8a56d85de3b7dcf63dfcbc3dfc" kind="function"><name>modify_spi_reg_bits</name></member>
+    <member refid="classdevice__handler__fpga_1a5db434c91917d554789c4e61a9827101" kind="function"><name>write_lms_reg</name></member>
+    <member refid="classdevice__handler__fpga_1ab23b5634e78142d6113723df0ff9cdf3" kind="function"><name>set_dspcfg_preamble</name></member>
+    <member refid="classdevice__handler__fpga_1a848726c1ad6e598779ce4fd4a8ecb844" kind="function"><name>set_dspcfg_PASSTHROUGH_LEN</name></member>
+    <member refid="classdevice__handler__fpga_1a1aeaa85f0fed5c9d4ca992b7b5cce5ee" kind="function"><name>set_dspcfg_THRESHOLD</name></member>
+    <member refid="classdevice__handler__fpga_1abaf5f44680ad0fda72778b49980e7b05" kind="function"><name>set_dspcfg_clear_rs</name></member>
+    <member refid="classdevice__handler__fpga_1a31351eec9433be5cbb68fd73f2123ebb" kind="function"><name>get_dspcfg_short_sum</name></member>
+    <member refid="classdevice__handler__fpga_1ae9c8064b01f18a80c4c3d86005ebdda2" kind="function"><name>get_dspcfg_long_sum</name></member>
+    <member refid="classdevice__handler__fpga_1a8eaa785946bd2860eaa34fc08a357155" kind="function"><name>set_gpio_dir</name></member>
+    <member refid="classdevice__handler__fpga_1a4bb37b808d0ff75d8d60470b10b5041f" kind="function"><name>write_gpio</name></member>
+    <member refid="classdevice__handler__fpga_1a3ffc5f0a89cd75a6eb8aedaa26fe7336" kind="function"><name>read_gpio</name></member>
+  </compound>
+  <compound refid="structDSPCFGParameter" kind="struct"><name>DSPCFGParameter</name>
+    <member refid="structDSPCFGParameter_1a8c31a3bb9c336e34e9653310f1a89007" kind="variable"><name>address</name></member>
+    <member refid="structDSPCFGParameter_1ae5acd5022942c3588a9829eb2022bc3f" kind="variable"><name>msb</name></member>
+    <member refid="structDSPCFGParameter_1a0ed84c26a4a46173e8beac6c82e63405" kind="variable"><name>lsb</name></member>
+    <member refid="structDSPCFGParameter_1a7b62e85089f7169b93c390709d8aed44" kind="variable"><name>defaultValue</name></member>
+    <member refid="structDSPCFGParameter_1a6026b35cdd3e50fc5b516c40c0386fd5" kind="variable"><name>name</name></member>
+    <member refid="structDSPCFGParameter_1aec025ca500c85ec381585b1ff35afb7e" kind="variable"><name>tooltip</name></member>
+  </compound>
+  <compound refid="structdevice__handler__fpga_1_1rfe__device" kind="struct"><name>device_handler_fpga::rfe_device</name>
+    <member refid="structdevice__handler__fpga_1_1rfe__device_1a0e77b8caf261dea749807d3985d99a3d" kind="variable"><name>rx_channel</name></member>
+    <member refid="structdevice__handler__fpga_1_1rfe__device_1a18d17bada2118413743cf7c7dd60a781" kind="variable"><name>tx_channel</name></member>
+    <member refid="structdevice__handler__fpga_1_1rfe__device_1afcf79d9a035832d7485c11ce01be8cbc" kind="variable"><name>rfe_dev</name></member>
+  </compound>
+  <compound refid="classgr_1_1limesdr__fpga_1_1sink__fpga" kind="class"><name>gr::limesdr_fpga::sink_fpga</name>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1ab990a12df6e3205f5d3ef669eeb633a5" kind="typedef"><name>sptr</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1a524319214077b67b9bc8ec69fe5fa70b" kind="function"><name>make</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1a99ecd8d500e755d77d98a2006e2bc8ee" kind="function"><name>set_center_freq</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1a79fbe05e44f7b784891caaabc0801f82" kind="function"><name>set_antenna</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1ad198f9150b40eccd48251672001af63e" kind="function"><name>set_nco</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1a1ec91b7945d1eb75210d6f8e00012d12" kind="function"><name>set_bandwidth</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1a66db89a5b359c359dc9951012d69ed7a" kind="function"><name>set_digital_filter</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1a4e8b1667ff902b5883a73467dade77fb" kind="function"><name>set_gain</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1ab8f95b452587522b4451b620c171844b" kind="function"><name>set_sample_rate</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1a79ab082f07e516a4b4dca8424833ef46" kind="function"><name>set_oversampling</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1aade1722dc35cd9dd0c6ad66fc08094a7" kind="function"><name>calibrate</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1a047492a83a7070f3a247f0d8c9d26e39" kind="function"><name>set_buffer_size</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1a76b975df9e62a95cd34cf8ebb7451bfd" kind="function"><name>set_tcxo_dac</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1a627b4d295ae063099cbcf6b804d03d84" kind="function"><name>write_lms_reg</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1ab029fb0b30a34b12d5efef98597f615e" kind="function"><name>set_gpio_dir</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1a4efd755f6efe793a5600a35a292e8d55" kind="function"><name>write_gpio</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga_1ada66db23db758aeb7ea4a42cb5491328" kind="function"><name>read_gpio</name></member>
+  </compound>
+  <compound refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl" kind="class"><name>gr::limesdr_fpga::sink_fpga_impl</name>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1ab639ca196daf1be57ab0edc5ef91a1d8" kind="variable"><name>streamId</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a424a8f7db1d3e982a466146aad2aa258" kind="variable"><name>stream_analyzer</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a8d120677dc6e9c88d2d14edd96d9a271" kind="variable"><name>sink_fpga_block</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1ad5c1e1f4ef604b5f3a5afbdcf769b368" kind="variable"><name>LENGTH_TAG</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1abe268aad7df543b24e70469762c0207e" kind="variable"><name>tx_meta</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1aac7993a259772ca9d0459b8c610893b1" kind="variable"><name>burst_length</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a059eb0b12ebdb51511bb39e8a89664f7" kind="variable"><name>nitems_send</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1ae0b83444ed328d8f32b9adc96fdc3355" kind="variable"><name>ret</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1add69f8bb96e59b9b0abc91a40094970a" kind="variable"><name>pa_path</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1ad66efb01c4dea2ead0b70e84a71634ef" kind="variable"><name>stored</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a59c1b981499e1704127e40ed8cb29275" kind="variable"><name>t1</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1ab77c69e95c5ea9202f2fa2d48affabaf" kind="variable"><name>t2</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1ac540c7d6d315b7d2924bcb7c16632266" kind="function"><name>work_tags</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1aae4273aed441f2bd85ecd9239ff53e07" kind="function"><name>print_stream_stats</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1affc5b93a826826db6164a0123ec8846f" kind="function"><name>sink_fpga_impl</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a9558d5aa980847fdd10118e2b29d7772" kind="function"><name>~sink_fpga_impl</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1aee833e244a4867e2c34887a9ecc22a9a" kind="function"><name>work</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a2ec6f276f827e6b6e28ee89cd5c4a171" kind="function"><name>start</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1ab5d5e9d26c1553e88c5aba653ca27b85" kind="function"><name>stop</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a6804cb1cf4cd65b0a9838c729b0c2394" kind="function"><name>args_to_io_signature</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a40332697463f74c5765ec06a93579d15" kind="function"><name>init_stream</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a99b9e9af954bb9a1d28e0224d176640f" kind="function"><name>release_stream</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a27a9e26a263b913e228c217791b91ce2" kind="function"><name>set_center_freq</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1ad0796dc358bcc9b552b567eaf737834d" kind="function"><name>set_antenna</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a4d5408e909fd2d6811d47c21e6201d06" kind="function"><name>toggle_pa_path</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1ac3fab679bd00ba4166d1f00475138a6d" kind="function"><name>set_nco</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1ac58198bb4a77f4ab8320512062ceb48f" kind="function"><name>set_bandwidth</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a177a79f5c85c56ff7d54aacd2080b211" kind="function"><name>set_digital_filter</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1afc5e87a42d301beb4893739d1fbb58ed" kind="function"><name>set_gain</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a6b90e1f429aa549e346ca35f19a3ce40" kind="function"><name>set_sample_rate</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1ad39ba70e95e304231ec535c79f5c8d94" kind="function"><name>set_oversampling</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1ad6710f9036adadb9582c696be7d5cb3f" kind="function"><name>set_buffer_size</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1aa7ccb826e324c59f334d4f35eab578f7" kind="function"><name>calibrate</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a80b3d5f23fc9c58ad9181270e94b3721" kind="function"><name>set_tcxo_dac</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a4394987e67dc7acf6a5589bb227bde9e" kind="function"><name>write_lms_reg</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a71070300cba2c002fd38c4cfaac1edf6" kind="function"><name>set_gpio_dir</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1a8353259bf7c74c97a99b7d0bcb335b6f" kind="function"><name>write_gpio</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1sink__fpga__impl_1aa99e70ce202a65c864cf7ea8450a197e" kind="function"><name>read_gpio</name></member>
+  </compound>
+  <compound refid="classgr_1_1limesdr__fpga_1_1source__fpga" kind="class"><name>gr::limesdr_fpga::source_fpga</name>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a4752027bfb1c22c4adfb95e5c86e4644" kind="typedef"><name>sptr</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a1a91b1e74c0ffcccf3b2b3e04b07b331" kind="function"><name>make</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a39dc6f2ea6033d5db4caa144d6887c5b" kind="function"><name>set_center_freq</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a954e4f2d5837e6374fe51677fa3773ec" kind="function"><name>set_antenna</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a73783a5772a272532b42fd56746936e0" kind="function"><name>set_nco</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a4829a8fe7714b21e47d8c179ec3b3dbc" kind="function"><name>set_bandwidth</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1af2863a9963490908fd21fe957aa418c8" kind="function"><name>set_digital_filter</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a08e6ea837bd0fd9ee86bbcec239f3917" kind="function"><name>set_gain</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1ab9fb902193176fa63fdcc767a757c7aa" kind="function"><name>set_sample_rate</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a83cdef93e634783c06e37c9f345ab8b1" kind="function"><name>set_oversampling</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1ac5a1ad43011d7df0d112baa60c75a647" kind="function"><name>calibrate</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a6b45169f2a8124fc4cec21462ca5202a" kind="function"><name>set_buffer_size</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a59707e90ad6d6d76e34088fda8b8e610" kind="function"><name>set_tcxo_dac</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1aa3166f1c8b32d650bfcbb9566dc6a436" kind="function"><name>write_lms_reg</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a7c325c103b34546511166130e6aa846a" kind="function"><name>set_dspcfg_preamble</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1acb63e8a2d22bf28cfc33ae904a34ea04" kind="function"><name>get_dspcfg_long_sum</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a01ead4024fdfd8ddee30db163bc6c0e2" kind="function"><name>get_dspcfg_short_sum</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a4f8b5b4a1e712634eddff6c68a292f2c" kind="function"><name>set_gpio_dir</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a7c5f32d42cf3bd9b577d87b97678a7c2" kind="function"><name>write_gpio</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga_1a4c0663572fe67f30ec0f480645147202" kind="function"><name>read_gpio</name></member>
+  </compound>
+  <compound refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl" kind="class"><name>gr::limesdr_fpga::source_fpga_impl</name>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1ac96194e02bfe1700eb727c16f1eede74" kind="variable"><name>streamId</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a0180275d0827ea911335536e91b578bc" kind="variable"><name>stream_analyzer</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1aa6630e5c124add5c0098349d8c4f8a86" kind="variable"><name>source_fpga_block</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a35cf4df75f962391f9fe10d5aa3f420f" kind="variable"><name>add_tag</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a8c13efd2040fc98d91a3b1d94377ff7f" kind="variable"><name>pktLoss</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1ab1a995b49571890424e0f1f0fbe26678" kind="variable"><name>stored</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a7211395b3fb39b7420b0873d1239b892" kind="variable"><name>t1</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1aa09c8a0b8ad200d2983eb535ca8fec9a" kind="variable"><name>t2</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a5f5c0eb4be3619d2c995f19398e6ef16" kind="function"><name>print_stream_stats</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a775698b3fb3967d822e810db680e37cc" kind="function"><name>add_time_tag</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1aacbde7d60b3af1c878dac8fc31aa5f35" kind="function"><name>source_fpga_impl</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a9ea94659e5f0bf746977f4c5c1bc3126" kind="function"><name>~source_fpga_impl</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1ac564cc00cdfd3883e1edacca58547e60" kind="function"><name>start</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a9b32416c57b01244c3fcd08996e1202f" kind="function"><name>stop</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a9266b8a2018daf8a384bc6e6333f01af" kind="function"><name>work</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1ae9471a2b6c197dd47d69184434de66ad" kind="function"><name>args_to_io_signature</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a7e8d7d0bae04224c4deedfd5b99ff1fe" kind="function"><name>init_stream</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a687dcbbd08f3bf7b7e2af951bba62f8d" kind="function"><name>release_stream</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1af4563cce48ad8e8143df51990ad5738e" kind="function"><name>set_center_freq</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a0f080154a6dd5341039d8c9a08de4019" kind="function"><name>set_antenna</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1ab36104dc253995f64947252d9bfbd820" kind="function"><name>set_nco</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1ac86032da667b9ddb1cf1ae998b28575c" kind="function"><name>set_bandwidth</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a51888d0c06b8d8c823979bd56b132bd8" kind="function"><name>set_digital_filter</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a0a3c76a1d15539ebeabd88615947996b" kind="function"><name>set_gain</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a3a4dd1878eb93d732bfe92426f673f71" kind="function"><name>set_sample_rate</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1ae5fa000603237f56310df7d87ebfb909" kind="function"><name>set_oversampling</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a839ccdf9726e5af88b0825dc27cc6b66" kind="function"><name>set_buffer_size</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a6da10dc03dc885be4865f3c936e278f8" kind="function"><name>calibrate</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1af2fc5366b520dc226eaf7f0298ebd0b7" kind="function"><name>set_tcxo_dac</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a3661d5026ca2c68b6006451abbc00a42" kind="function"><name>write_lms_reg</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a5d997e91186e5a7ceed76684e17fa201" kind="function"><name>set_gpio_dir</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a754f5942ff36299e2b963f463b65e5ed" kind="function"><name>write_gpio</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a8864ef53204a8135cae8d69cd0d54744" kind="function"><name>read_gpio</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a5918b5842d9e5c5d67aac8b3f55781e5" kind="function"><name>set_dspcfg_preamble</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a91346767b2f89b568ed6735688021d60" kind="function"><name>get_dspcfg_short_sum</name></member>
+    <member refid="classgr_1_1limesdr__fpga_1_1source__fpga__impl_1a64d97dd4b6a475651d05bbc8d8eed999" kind="function"><name>get_dspcfg_long_sum</name></member>
+  </compound>
+  <compound refid="namespacegr" kind="namespace"><name>gr</name>
+  </compound>
+  <compound refid="namespacegr_1_1limesdr__fpga" kind="namespace"><name>gr::limesdr_fpga</name>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="api_8h" kind="file"><name>api.h</name>
+    <member refid="api_8h_1a279378260721713fbf5c473e3b1ce683" kind="define"><name>LIMESDR_FPGA_API</name></member>
+  </compound>
+  <compound refid="device__handler__fpga_8h" kind="file"><name>device_handler_fpga.h</name>
+    <member refid="device__handler__fpga_8h_1ac7e8c22fb546aae34df5602d8334cf49" kind="define"><name>LMS_CH_0</name></member>
+    <member refid="device__handler__fpga_8h_1a73c1da2a6ba32f151c8e3601356809d4" kind="define"><name>LMS_CH_1</name></member>
+    <member refid="device__handler__fpga_8h_1aef606486930c6353b1f21156774f5a5f" kind="define"><name>LimeSDR_Mini</name></member>
+    <member refid="device__handler__fpga_8h_1a1c50aae2720db6161d0620e7b7d7d295" kind="define"><name>LimeNET_Micro</name></member>
+    <member refid="device__handler__fpga_8h_1a2bb9af72d8895b896e8aa6bd673a01a5" kind="define"><name>LimeSDR_USB</name></member>
+  </compound>
+  <compound refid="fpga__register__map_8h" kind="file"><name>fpga_register_map.h</name>
+    <member refid="fpga__register__map_8h_1a3499e33368982f549118f4f1e9386508" kind="define"><name>DSPCFGparam</name></member>
+    <member refid="fpga__register__map_8h_1a5e59656a165e5e03944f689d0efea5d7" kind="variable"><name>DSPCFG_PASSTHROUGH_LEN</name></member>
+    <member refid="fpga__register__map_8h_1a0cf86b0a09073938a87b9c38096581c8" kind="variable"><name>DSPCFG_THRESHOLD</name></member>
+    <member refid="fpga__register__map_8h_1a1d809ebb406ac14d08ec65bc7c8c0e0e" kind="variable"><name>DSPCFG_CLEAR_RS</name></member>
+    <member refid="fpga__register__map_8h_1aada366dcba4bcc91557410ae7043c792" kind="variable"><name>DSPCFG_PREAMBLE_EN</name></member>
+    <member refid="fpga__register__map_8h_1a7ddbc13cd15dedfb04ed211dee71941f" kind="variable"><name>DSPCFG_PREAMBLE_SHORT_SUM_MSB</name></member>
+    <member refid="fpga__register__map_8h_1adaf21d8eb37e442d9e84bbee1bc780bd" kind="variable"><name>DSPCFG_PREAMBLE_SHORT_SUM_LSB</name></member>
+    <member refid="fpga__register__map_8h_1a43d645b3adfef3dc4067879733b4564d" kind="variable"><name>DSPCFG_PREAMBLE_LONG_SUM_MSB</name></member>
+    <member refid="fpga__register__map_8h_1a3afd4d870be16b66e66ac665f52cad85" kind="variable"><name>DSPCFG_PREAMBLE_LONG_SUM_LSB</name></member>
+    <member refid="fpga__register__map_8h_1afb08e42da38c734d3cfc9b744d2583fa" kind="variable"><name>DSPCFG_PREAMBLE_COUNT_MSB</name></member>
+    <member refid="fpga__register__map_8h_1a923ca758447515effd1d96e5bc3f2bb2" kind="variable"><name>DSPCFG_PREAMBLE_COUNT_LSB</name></member>
+  </compound>
+  <compound refid="group__defs_8dox" kind="file"><name>group_defs.dox</name>
+  </compound>
+  <compound refid="logging__fpga_8h" kind="file"><name>logging_fpga.h</name>
+    <member refid="logging__fpga_8h_1ade3d4e46b0113420d5b03f5db82de945" kind="function"><name>set_limesuite_logger</name></member>
+    <member refid="logging__fpga_8h_1a00c2de46f1c3297c220670c7cfab4d1c" kind="function"><name>suppress_limesuite_logging</name></member>
+  </compound>
+  <compound refid="main__page_8dox" kind="file"><name>main_page.dox</name>
+  </compound>
+  <compound refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h" kind="file"><name>telecom/gr-limesdr-3-10/build/python/bindings/pydoc_macros.h</name>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1afa7cf06549cf7fd295f622ef6f376357" kind="define"><name>__EXPAND</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1a251b23a2efed48ff2ba2d6f449ed33a3" kind="define"><name>__COUNT</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1a2815f7ab197591ba9559415c694f9ce0" kind="define"><name>__VA_SIZE</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1afdd58e017733f2235c227ef8dd3b2de8" kind="define"><name>__CAT1</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1af08fe30f2a41cef10658f6a892d20543" kind="define"><name>__CAT2</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1a43c147206df4346db5e9d6445aab28ae" kind="define"><name>__DOC1</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1a53738db606593bc1554371d718695fed" kind="define"><name>__DOC2</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1a21baf08c04d32485764f227c32b5bf5d" kind="define"><name>__DOC3</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1a9463ba0ad86bcb4c59b5aecf8a37174c" kind="define"><name>__DOC4</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1a942579d548421ddb2906af7094e5789c" kind="define"><name>__DOC5</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1a31ea356761360e78d16525aa69d2dae6" kind="define"><name>__DOC6</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1a6f1e731f1c6d2893ff1bf98582a7de6e" kind="define"><name>__DOC7</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2build_2python_2bindings_2pydoc__macros_8h_1a4e578031ec998eaeb933d5caa6a7d28a" kind="define"><name>DOC</name></member>
+  </compound>
+  <compound refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h" kind="file"><name>telecom/gr-limesdr-3-10/docs/doxygen/pydoc_macros.h</name>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1afa7cf06549cf7fd295f622ef6f376357" kind="define"><name>__EXPAND</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1a251b23a2efed48ff2ba2d6f449ed33a3" kind="define"><name>__COUNT</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1a2815f7ab197591ba9559415c694f9ce0" kind="define"><name>__VA_SIZE</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1afdd58e017733f2235c227ef8dd3b2de8" kind="define"><name>__CAT1</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1af08fe30f2a41cef10658f6a892d20543" kind="define"><name>__CAT2</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1a43c147206df4346db5e9d6445aab28ae" kind="define"><name>__DOC1</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1a53738db606593bc1554371d718695fed" kind="define"><name>__DOC2</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1a21baf08c04d32485764f227c32b5bf5d" kind="define"><name>__DOC3</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1a9463ba0ad86bcb4c59b5aecf8a37174c" kind="define"><name>__DOC4</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1a942579d548421ddb2906af7094e5789c" kind="define"><name>__DOC5</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1a31ea356761360e78d16525aa69d2dae6" kind="define"><name>__DOC6</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1a6f1e731f1c6d2893ff1bf98582a7de6e" kind="define"><name>__DOC7</name></member>
+    <member refid="telecom_2gr-limesdr-3-10_2docs_2doxygen_2pydoc__macros_8h_1a4e578031ec998eaeb933d5caa6a7d28a" kind="define"><name>DOC</name></member>
+  </compound>
+  <compound refid="build_2python_2bindings_2pydoc__macros_8h" kind="file"><name>build/python/bindings/pydoc_macros.h</name>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1afa7cf06549cf7fd295f622ef6f376357" kind="define"><name>__EXPAND</name></member>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1a251b23a2efed48ff2ba2d6f449ed33a3" kind="define"><name>__COUNT</name></member>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1a2815f7ab197591ba9559415c694f9ce0" kind="define"><name>__VA_SIZE</name></member>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1afdd58e017733f2235c227ef8dd3b2de8" kind="define"><name>__CAT1</name></member>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1af08fe30f2a41cef10658f6a892d20543" kind="define"><name>__CAT2</name></member>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1a43c147206df4346db5e9d6445aab28ae" kind="define"><name>__DOC1</name></member>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1a53738db606593bc1554371d718695fed" kind="define"><name>__DOC2</name></member>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1a21baf08c04d32485764f227c32b5bf5d" kind="define"><name>__DOC3</name></member>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1a9463ba0ad86bcb4c59b5aecf8a37174c" kind="define"><name>__DOC4</name></member>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1a942579d548421ddb2906af7094e5789c" kind="define"><name>__DOC5</name></member>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1a31ea356761360e78d16525aa69d2dae6" kind="define"><name>__DOC6</name></member>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1a6f1e731f1c6d2893ff1bf98582a7de6e" kind="define"><name>__DOC7</name></member>
+    <member refid="build_2python_2bindings_2pydoc__macros_8h_1a4e578031ec998eaeb933d5caa6a7d28a" kind="define"><name>DOC</name></member>
+  </compound>
+  <compound refid="sink__fpga_8h" kind="file"><name>sink_fpga.h</name>
+  </compound>
+  <compound refid="sink__fpga__impl_8h" kind="file"><name>sink_fpga_impl.h</name>
+    <member refid="sink__fpga__impl_8h_1ad6ad3ffdbfa8f7a181221fb2b7b221a7" kind="variable"><name>TIME_TAG</name></member>
+  </compound>
+  <compound refid="sink__fpga__pydoc_8h" kind="file"><name>sink_fpga_pydoc.h</name>
+    <member refid="sink__fpga__pydoc_8h_1a74021f021dcdfbb22891787b79c5529d" kind="define"><name>D</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a6e7a96c9f4ece62cbab26f0eacc2c576" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a9fbab7b2a0523adb8dbc341981d7595b" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_sink_0</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a6b4ee8bd2e2dcb21e63be6f4cd344bb6" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_sink_1</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a339fe93db9517fa84e93830dcf3a9d4f" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_make</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a409da2b4f3c2f371852f3870f818dc4c" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_center_freq</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a8f6ee13ca77cda01b8e80e201c71f345" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_antenna</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a3a45cca43f2fd03d08cfc1deb39d6f05" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_nco</name></member>
+    <member refid="sink__fpga__pydoc_8h_1ae9b3685be2edf1b4723a3bb2b867b18d" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_bandwidth</name></member>
+    <member refid="sink__fpga__pydoc_8h_1ac24566c8e8c53c3b5a696d1b59e30b48" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_digital_filter</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a1d2b54920a071a8decf334db49e5de2b" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_gain</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a3ed8cb876f704210af129a8b4fa24e7a" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_sample_rate</name></member>
+    <member refid="sink__fpga__pydoc_8h_1ab499aaed5c38f04e40cf45c910d4b9d2" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_oversampling</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a87a34948706716e5017623ca6e43721a" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_calibrate</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a4f6ed6867edc7e7ce38701ea4cf7b516" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_buffer_size</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a91ac61eaa632a11830297a34eec2ede6" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_tcxo_dac</name></member>
+    <member refid="sink__fpga__pydoc_8h_1aa80390fc05b6b06bef721deec5cb3267" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_write_lms_reg</name></member>
+    <member refid="sink__fpga__pydoc_8h_1ab0cea1c2ae81d162865866ab6d2e9911" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_gpio_dir</name></member>
+    <member refid="sink__fpga__pydoc_8h_1a8259476055c1eb7064245c32f2048585" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_write_gpio</name></member>
+    <member refid="sink__fpga__pydoc_8h_1acf1960b0139c220f747d131e0b98f223" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_read_gpio</name></member>
+  </compound>
+  <compound refid="sink__fpga__pydoc__template_8h" kind="file"><name>sink_fpga_pydoc_template.h</name>
+    <member refid="sink__fpga__pydoc__template_8h_1a74021f021dcdfbb22891787b79c5529d" kind="define"><name>D</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a6e7a96c9f4ece62cbab26f0eacc2c576" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a9fbab7b2a0523adb8dbc341981d7595b" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_sink_0</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a6b4ee8bd2e2dcb21e63be6f4cd344bb6" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_sink_1</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a339fe93db9517fa84e93830dcf3a9d4f" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_make</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a409da2b4f3c2f371852f3870f818dc4c" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_center_freq</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a8f6ee13ca77cda01b8e80e201c71f345" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_antenna</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a3a45cca43f2fd03d08cfc1deb39d6f05" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_nco</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1ae9b3685be2edf1b4723a3bb2b867b18d" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_bandwidth</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1ac24566c8e8c53c3b5a696d1b59e30b48" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_digital_filter</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a1d2b54920a071a8decf334db49e5de2b" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_gain</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a3ed8cb876f704210af129a8b4fa24e7a" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_sample_rate</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1ab499aaed5c38f04e40cf45c910d4b9d2" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_oversampling</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a87a34948706716e5017623ca6e43721a" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_calibrate</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a4f6ed6867edc7e7ce38701ea4cf7b516" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_buffer_size</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a91ac61eaa632a11830297a34eec2ede6" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_tcxo_dac</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1aa80390fc05b6b06bef721deec5cb3267" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_write_lms_reg</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1ab0cea1c2ae81d162865866ab6d2e9911" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_set_gpio_dir</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1a8259476055c1eb7064245c32f2048585" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_write_gpio</name></member>
+    <member refid="sink__fpga__pydoc__template_8h_1acf1960b0139c220f747d131e0b98f223" kind="variable"><name>__doc_gr_limesdr_fpga_sink_fpga_read_gpio</name></member>
+  </compound>
+  <compound refid="source__fpga_8h" kind="file"><name>source_fpga.h</name>
+  </compound>
+  <compound refid="source__fpga__impl_8h" kind="file"><name>source_fpga_impl.h</name>
+    <member refid="source__fpga__impl_8h_1ad6ad3ffdbfa8f7a181221fb2b7b221a7" kind="variable"><name>TIME_TAG</name></member>
+  </compound>
+  <compound refid="source__fpga__pydoc_8h" kind="file"><name>source_fpga_pydoc.h</name>
+    <member refid="source__fpga__pydoc_8h_1a74021f021dcdfbb22891787b79c5529d" kind="define"><name>D</name></member>
+    <member refid="source__fpga__pydoc_8h_1ab8680c4053c685bb134ebaf95a5f89d3" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga</name></member>
+    <member refid="source__fpga__pydoc_8h_1a8e6128922fe0ab79d045529223ce6566" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_source_0</name></member>
+    <member refid="source__fpga__pydoc_8h_1ab7cd233b51df1d1c5b683fcd17709d97" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_source_1</name></member>
+    <member refid="source__fpga__pydoc_8h_1a244613dc48f003eb8833ffa0db49b366" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_make</name></member>
+    <member refid="source__fpga__pydoc_8h_1ae4ed832fc68d16cb8f97b425777989f4" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_center_freq</name></member>
+    <member refid="source__fpga__pydoc_8h_1a26f8f96bd4e910f79f350436a1a9b1c6" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_antenna</name></member>
+    <member refid="source__fpga__pydoc_8h_1a256927dd0781d8d1926efc801b4a8675" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_nco</name></member>
+    <member refid="source__fpga__pydoc_8h_1a3b5e1f11330d83f4f51fe9431ae13564" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_bandwidth</name></member>
+    <member refid="source__fpga__pydoc_8h_1abb3e82fdb5d76b3ea59e1f0c43aa8e99" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_digital_filter</name></member>
+    <member refid="source__fpga__pydoc_8h_1a546128ea17e9133a6919cefae4336b83" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_gain</name></member>
+    <member refid="source__fpga__pydoc_8h_1a653b387de9c883e724b837a18d48e442" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_sample_rate</name></member>
+    <member refid="source__fpga__pydoc_8h_1a37e408fc3481d0117c7eb3cbba3b6fb0" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_oversampling</name></member>
+    <member refid="source__fpga__pydoc_8h_1aa24730abccd4d9fd7e6841f21e066189" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_calibrate</name></member>
+    <member refid="source__fpga__pydoc_8h_1a9ce78332c777fb64b187bcc4a729c845" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_buffer_size</name></member>
+    <member refid="source__fpga__pydoc_8h_1a1539df3ddee8557b90e8d93306b86829" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_tcxo_dac</name></member>
+    <member refid="source__fpga__pydoc_8h_1a6d3f95d08ee9553dea7765e9bd917159" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_write_lms_reg</name></member>
+    <member refid="source__fpga__pydoc_8h_1abaf5042c0541127a23cda2ff1fbbbfba" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_gpio_dir</name></member>
+    <member refid="source__fpga__pydoc_8h_1a315147f60785b456851ee4203cf378a0" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_write_gpio</name></member>
+    <member refid="source__fpga__pydoc_8h_1adf91ab81716ec3ef0775e78fbd325f9e" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_read_gpio</name></member>
+    <member refid="source__fpga__pydoc_8h_1afa95479da1b7311a0b1d3f2de18bf435" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_dspcfg_preamble</name></member>
+    <member refid="source__fpga__pydoc_8h_1a59f97943e0bb1c59c5f527d52b8df4aa" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_get_dspcfg_long_sum</name></member>
+    <member refid="source__fpga__pydoc_8h_1a26cfaa55bbdf58d7a6057e4113008a45" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_get_dspcfg_short_sum</name></member>
+  </compound>
+  <compound refid="source__fpga__pydoc__template_8h" kind="file"><name>source_fpga_pydoc_template.h</name>
+    <member refid="source__fpga__pydoc__template_8h_1a74021f021dcdfbb22891787b79c5529d" kind="define"><name>D</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1ab8680c4053c685bb134ebaf95a5f89d3" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a8e6128922fe0ab79d045529223ce6566" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_source_0</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1ab7cd233b51df1d1c5b683fcd17709d97" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_source_1</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a244613dc48f003eb8833ffa0db49b366" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_make</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1ae4ed832fc68d16cb8f97b425777989f4" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_center_freq</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a26f8f96bd4e910f79f350436a1a9b1c6" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_antenna</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a256927dd0781d8d1926efc801b4a8675" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_nco</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a3b5e1f11330d83f4f51fe9431ae13564" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_bandwidth</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1abb3e82fdb5d76b3ea59e1f0c43aa8e99" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_digital_filter</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a546128ea17e9133a6919cefae4336b83" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_gain</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a653b387de9c883e724b837a18d48e442" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_sample_rate</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a37e408fc3481d0117c7eb3cbba3b6fb0" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_oversampling</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1aa24730abccd4d9fd7e6841f21e066189" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_calibrate</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a9ce78332c777fb64b187bcc4a729c845" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_buffer_size</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a1539df3ddee8557b90e8d93306b86829" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_tcxo_dac</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a6d3f95d08ee9553dea7765e9bd917159" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_write_lms_reg</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1abaf5042c0541127a23cda2ff1fbbbfba" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_gpio_dir</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a315147f60785b456851ee4203cf378a0" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_write_gpio</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1adf91ab81716ec3ef0775e78fbd325f9e" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_read_gpio</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1afa95479da1b7311a0b1d3f2de18bf435" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_set_dspcfg_preamble</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a59f97943e0bb1c59c5f527d52b8df4aa" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_get_dspcfg_long_sum</name></member>
+    <member refid="source__fpga__pydoc__template_8h_1a26cfaa55bbdf58d7a6057e4113008a45" kind="variable"><name>__doc_gr_limesdr_fpga_source_fpga_get_dspcfg_short_sum</name></member>
+  </compound>
+  <compound refid="group__block" kind="group"><name>block</name>
+  </compound>
+  <compound refid="dir_abd066baebdfcad5fb876db135d2711f" kind="dir"><name>bindings</name>
+  </compound>
+  <compound refid="dir_88770b5a64925327e39e3dafa077106f" kind="dir"><name>bindings</name>
+  </compound>
+  <compound refid="dir_15a3c2bd19b76b41c47686a6220883ec" kind="dir"><name>bindings</name>
+  </compound>
+  <compound refid="dir_9ad7a56544e42b4544ba27376399c4a4" kind="dir"><name>build</name>
+  </compound>
+  <compound refid="dir_dc409ca5c2a7cbb3c00ea529d0dd16f9" kind="dir"><name>docs</name>
+  </compound>
+  <compound refid="dir_8ee9bd8ce8fab1a6036fc185978d501a" kind="dir"><name>docstrings</name>
+  </compound>
+  <compound refid="dir_d816227108c524a4a2fd5a3d6b0dab0d" kind="dir"><name>doxygen</name>
+  </compound>
+  <compound refid="dir_388fdb649e7959d065ac9fbc210a1527" kind="dir"><name>gr-limesdr-3-10</name>
+  </compound>
+  <compound refid="dir_6906b32461a73200e3142d680af0d8b3" kind="dir"><name>include</name>
+  </compound>
+  <compound refid="dir_9dd06cafca843d57aa3de57851814eca" kind="dir"><name>lib</name>
+  </compound>
+  <compound refid="dir_55894eca30b36c91cf70a0be91221538" kind="dir"><name>limesdr_fpga</name>
+  </compound>
+  <compound refid="dir_0c944f7a7d962be07819ccdeba6022f2" kind="dir"><name>other</name>
+  </compound>
+  <compound refid="dir_19585bc5d427d5bcd686a62c2d8748c6" kind="dir"><name>python</name>
+  </compound>
+  <compound refid="dir_ab3dd591509f89c87d6a9fd8136a6d03" kind="dir"><name>python</name>
+  </compound>
+  <compound refid="dir_d1ce045651a0d057c577022d80ece4e6" kind="dir"><name>python</name>
+  </compound>
+  <compound refid="dir_0c763cf3982ee94c54f40fddce6237c7" kind="dir"><name>telecom</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

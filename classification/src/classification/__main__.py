@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import requests
 import json
+import threading
 
 import common
 from auth import PRINT_PREFIX
@@ -14,136 +15,304 @@ from common.env import load_dotenv
 from common.logging import logger
 from classification.utils import payload_to_melvecs
 from classification.utils.plots import plot_specgram
+np.set_printoptions(precision=2, suppress=True)
 
+
+from uncertainity_algo import DoubleRunningSumDetector, compute_uncertainity
 from tensorflow.keras.models import load_model
 
 load_dotenv()
 
-# Constants
 PRINT_PREFIX = "DF:HEX:"
-FREQ_SAMPLING = 10200
-MELVEC_LENGTH = 20
+FREQ_SAMPLING = 7876.923076923076
+MELVEC_HEIGHT = 10
 N_MELVECS = 20
 DTYPE = np.dtype(np.uint16).newbyteorder("<")
+
+dt = np.dtype(np.uint16).newbyteorder("<")
+
+import sys
+
+class Tee:
+    def __init__(self, *streams):
+        self.streams = streams
+
+    def write(self, data):
+        for stream in self.streams:
+            stream.write(data)
+            stream.flush()
+
+    def flush(self):
+        for stream in self.streams:
+            stream.flush()
 
 
 @click.command()
 @click.option(
-    "-i",
-    "--input",
-    "_input",
-    default="-",
-    type=click.File("r"),
+    "-i", "--input", "_input", default="-", type=click.File("r"),
     help="Where to read the input stream. Default to '-', a.k.a. stdin.",
 )
 @click.option(
-    "-m",
-    "--model",
-    default=None,
+    "-m", "--model_1", default=None,
     type=click.Path(exists=True, dir_okay=False, path_type=Path),
     help="Path to the trained classification model.",
 )
+@click.option(
+    "-m2", "--model_2", default=None,
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Path to the second model."
+)
+@click.option(
+    "-m3", "--model_3", default=None,
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Path to the third model."
+)
+@click.option(
+    "-s", "--save-payloads", default=None,
+    type=click.Path(dir_okay=False, writable=True, path_type=Path),
+    help="Optional: Path to save valid input payloads for offline testing.",
+)
+@click.option(
+    "-L", "--log-file", default=None,
+    type=click.Path(dir_okay=False, writable=True, path_type=Path),
+    help="Optional: Path to a file where all stdout (print) will be written.",
+)
+
 @common.click.melvec_length
 @common.click.n_melvecs
 @common.click.verbosity
 def main(
     _input: Optional[click.File],
-    model: Optional[Path],
+    model_1: Optional[Path],
+    model_2: Optional[Path],
+    model_3: Optional[Path],
+    save_payloads: Optional[Path],
+    log_file: Optional[Path],
     melvec_length: int,
     n_melvecs: int,
 ) -> None:
-    """
-    Extract Mel vectors from payloads and perform classification on them every 5 seconds.
-    Logs predictions to a file with an index.
-    """
-    if model:
-        with open(model, "rb") as file:
-            #try:
-                model = load_model('model.h5')
-                print(f"Model {type(model).__name__} loaded successfully.")
-            #except:
-            #    model_rf = pickle.load(file)
-            #    print(f"Model {type(model_rf).__name__} loaded successfully.")
-    else:
-        logger.warning("No model provided, skipping classification.")
-        return
+    models = {}
 
+    if model_1:
+        with open(model_1, "rb") as file:
+            model_1 = load_model(model_1)
+            print(f"Model {type(model_1).__name__} loaded successfully.")
+    else:
+        logger.warning("Model 1 not provided.")
+    
+    if model_2:
+        with open(model_2, "rb") as file:
+            model_2 = load_model(model_2)
+            print(f"Model 2 {type(model_2).__name__} loaded successfully.")
+    else:
+        logger.warning("Model 2 not provided.")
+
+    if model_3:
+        with open(model_3, "rb") as file:
+            model_3 = load_model(model_3)
+            print(f"Model 3 {type(model_3).__name__} loaded successfully.")
+    else:
+        logger.warning("Model 3 not provided.")
+        
+    if log_file:
+        log_stream = open(log_file, "w")
+        sys.stdout = Tee(sys.__stdout__, log_stream)
+    
     msg_counter = 0
     log_file = "predictions_log.txt"
-
     with open(log_file, "w") as log:
         log.write("Index\tPrediction\n")
         log.write("=" * 30 + "\n")
 
-        for payload in _input:
-            if PRINT_PREFIX in payload:
-                payload = payload[len(PRINT_PREFIX):]
-                melvec = payload_to_melvecs(payload, melvec_length, n_melvecs) # *32768 to match the original q15_t values
-                logger.info(f"Parsed payload into Mel vectors: {melvec}")
+    class_names = ["chainsaw", "fire", "fireworks", "gunshot"]
 
-                msg_counter += 1
-                print(f"MEL Spectrogram #{msg_counter}")
-
-                # Reshape and normalize feature vector
-                fv = melvec.reshape(1, -1)
-                fv = fv / np.linalg.norm(fv)
-
-                # Make prediction
-                #pred = model_rf.predict(fv)
-                #proba = model_rf.predict_proba(fv)
-                #predicted_class = pred[0]
-
-                # Make prediction
-                proba = model.predict(fv)
-                predicted_class = np.argmax(proba, axis=1)[0]
-                class_names = ["chainsaw", "fire", "fireworks", "gun"]
-                predicted_class = class_names[predicted_class]
-                print(f"Predicted class: {predicted_class}")
-                print(f"Predicted probabilities: {proba}")
+    up_time = 3.5 #s
+    min_time_between_listening = 6 #s
 
 
-                # Log prediction
-                log.write(f"{msg_counter}\t{predicted_class}\n")
+    N_STS = 50
+    N_LTS = 50000
+    K = 3
+    BASELINE = 2048
 
-                # Optional: Visualization
+    doublesum_detector = DoubleRunningSumDetector(N_STS=N_STS, N_LTS=N_LTS, K=K, BASELINE=BASELINE)
 
-                #class_names = model_rf.classes_
-                probabilities = np.round(proba[0] * 100, 2)
-                max_len = max(len(name) for name in class_names)
-                class_names_str = " ".join([f"{name:<{max_len}}" for name in class_names])
-                probabilities_str = " ".join([f"{prob:.2f}%".ljust(max_len) for prob in probabilities])
-                textlabel = f"{class_names_str}\n{probabilities_str}"
-                textlabel += f"\n\nPredicted class: {predicted_class}"
+    listening = False
+    last_activation_time = 0
 
-                plot_specgram(
-                    melvec.reshape((N_MELVECS, MELVEC_LENGTH)),
-                    ax=plt.gca(),
-                    is_mel=True,
-                    title=f"MEL Spectrogram #{msg_counter}",
-                    xlabel="Mel vector",
-                    textlabel=textlabel,
-                )
-                plt.draw()
-                plt.pause(0.1)
-                plt.clf()
+        
+    def wait_take_decision_and_send(fv_history,payloads_history, doublesum_detector, idx, up_time=3, model_1=None, model_2=None, model_3=None):
 
-                #hostname = "http://localhost:5000"
-                #key = "v_JARGcUgZRmCgToaK9Y-uZgmCYNBSgekgQk21cm"
-                hostname = "http://lelec210x.sipr.ucl.ac.be"
-                key = "c6yuOmUKKbKAS4lRa7vQ9clME3bGTSWUvS4N26af"
-                guess = predicted_class
+        class_names = ["chainsaw", "fire", "fireworks", "gunshot"]
+        #1. Listening time: wiate for up_time s to recieve packets
+        #----------------------
+        time.sleep(up_time)
+        nonlocal listening
+        listening = False
 
-                #response = requests.post(f"{hostname}/lelec210x/leaderboard/submit/{key}/{guess}", timeout=1)
 
-                # N.B.: the timeout is generally a good idea to avoid blocking infinitely (if an error occurs)
-                # but you can change its value. Note a too small value may not give the server enough time
-                # to reply.
+        #2. Decision time: take decision and send the packet
+        #----------------------
 
-                # All responses are JSON dictionaries
-                #response_as_dict = json.loads(response.text)
+        #Get model_1 information about recieved packets
+        nb_packets = len(fv_history)
+        if nb_packets == 0:
+            print("No packets received during listening time!")
+            return
+        
+        idv_probas_reduced = np.zeros((nb_packets, 4))
 
-                # Wait for 5 seconds before processing the next prediction
-                time.sleep(5)
+        for i,fv in enumerate(fv_history):
+            print("Packet #", i)
+            #normalized_fv = fv / np.linalg.norm(fv)
+            #Normalize by the maximum value of the fv
+            normalized_fv = fv / np.max(fv)
+            idv_probas = model_1.predict(normalized_fv)[0]
+            idv_uncertainity = compute_uncertainity(payloads_history[i], idv_probas, idx, DTYPE, \
+                                                            detector = doublesum_detector, a_sum=1, b_entropy=1, save_payloads=False)
+            #do the difference of each proba and the uncertainty
+            idv_probas_reduced[i] = idv_probas - idv_uncertainity  
+
+        # If 2 paquets, get model_2 information on 2 concatenated packets
+        #TODO: if 3 packets, apply 2 times the model_2?
+        
+        multiple_probas_reduced = np.zeros((1, 4))
+        fv_combined = None
+        n_melvecs = N_MELVECS
+        if nb_packets == 2 and model_2:
+            print("MODEL 2")
+            fv_combined = np.hstack(fv_history[:2])
+            #normalized_fv_combined = fv_combined / np.linalg.norm(fv_combined)
+            #Normalize by the maximum value of the fv
+            normalized_fv_combined = fv_combined / np.max(fv_combined)
+            multiple_probas = model_2.predict(normalized_fv_combined)[0]
+            multiple_uncertainty = compute_uncertainity(fv_combined, multiple_probas, idx, DTYPE, \
+                                                        detector=None, a_sum=0, b_entropy=1, save_payloads=False)
+            #do the difference of each proba and the uncertainty
+            multiple_probas_reduced = multiple_probas - multiple_uncertainty
+            n_melvecs = N_MELVECS * 2
+            
+            
+        # If 3 packets, get model_3 information on 3 concatenated packets
+        elif nb_packets >= 3 and model_3:
+            print("MODEL 3")
+            fv_combined = np.hstack(fv_history[:3])
+            #normalized_fv_combined = fv_combined / np.linalg.norm(fv_combined)
+            #Normalize by the maximum value of the fv
+            normalized_fv_combined = fv_combined / np.max(fv_combined)
+            multiple_probas = model_3.predict(normalized_fv_combined)[0]
+            multiple_uncertainty = compute_uncertainity(fv_combined, multiple_probas, idx, DTYPE, \
+                                                        detector=None, a_sum=0, b_entropy=1, save_payloads=False)
+            #do the difference of each proba and the uncertainty
+            multiple_probas_reduced = multiple_probas - multiple_uncertainty
+            #Reduce the probability of gun (3rd index) by 0.5 as it is very unlikely with 3 packets
+            multiple_probas_reduced[3] -= 0.5
+            n_melvecs = N_MELVECS * 3
+
+            
+        #3. Decision making
+        #----------------------
+
+        #Sum each reduced idv probas one to one (i.e sum all probas 1 together, all probas 2 together, etc)
+        final_probas = np.sum(idv_probas_reduced, axis=0)
+        if nb_packets == 2 and model_2:
+            final_probas += multiple_probas_reduced
+        elif nb_packets >= 3 and model_3:
+            final_probas += multiple_probas_reduced
+        
+        predicted_class = np.argmax(final_probas)
+        predicted_class_name = class_names[predicted_class]
+        print("Final probabilities: ", final_probas)
+        print("Final Sent class: ", predicted_class_name)
+        print("-------------------------------\n")
+
+        fv_history.clear()
+        payloads_history.clear()
+
+        #4. Send the packet
+        #----------------------
+
+        hostname = "http://lelec210x.sipr.ucl.ac.be"
+        key = "c6yuOmUKKbKAS4lRa7vQ9clME3bGTSWUvS4N26af"
+        try:
+            response = requests.post(
+                f"{hostname}/lelec210x/leaderboard/submit/{key}/{predicted_class_name}",
+                timeout=1
+            )
+        except requests.RequestException:
+            print("Error sending prediction")
+
+
+    fv_history = []
+    payloads_history = []
+
+    for idx, payload in enumerate(_input):
+        current_time = time.time()
+        print("PACKET #", idx)
+        print("----------------")
+
+        #Launch the decision thread if enough time 
+        if not listening and (last_activation_time == 0 or (current_time - last_activation_time >= min_time_between_listening)):
+            listening = True
+            last_activation_time = current_time
+            threading.Thread(target=wait_take_decision_and_send, args=(fv_history, payloads_history, doublesum_detector, idx, up_time, model_1, model_2, model_3), daemon=True).start()
+
+        if not listening:
+            print("Skipping packet (listening=False)")
+            continue
+
+        print("Processing packet (listening=True)")
+
+        if PRINT_PREFIX in payload:
+            payload = payload[len(PRINT_PREFIX):].strip()
+
+            melvec = payload_to_melvecs(payload, melvec_length, n_melvecs)
+            msg_counter += 1
+            #print(f"MEL Spectrogram #{msg_counter}")
+
+            #CODE RAPHAEL
+            print(f"MEL Spectrogram #{msg_counter}")
+
+            if len(melvec) == N_MELVECS * MELVEC_HEIGHT /2:   # Probably because 8bit data is sent instead of 16bit
+                temp_melvec = np.empty(len(melvec) * 2, dtype=np.uint8)
+                temp_melvec[0::2] = (melvec & 0xFF).astype(np.uint8)  # Extract lower byte
+                temp_melvec[1::2] = (melvec >> 8).astype(np.uint8)    # Extract upper byte
+                melvec = temp_melvec
+            else:
+                #invert the bytes to go from little endian to big endian
+                melvec = melvec.view(np.uint8).reshape(-1, 2)[:, ::-1].flatten()
+                melvec = melvec.view(dt)
+                
+
+            #np.savetxt(f"melspectrograms_plots/melvec_{msg_counter}.txt", melvec, fmt="%04x", delimiter="\n")
+
+            if melvec.size == N_MELVECS * MELVEC_HEIGHT:
+                print(melvec.reshape((N_MELVECS, MELVEC_HEIGHT)).T)
+            else:
+                print(f"Error: melvec size {melvec.size} does not match expected size {N_MELVECS * MELVEC_HEIGHT}")
+
+            fv = melvec.reshape(1, -1)
+            #fv = fv / np.linalg.norm(fv) NOT NORMALIZE BEFORE AS AMPLITUDE RECQUIRED FOR THE DOUBLE SUM
+            fv_history.append(fv)
+            payloads_history.append(payload)
+
+            #Concatenate payloads in payloads_history
+
+            #normalize the fv by its maximum value
+            fv = fv / np.max(fv)
+            #plot concatenated spectrogram
+            plot_specgram(
+                fv.reshape((n_melvecs, MELVEC_HEIGHT)),
+                ax=plt.gca(),
+                is_mel=True,
+                title=f"MEL Spectrogram #{msg_counter}",
+                xlabel="Mel vector",
+                #textlabel=textlabel,
+            )
+            plt.draw()
+            plt.pause(0.1)
+            plt.clf()
+    
 
 
 if __name__ == "__main__":
