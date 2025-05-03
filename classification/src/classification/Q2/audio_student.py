@@ -148,28 +148,78 @@ class AudioUtil:
             sig = np.concatenate((pad_begin, sig, pad_end))
 
         return (sig, sr)
-
+    '''
     def time_shift(audio, shift_limit=1) -> Tuple[ndarray, int]:
         """
         Shifts the signal to the left or right by some percent. Values at the end are 'wrapped around' to the start of the transformed signal.
-
+        NO MORE WRAPPING
         :param audio: The audio signal as a tuple (signal, sample_rate).
         :param shift_limit: The percentage (between 0.0 and 1.0) by which to circularly shift the signal.
         """
+        #Shift without wrapping around
         sig, sr = audio
         sig_len = len(sig)
 
         # Define min and max shift bounds
-        min_shift = int(0.1 * sig_len)  # minimum 10% shift
-        max_shift = int(shift_limit * sig_len)
+        min_shift = int(0.05 * sig_len)  # minimum 5% shift
+        max_shift = int(0.45 * sig_len)  #maximum 45% shift -TO TEST
 
-        # Avoid edge cases where max_shift < min_shift
         if max_shift <= min_shift:
-            shift_amt = min_shift  # or just skip shifting
+            shift_amt = min_shift
         else:
             shift_amt = random.randint(min_shift, max_shift)
 
-        return (np.roll(sig, shift_amt), sr)
+        # Randomly decide left or right shift
+        direction = random.choice(["left", "right"])
+
+        if direction == "right":
+            shifted = np.zeros_like(sig)
+            shifted[shift_amt:] = sig[:-shift_amt]
+        else:  # left shift
+            shifted = np.zeros_like(sig)
+            shifted[:-shift_amt] = sig[shift_amt:]
+        
+        return shifted, sr
+    '''
+
+    def time_shift(audio: Tuple[np.ndarray, int], shift_limit=1) -> Tuple[np.ndarray, int]:
+        """
+        Shifts the signal left or right so that its maximum intensity point 
+        lies between 20% and 80% of the signal length. No circular wrapping is used.
+        
+        :param audio: A tuple (signal, sample_rate).
+        :return: Shifted signal and sample rate.
+        """
+        sig, sr = audio
+        sig_len = len(sig)
+
+        # Find index of maximum absolute intensity
+        max_index = np.argmax(np.abs(sig))
+
+        # Define target index range for the maximum point after shifting
+        min_target = int(0.2 * sig_len)
+        max_target = int(0.8 * sig_len)
+
+        # Choose a new location for the peak within the allowed range
+        new_index = random.randint(min_target, max_target)
+
+        # Compute required shift (positive = right, negative = left)
+        shift_amt = new_index - max_index
+
+        # Apply shift without wrapping (zero padding)
+        shifted = np.zeros_like(sig)
+
+        if shift_amt > 0:
+            # Shift right
+            shifted[shift_amt:] = sig[:sig_len - shift_amt]
+        elif shift_amt < 0:
+            # Shift left
+            shifted[:shift_amt] = sig[-shift_amt:]
+        else:
+            shifted = sig.copy()  # No shift
+
+        return shifted, sr
+
 
     def scaling(audio, scaling_limit=5) -> Tuple[ndarray, int]:
         """
@@ -449,6 +499,7 @@ class Feature_vector_DS:
         bg_amplitude_limit = 0,
         noise_sigma= 0.001,
         scaling_limit = 5,
+        CNN_dataset = False,
 
     ):
 
@@ -469,6 +520,8 @@ class Feature_vector_DS:
         self.normalize = normalize
         self.data_aug = data_aug
         self.data_aug_factor = 1
+
+        self.CNN_dataset = CNN_dataset
 
         if isinstance(self.data_aug, list):
             self.data_aug_factor += len(self.data_aug)
@@ -569,9 +622,9 @@ class Feature_vector_DS:
                 )
 
         melspec = mcu.fixed_array_to_float(melspec, 15)
-
         melspec = melspec.T
-        melspec = melspec.flatten()
+        if not self.CNN_dataset:
+            melspec = melspec.flatten()
         melspec /= np.linalg.norm(melspec)  # Normalize the feature vector
         
         return melspec

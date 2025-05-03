@@ -24,11 +24,12 @@ from tensorflow.keras.models import load_model
 load_dotenv()
 
 PRINT_PREFIX = "DF:HEX:"
-FREQ_SAMPLING = 10200
-MELVEC_HEIGHT = 20
+FREQ_SAMPLING = 7876.923076923076
+MELVEC_HEIGHT = 10
 N_MELVECS = 20
 DTYPE = np.dtype(np.uint16).newbyteorder("<")
 
+dt = np.dtype(np.uint16).newbyteorder("<")
 
 import sys
 
@@ -268,6 +269,27 @@ def main(
             melvec = payload_to_melvecs(payload, melvec_length, n_melvecs)
             msg_counter += 1
             #print(f"MEL Spectrogram #{msg_counter}")
+
+            #CODE RAPHAEL
+            print(f"MEL Spectrogram #{msg_counter}")
+
+            if len(melvec) == N_MELVECS * MELVEC_HEIGHT /2:   # Probably because 8bit data is sent instead of 16bit
+                temp_melvec = np.empty(len(melvec) * 2, dtype=np.uint8)
+                temp_melvec[0::2] = (melvec & 0xFF).astype(np.uint8)  # Extract lower byte
+                temp_melvec[1::2] = (melvec >> 8).astype(np.uint8)    # Extract upper byte
+                melvec = temp_melvec
+            else:
+                #invert the bytes to go from little endian to big endian
+                melvec = melvec.view(np.uint8).reshape(-1, 2)[:, ::-1].flatten()
+                melvec = melvec.view(dt)
+                
+
+            #np.savetxt(f"melspectrograms_plots/melvec_{msg_counter}.txt", melvec, fmt="%04x", delimiter="\n")
+
+            if melvec.size == N_MELVECS * MELVEC_HEIGHT:
+                print(melvec.reshape((N_MELVECS, MELVEC_HEIGHT)).T)
+            else:
+                print(f"Error: melvec size {melvec.size} does not match expected size {N_MELVECS * MELVEC_HEIGHT}")
 
             fv = melvec.reshape(1, -1)
             #fv = fv / np.linalg.norm(fv) NOT NORMALIZE BEFORE AS AMPLITUDE RECQUIRED FOR THE DOUBLE SUM

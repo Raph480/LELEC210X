@@ -18,14 +18,13 @@ from keras_tuner.applications import HyperResNet, HyperEfficientNet, HyperXcepti
 
 from audio_student import AudioUtil, Feature_vector_DS
 from model_utils import *
-from CNN_utils import *
 #from classification.Q2.audio_student import AudioUtil, Feature_vector_DS
 #from classification.Q1.model_utils import *
 #from classification.Q2.CNN_utils import AudioUtil, Feature_vector_DS
 
 
 
-def get_dataset(path="../datasets/sounds/recorded_sounds/classes/",filter_str=None,  Nft=512, n_melvec=20, melvec_height = 20, samples_per_melvec=512, window_type = "hamming", sr = 10200, flag_8bit = False, bit_sensitivity=0, normalize=True, shift_pct=0, img_idx = 0, verbose=False, play_sound = False):
+def get_dataset(path="../datasets/sounds/recorded_sounds/classes/",filter_str=None,  Nft=512, n_melvec=20, melvec_height = 20, samples_per_melvec=512, window_type = "hamming", sr = 10200, flag_8bit = False, bit_sensitivity=0, normalize=True, shift_pct=0, img_idx = 0, verbose=False, play_sound = False, CNN_dataset = False):
     """
     Load and initialize the dataset with necessary attributes.
     """
@@ -39,7 +38,7 @@ def get_dataset(path="../datasets/sounds/recorded_sounds/classes/",filter_str=No
 
     myds = Feature_vector_DS(dataset, n_melvec=n_melvec, melvec_height=melvec_height, Nft = Nft,
                              samples_per_melvec=samples_per_melvec, window_type=window_type, sr=sr, 
-                             flag_8bit=flag_8bit, bit_sensitivity=bit_sensitivity, normalize=normalize) #Vérif si bons paramètres
+                             flag_8bit=flag_8bit, bit_sensitivity=bit_sensitivity, normalize=normalize, CNN_dataset = CNN_dataset) #Vérif si bons paramètres
     myds.data_aug = None  # Ensure no augmentation initially
 
     if verbose:
@@ -60,14 +59,15 @@ def get_dataset(path="../datasets/sounds/recorded_sounds/classes/",filter_str=No
     return myds, dataset, classnames
 
 
-def augment_dataset(myds, dataset, classnames, augmentations, melvec_height=20,
+def augment_dataset(myds, dataset, classnames, augmentations, n_melvec = 20, melvec_height=20, 
                     bg_dataset = None, bg_amplitude_limit=[0.1], physical_bg_dataset = None, my_phy_ds = None, shift_nb = 1, 
-                    load_matrix = False, verbose=False, img_idx=0, aug_indexes = [0], play_sound=False,pickle_name = "feature_matrix_2D_aug.npy"):
+                    load_matrix = False, verbose=False, img_idx=0, aug_indexes = [0], play_sound=False,pickle_name = "feature_matrix_2D_aug.npy",
+                    CNN_dataset = False):
     """
     Augment dataset and compute feature matrix.
     """
     train_pct = 1
-    featveclen = len(myds["gun", 0])  # Number of items in a feature vector
+    featvenlen = len(myds["gun", 0])  # Number of items in a feature vector
     nitems = len(myds)  # Number of sounds in dataset
     naudio = dataset.naudio  # Number of audio files per class
     nclass = dataset.nclass  # Number of classes
@@ -97,7 +97,10 @@ def augment_dataset(myds, dataset, classnames, augmentations, melvec_height=20,
     if create:
         nb_phi = 1 if "physical_bg" in augmentations else 0
         start_time = time.time()
-        X_aug = np.zeros((nclass * naudio  + shift_nb * nclass * naudio +  len(bg_amplitude_limit) * nclass * naudio + nb_phi * nclass * n_physical, featveclen))
+        if CNN_dataset:
+            X_aug = np.zeros((nclass * naudio  + shift_nb * nclass * naudio +  len(bg_amplitude_limit) * nclass * naudio + nb_phi * nclass * n_physical, melvec_height, n_melvec))
+        else:
+            X_aug = np.zeros((nclass * naudio  + shift_nb * nclass * naudio +  len(bg_amplitude_limit) * nclass * naudio + nb_phi * nclass * n_physical, featvenlen))
         y_aug = np.empty((nclass * naudio  + shift_nb * nclass * naudio +  len(bg_amplitude_limit) * nclass * naudio + nb_phi * nclass * n_physical,), dtype=object)
         print("Number of shifts: ", shift_nb)
         print("Number of bg_amplitude_limit and values: ", len(bg_amplitude_limit), bg_amplitude_limit)
@@ -109,7 +112,11 @@ def augment_dataset(myds, dataset, classnames, augmentations, melvec_height=20,
             for class_idx, classname in enumerate(classnames):
                 try:
                     featvec = myds[classname, idx]
-                    X_aug[class_idx * naudio + idx, :] = featvec
+
+                    if CNN_dataset:
+                        X_aug[class_idx * naudio + idx] = featvec
+                    else:
+                        X_aug[class_idx * naudio + idx, :] = featvec
                     y_aug[class_idx * naudio + idx] = classname
                 except:
                     print(f"Error at {classname}, {idx}")
@@ -235,7 +242,7 @@ def augment_dataset(myds, dataset, classnames, augmentations, melvec_height=20,
         #if len(axs) > 0:
         #    plt.colorbar(axs[0].images[0], ax=axs, orientation='vertical')
         plt.show()
-                
+
     return X_aug, y_aug
 
 
@@ -383,43 +390,45 @@ def perform_kfold(original_model, X, y, k=5, epochs=5, batch_size=32):
 
 
 
-def evaluate_model(model, X_train, y_train, classnames, X_test=None, y_test=None, show_confusion = False):
-    model.fit(X_train, y_train, epochs=5, validation_split=0.2, verbose=1)
-    
+def evaluate_model(model, X_train, y_train, classnames, X_test=None, y_test=None, show_confusion=False):
     y_pred_train = np.argmax(model.predict(X_train), axis=1)
     y_true_train = y_train if len(y_train.shape) == 1 else np.argmax(y_train, axis=1)
 
-    if (X_test is not None):
-        y_pred_test = np.argmax(model.predict(X_test), axis=1)
-        y_true_test = y_test if len(y_test.shape) == 1 else np.argmax(y_test, axis=1)
+    train_accuracy = np.mean(y_pred_train == y_true_train)
+    print(f"Accuracy on train set: {train_accuracy:.5f}")
     
-    if (X_test is not None):
-        test_accuracy = np.mean(y_pred_test == y_true_test)
-        print(f"Accuracy on test set: {test_accuracy:.5f}")
     train_confmat = confusion_matrix(y_true_train, y_pred_train)
-    if not show_confusion:
-        print("Confusion matrix on train set: \n", train_confmat)
-    test_confmat = None
-    if (X_test is not None):
-        test_confmat = confusion_matrix(y_true_test, y_pred_test)
-        if not show_confusion:
-            print("Confusion matrix on test set: \n", test_confmat)
     if show_confusion:
-        print("Confusion Matrix (Train):")
         show_confusion_matrix(y_pred_train, y_true_train, classnames, title="Confusion Matrix - Train")
-        print("Confusion Matrix (Test):")
-        show_confusion_matrix(y_pred_test, y_true_test, classnames, title="Confusion Matrix - Test")
-    
-    print("\nClassification Report:")
-    print("Train: ")
+    else:
+        print("Confusion matrix on train set: \n", train_confmat)
+
+    print("\nClassification Report - Train:")
     train_report = classification_report(y_true_train, y_pred_train, target_names=classnames)
     print(train_report)
+
+    test_accuracy = None
+    test_confmat = None
     test_report = None
-    if (X_test is not None):
-        print("Test: ")
+    if X_test is not None and y_test is not None:
+        y_pred_test = np.argmax(model.predict(X_test), axis=1)
+        y_true_test = y_test if len(y_test.shape) == 1 else np.argmax(y_test, axis=1)
+
+        test_accuracy = np.mean(y_pred_test == y_true_test)
+        print(f"\nAccuracy on test set: {test_accuracy:.5f}")
+
+        test_confmat = confusion_matrix(y_true_test, y_pred_test)
+        if show_confusion:
+            show_confusion_matrix(y_pred_test, y_true_test, classnames, title="Confusion Matrix - Test")
+        else:
+            print("Confusion matrix on test set: \n", test_confmat)
+
+        print("\nClassification Report - Test:")
         test_report = classification_report(y_true_test, y_pred_test, target_names=classnames)
         print(test_report)
+
     return train_confmat, train_report, test_accuracy, test_confmat, test_report
+
 
 def save_results(hp_list, kfold_acc_res, mean_recal_res, kfold_f1_res, comp_t, prefix, name,
                  test_accuracy_res=None, verbose=True):
@@ -522,6 +531,14 @@ def plot_csv_files(file_paths, xlabel="HPs", descending=False, show=True, save =
     plt.errorbar(stats['HPs'], stats['test_accuracy_mean'],
                  yerr=stats['test_accuracy_std'], fmt='-o',
                  capsize=5, label='Test Accuracy', color='green')
+    
+    #Add the values on top of the points
+    for i, txt in enumerate(stats['kfold_accuracy_mean']):
+        plt.annotate(f"{txt:.3f}", (stats['HPs'].iloc[i], stats['kfold_accuracy_mean'].iloc[i]), 
+                     textcoords="offset points", xytext=(0,10), ha='center', fontsize=8)
+    for i, txt in enumerate(stats['test_accuracy_mean']):
+        plt.annotate(f"{txt:.3f}", (stats['HPs'].iloc[i], stats['test_accuracy_mean'].iloc[i]), 
+                     textcoords="offset points", xytext=(0,10), ha='center', fontsize=8)
 
     plt.xlabel(xlabel)
     plt.ylabel("Accuracy")
@@ -638,9 +655,15 @@ def plot_mean_results(HP, name, show):
         path6 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_monday14_global_tests_same_tuner_hamming_triangular.csv"
         path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_friday18_global_tests_same_tuner_hamming_triangular.csv"
         """
-        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_thursday24_global_updated_night_hamming_triangular.csv"
-        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_thursday24_global_updated_night_2__hamming_triangular.csv"
-        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_thursday24_global_updated_night_3__hamming_triangular.csv"
+        #path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_thursday24_global_updated_night_hamming_triangular.csv"
+        #path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_thursday24_global_updated_night_2__hamming_triangular.csv"
+        #path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_thursday24_global_updated_night_3__hamming_triangular.csv"
+        
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_thur01_CNN_results__hamming_triangular.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_thur01_CNN_results__2__hamming_triangular.csv"
+        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/window_type/results_thur01_CNN_results__3__hamming_triangular.csv"
+        
+        
         xlabel = "window_type"
         paths = [path1, path2, path3]#, path4], path5, path6, path7]
 
@@ -656,12 +679,16 @@ def plot_mean_results(HP, name, show):
         path7 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_tuesday22_same_tuner_2_8_15.csv"
         path8 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_monday21_same_tuner_8_15.csv"
         """
-        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday23_updated_0_7.csv"
-        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday23_updated_2__0_7.csv"
-        path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday23_updated_2__3__0_7.csv"
-        path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_thursday24_global_updated_8_15.csv"
+        #path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday23_updated_0_7.csv"
+        #path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday23_updated_2__0_7.csv"
+        #path3 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_wednesday23_updated_2__3__0_7.csv"
+        #path4 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_thursday24_global_updated_8_15.csv"
+        
+        path1 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_fri02_CNN_results__0_12.csv"
+        path2 = "/home/martin/Documents/EPL/M1/Project-Embedded/LELEC210X/classification/src/classification/datasets/GSresults/shift_nb/results_thur01_CNN_results__0_12.csv"
+        
         xlabel = "shift_nb"
-        paths = [path1, path2, path3, path4]#, path5, path6, path7, path8]
+        paths = [path1, path2]#, path3, path4]#, path5, path6, path7, path8]
 
 
     elif HP == "physical_bg":

@@ -54,7 +54,7 @@ def self_made_builder_factory(input_shape):
 
 
 def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr, shift_nb=0,
-        bg_amplitude_limit=[], physical_bg=False, augmentations = []):
+        bg_amplitude_limit=[], physical_bg=False, augmentations = [], CNN_dataset = False, load_matrix = False, load_matrix_test = False):
 
     print("NEW CREATION EVALUATION")
     print("------------------------------------")
@@ -79,12 +79,12 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
     myds, dataset, classnames = get_dataset(path="../datasets/sounds/recorded_sounds/trainset_with_new/", filter_str=None,
         Nft=Nft, n_melvec=n_melvec, melvec_height=melvec_height, samples_per_melvec=samples_per_melvec,
         window_type=window_type, sr = sr, flag_8bit = flag_8bit, bit_sensitivity=bit_sensitivity,
-        normalize=True, shift_pct=0, verbose=False, img_idx = img_idx, play_sound=True)
+        normalize=True, shift_pct=0, verbose=False, img_idx = img_idx, play_sound=True, CNN_dataset = CNN_dataset)
 
     myds_test, dataset_test, _ = get_dataset(path="../datasets/sounds/recorded_sounds/testset_with_new/", filter_str=None, #"_background_",
         Nft=Nft, n_melvec=n_melvec, melvec_height=melvec_height, samples_per_melvec=samples_per_melvec,
         window_type=window_type, sr = sr,  flag_8bit = flag_8bit, bit_sensitivity=bit_sensitivity,
-        normalize=True, shift_pct=0, verbose=False, img_idx = test_img_idx, play_sound=False)
+        normalize=True, shift_pct=0, verbose=False, img_idx = test_img_idx, play_sound=False, CNN_dataset = CNN_dataset)
 
 
     #3. Dataset augmentations
@@ -99,7 +99,7 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
         my_phy_ds, phy_bg_dataset, classnames = get_dataset(path="../datasets/sounds/recorded_sounds/trainset_with_new/", filter_str="_background_",
         Nft=Nft, n_melvec=n_melvec, melvec_height=melvec_height, samples_per_melvec=samples_per_melvec,
         window_type=window_type, sr = sr,  flag_8bit = flag_8bit, bit_sensitivity=bit_sensitivity,
-        normalize=True, shift_pct=0, verbose=False, img_idx = img_idx, play_sound=False)
+        normalize=True, shift_pct=0, verbose=False, img_idx = img_idx, play_sound=False, CNN_dataset = CNN_dataset)
     else :
         my_phy_ds = None
         phy_bg_dataset = None
@@ -112,6 +112,8 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
         purpose = "melvecs" # "model"
     )
     #pickle_name+="_1_"
+    if CNN_dataset:
+        pickle_name+="_2D_"
     print("pickle_name: ", pickle_name)
 
     #---------------------------------
@@ -119,12 +121,12 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
     #Visualisation purposes
     img_idx = 10
     print("TRAIN SET")
-    X_train, y_train = augment_dataset(myds, dataset, classnames, augmentations, melvec_height=melvec_height,
+    X_train, y_train = augment_dataset(myds, dataset, classnames, augmentations, n_melvec = n_melvec, melvec_height=melvec_height,
                         shift_nb = shift_nb, #numbers of shifts done
                         bg_dataset = bg_dataset, bg_amplitude_limit=bg_amplitude_limit, #dataset used for background noise, background amplitudes
                         physical_bg_dataset = phy_bg_dataset,my_phy_ds = my_phy_ds, #dataset used for physical background noises
                         verbose=verbose, img_idx=img_idx, aug_indexes=plot_indexes, play_sound=play_sound, #verbose parameters
-                        load_matrix=load_matrix, pickle_name=pickle_name) #load and save parameters
+                        load_matrix=load_matrix, pickle_name=pickle_name, CNN_dataset = CNN_dataset) #load and save parameters
 
 
     print("TEST SET")
@@ -142,17 +144,19 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
         purpose = "melvecs_test" # "model"
     )
     #pickle_name_test+="_1_"
+    if CNN_dataset:
+        pickle_name_test+="_2D_"
     print("pickle_name_test: ", pickle_name_test)
 
 
     X_test, y_test = augment_dataset(myds_test, dataset_test, classnames, augmentations = augmentations_test
-                                    , melvec_height=melvec_height,
+                                    , n_melvec=n_melvec, melvec_height=melvec_height,
                                     
                     shift_nb = nb_shift_test, #numbers of shifts done
                     bg_dataset = None, bg_amplitude_limit=[], #dataset used for background noise, background amplitudes
                     physical_bg_dataset = phy_bg_dataset,my_phy_ds = my_phy_ds, #dataset used for physical background noises
                     verbose=verbose, img_idx=img_idx, aug_indexes=plot_indexes, play_sound=play_sound, #verbose parameters
-                load_matrix=load_matrix_test, pickle_name=pickle_name_test) #load and save parameters
+                load_matrix=load_matrix_test, pickle_name=pickle_name_test, CNN_dataset = CNN_dataset) #load and save parameters
 
     #Print shape of the test set
     print("X_test shape: ", X_test.shape)
@@ -190,26 +194,138 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
     #----------------------------
     #label_encoder = LabelEncoder()
     #y_train = label_encoder.fit_transform(y_train)  # Convert labels to numbers
-    validation_split = 0.3
+    validation_split = 0.2
+
+    if CNN_dataset:
+        def self_made_builder_factory(input_shape):
+            def self_made_builder(hp):
+                try:
+                    model = tf.keras.Sequential()
+                    model.add(tf.keras.Input(shape=input_shape))  # Ensure this is (height, width, channels)
+                    model.add(tf.keras.layers.Reshape((input_shape[0], input_shape[1], 1)))
+
+                    num_conv_layers = hp.Int("num_conv_layers", 1, 4)
+
+                    for i in range(num_conv_layers):
+                        kernel_size = hp.Choice(f"kernel_size_{i}", values=[3, 5, 7, 9])
+                        pool_size = hp.Choice(f"pool_size_{i}", values=[2, 3, 4])
+
+                        model.add(
+                            tf.keras.layers.Conv2D(
+                                filters=hp.Int(f"filters_{i}", min_value=16, max_value=256, step=16),
+                                kernel_size=(kernel_size, kernel_size),
+                                activation=hp.Choice(f"activation_{i}", values=['relu', 'tanh', 'sigmoid']),
+                            )
+                        )
+                        model.add(tf.keras.layers.MaxPooling2D(pool_size=(pool_size, pool_size)))
+                        model.add(tf.keras.layers.BatchNormalization())
+                    
+                    # After convolutional layers, flatten the output to feed into dense layers
+                    model.add(tf.keras.layers.Flatten())
+
+                    # Dense layers
+                    for i in range(hp.Int("num_dense_layers", 1, 3)):  # Flexible Dense layers
+                        model.add(
+                            tf.keras.layers.Dense(
+                                units=hp.Int(f"dense_layer_{i}", min_value=32, max_value=256, step=32),
+                                activation=hp.Choice('activation', values=['relu', 'tanh', 'sigmoid']),
+                                kernel_regularizer=tf.keras.regularizers.l2(0.01)
+                            )
+                        )
+                        model.add(tf.keras.layers.Dropout(rate=hp.Float(f"dropout_rate_{i}", min_value=0.1, max_value=0.6, step=0.1)))
+
+                    model.add(tf.keras.layers.Dense(4, activation='softmax'))
+
+                    # Learning rate and optimizer
+                    hp_learning_rate = hp.Choice('learning_rate', values=[0.5e-1,1e-2, 1e-3, 1e-4])
+                    opt = tf.keras.optimizers.Adam(learning_rate=hp_learning_rate)
+
+                    model.compile(optimizer=opt,
+                                loss='sparse_categorical_crossentropy',
+                                metrics=['accuracy'])
+                    return model
+                except Exception as e:
+                    # Return a dummy model with 0 output (guaranteed to perform poorly)
+                    dummy = tf.keras.Sequential()
+                    dummy.add(tf.keras.Input(shape=input_shape))
+                    dummy.add(tf.keras.layers.Flatten())
+                    dummy.add(tf.keras.layers.Dense(4, activation='softmax'))
+                    dummy.compile(
+                        optimizer='adam',
+                        loss='sparse_categorical_crossentropy',
+                        metrics=['accuracy']
+                    )
+                    print(f"[WARNING] Model creation failed for this config: {e}")
+                    return dummy
+            return self_made_builder
+    else:      
+        #D. Self-made 1
+        def self_made_builder_factory(input_shape):
+            #Enable to pass input_shape to the function
+            def self_made_builder(hp):
+                
+                model = tf.keras.Sequential()
+                model.add(tf.keras.Input(shape = input_shape))
+                model.add(tf.keras.layers.Flatten())
+
+                hp_activation = hp.Choice('activation', values=['relu', 'tanh', 'sigmoid'])
+
+                for i in range(hp.Int("num_layers", 1,4)):
+                    model.add(
+                        tf.keras.layers.Dense(
+                            # Tune number of units separately.
+                            units=hp.Int(f"layer_{i}", min_value=1, max_value=526, step=32),
+                            activation=hp_activation,
+                        )
+                    )
+                    ## Add dropout after each dense layer
+                    model.add(
+                        tf.keras.layers.Dropout(
+                            rate=hp.Float(f"dropout_rate_{i}", min_value=0.1, max_value=0.5, step=0.1)
+                        )
+                    )
+                #hp_layer_1 = hp.Int('layer_1', min_value=1, max_value=512, step=32)
+                #hp_layer_2 = hp.Int('layer_2', min_value=1, max_value=512, step=32)
+                hp_learning_rate = hp.Choice('learning_rate', values=[1e-2, 1e-3, 1e-4]) 
+
+                #model.add(tf.keras.layers.Dense(units=hp_layer_1, activation=hp_activation))
+                #model.add(tf.keras.layers.Dense(units=hp_layer_2, activation=hp_activation))
+                model.add(tf.keras.layers.Dense(4, activation='softmax'))
+
+                opt = tf.keras.optimizers.Adam(learning_rate=hp_learning_rate)
+
+                model.compile(optimizer=opt,
+                            loss='sparse_categorical_crossentropy',
+                            metrics=['accuracy'])
+
+                return model
+            return self_made_builder
+
+    if CNN_dataset:
+        project_name = "basic_ref_model_2D_20melvecs_time_shift3"
+    else:
+        project_name = "basic_ref_model"
+        #project_name = "test_opti"
+
+
     def create_tuner(hypermodel):
         return kt.Hyperband(hypermodel,
                         objective='val_accuracy',
                         max_epochs=epochs_tuner,
                         factor=3,
                         directory='hp_dir',
-                        project_name='basic_ref_model',
-                        overwrite=False)
+                        project_name=project_name,
+                        overwrite= False)
 
+    input_shape = X_train[0].shape 
+    print("input shape: ", input_shape)
 
-    # D: self_made_builder)
-    input_shape = X_train.shape[1:]
     builder = self_made_builder_factory(input_shape)
     tuner = create_tuner(builder)
 
     stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=patience)
 
     tuner.search(X_train, y_train, epochs=epochs, validation_split=validation_split, callbacks=[stop_early])
-    #tuner.results_summary()
 
     #5. Final model
     validation_split = 0.3
@@ -365,7 +481,8 @@ def search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_t
         individual_time_start = time.time()
         kfold_acc, kfold_recall, kfold_f1, train_confmat, train_report, \
             test_accuracy, test_confmat, test_report = model_creation_evaluation(local_flag_8bit, local_bit_sensitivity, local_Nft, local_n_melvec, local_melvec_height, local_window_type, local_sr,
-                                                                                 local_shift_nb, local_bg_amplitude_limit, local_physical_bg, augmentations = augmentations)
+                                                                                 local_shift_nb, local_bg_amplitude_limit, local_physical_bg, augmentations = augmentations, CNN_dataset=CNN_dataset,
+                                                                                 load_matrix = load_matrix, load_matrix_test = load_matrix_test)
     
         
         individual_time_stop = time.time()
@@ -397,7 +514,7 @@ from datetime import datetime
 import os
 
 
-def exhaustive_grid_search(hyperparams_grid, sr_dic, sr_lim_dic, log_dir="logs"):
+def exhaustive_grid_search(hyperparams_grid, sr_dic, sr_lim_dic, log_dir="logs", CNN_dataset=False):
     os.makedirs(log_dir, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     raw_log_file = os.path.join(log_dir, f"grid_search_raw_{timestamp}.log")
@@ -413,8 +530,9 @@ def exhaustive_grid_search(hyperparams_grid, sr_dic, sr_lim_dic, log_dir="logs")
     Nft = 512
 
     #Augmentations parameters
-    augmentations = []
-    shift_nb = 0 if "time_shift" in augmentations else 0
+    #augmentations = []
+    augmentations = ["time_shift"]
+    shift_nb = 3 if "time_shift" in augmentations else 0
     bg_amplitude_limit = [] if "add_bg" in augmentations else []
     physical_bg = False if "physical_bg" in augmentations else False
 
@@ -423,31 +541,34 @@ def exhaustive_grid_search(hyperparams_grid, sr_dic, sr_lim_dic, log_dir="logs")
     with open(raw_log_file, 'w', buffering=1) as raw_log:
         for combo in combinations:
             hyperparams = dict(zip(keys, combo))
-            try:
-                # Unpack hyperparameters
-                window_type = hyperparams["window_type"]
-                n_melvec = hyperparams["n_melvec"]
-                melvec_height = hyperparams["melvec_height"]
-                bit_sensitivity = hyperparams["bit_sensitivity"]
+            #try:
+            # Unpack hyperparameters
+            window_type = hyperparams["window_type"]
+            n_melvec = hyperparams["n_melvec"]
+            melvec_height = hyperparams["melvec_height"]
+            bit_sensitivity = hyperparams["bit_sensitivity"]
 
-                #sr is defined from n_melvec
-                sr = sr_dic[n_melvec]
-                sr_limit = sr_lim_dic[melvec_height]
-                if sr > sr_limit:
-                    print(f"Skipping combination due to sr limit: {sr} > {sr_limit}")
-                    kfold_acc, test_acc = 0, 0
-                    continue
+            #sr is defined from n_melvec
+            sr = 512 * n_melvec / 1.3
+            #sr = sr_dic[n_melvec]
+            #sr_limit = sr_lim_dic[melvec_height]
+            sr_limit = 9217
+            if sr > sr_limit:
+                print(f"Skipping combination due to sr limit: {sr} > {sr_limit}")
+                kfold_acc, test_acc = 0, 0
+                continue
 
-                kfold_acc, _, _, _, _, test_acc, _, _ = model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr, 
-                                                                                    shift_nb, bg_amplitude_limit, physical_bg, augmentations)
-                metrics = {
-                    "kfold_acc": kfold_acc,
-                    "test_accuracy": test_acc,
-                }
-            except Exception as e:
-                #get the name of the exception
-                print(f"Error occurred for hyperparameters {hyperparams}: {e}")
-                metrics = {"error": str(e)}
+            kfold_acc, _, _, _, _, test_acc, _, _ = model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr, 
+                                                                                shift_nb, bg_amplitude_limit, physical_bg, augmentations, CNN_dataset,
+                                                                                load_matrix = load_matrix, load_matrix_test = load_matrix_test)
+            metrics = {
+                "kfold_acc": kfold_acc,
+                "test_accuracy": test_acc,
+            }
+            #except Exception as e:
+            #    #get the name of the exception
+            #    print(f"Error occurred for hyperparameters {hyperparams}: {e}")
+            #    metrics = {"error": str(e)}
             result = {
                 "hyperparameters": hyperparams,
                 "results": metrics
@@ -471,41 +592,43 @@ def exhaustive_grid_search(hyperparams_grid, sr_dic, sr_lim_dic, log_dir="logs")
 
 if __name__ == '__main__':
 
-    do_exhaustive_grid_search = True
-    do_idv_grid_search = False
+    do_exhaustive_grid_search = False
+    do_idv_grid_search = True
     do_mean_results = False
+
+    CNN_dataset = True
 
     #EXHAUSTIVE GRID SEARCH
     #------------------------------------
     if do_exhaustive_grid_search:
         preprefix = "../datasets/exhaustiveGSresults/"
         hyperparams_grid = {
-        "window_type": ["hamming", "hanning", "blackman", "rectangular", "triangular"],
-        "n_melvec": [5, 10, 15, 20, 25],
-        "melvec_height": [5,10,15,20,25,30],
-        "bit_sensitivity": [3,4,5],
+        "window_type": ["triangular","hanning", "rectangular", "hamming", "blackman"],
+        "n_melvec": [10],
+        "melvec_height": [20,25],
+        "bit_sensitivity": [4,5],
         }
 
-        sr_dic = {5: 1969,10: 3938,15: 5908,20: 7877, 25: 9318}
-        sr_lim_dic = {5: 9619,10:9552,15:9487,20:9408,25:9318,30:9217}
-        load_matrix = True
-        load_matrix_test = True
+        #sr_dic = {5: 1969,10: 3938,15: 5908,20: 7877, 25: 9318}
+        #sr_lim_dic = {5: 9619,10:9552,15:9487,20:9408,25:9318,30:9217}
+        load_matrix = False
+        load_matrix_test = False
         verbose = False
         img_idx = 1
         plot_indexes = []
         epochs = 30
         epochs_tuner = 8
         patience = 3
-        exhaustive_grid_search(hyperparams_grid, sr_dic, sr_lim_dic, log_dir=preprefix)
+        exhaustive_grid_search(hyperparams_grid, None, None, log_dir=preprefix, CNN_dataset=CNN_dataset)
 
     #MEAN RESULTS OF INDIVIDUAL GRID SEARCH
     #--------------------------------------------------
     if do_mean_results:
         mean_name = "MEAN_friday25"
         HPs = ["bit_sensitivity", "melvec_height", "n_melvec", "Nft", "physical_bg", "shift_nb", "sr", "window_type"]
-        for HP in HPs:
-            plot_mean_results(HP, mean_name, show=True)
-        #plot_mean_results("bg_amplitude_limit", mean_name, show=True)
+        #for HP in HPs:
+        #    plot_mean_results(HP, mean_name, show=True)
+        plot_mean_results("shift_nb", mean_name, show=True)
 
     #INDIVIDUAL GRID SEARCH CODE
     #---------------------------------------------------
@@ -519,28 +642,29 @@ if __name__ == '__main__':
     do_window_type = False
     do_Nft = False
 
-    do_shifts = False
+    do_shifts = True
     do_bg = False
     do_physical_bg = False
 
 
     verbose = False #To show graphs
     preprefix = "../datasets/GSresults/"
-    original_name = "thursday24_global_updated_night"
+    original_name = "fri02_CNN_results_"
 
     #Physical HP
     #------------------------------------
-    original_flag_8bit = False
-    original_bit_sensitivity = 0
+    original_flag_8bit = True
+    original_bit_sensitivity = 5
     original_Nft = 512
     original_samples_per_melvec = original_Nft
-    original_n_melvec = 10
+    original_n_melvec = 20
     original_melvec_height = 10
     original_window_type = "hamming"
-    original_sr = 10200
+    original_sr =  512 * original_n_melvec / 1.3
+    #original_sr = 10200
     original_duration = original_n_melvec * original_Nft / original_sr 
 
-    original_shift_nb = 0
+    original_shift_nb = 0 #2
     original_bg_amplitude_limit = []
     original_physical_bg = False
 
@@ -562,7 +686,7 @@ if __name__ == '__main__':
     #-----------------------------------------------
 
     #CAREFUL: always respect the order
-    augmentations = []
+    augmentations = ["time_shift"]
     #augmentations = ["time_shift", "add_bg", "physical_bg"] 
 
     shift_nb = original_shift_nb                  if "time_shift" in augmentations else 0
@@ -570,8 +694,8 @@ if __name__ == '__main__':
     physical_bg = original_physical_bg
 
     plot_indexes = [0,1]
-    load_matrix = True
-    load_matrix_test = True
+    load_matrix = False
+    load_matrix_test = False
 
 
     #CNN architecture
@@ -579,9 +703,9 @@ if __name__ == '__main__':
     #Tuner
     epochs= 50
     validation_split=0.2
-    patience  = 5
+    patience  = 10
 
-    epochs_tuner = 7
+    epochs_tuner = 8
     #Validation
     #-----------------------------------------------
     k = 5
@@ -600,21 +724,21 @@ if __name__ == '__main__':
         flag_8bit = True
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,
                   shift_nb, bg_amplitude_limit, physical_bg,
-                  bit_sensitivity_list, name, prefix, hp_name='bit_sensitivity', verbose=verbose)
+                  bit_sensitivity_list, name, prefix, hp_name='bit_sensitivity', verbose=verbose, augmentations=augmentations)
         bit_sensitivity = original_bit_sensitivity
         flag_8bit = original_flag_8bit
 
         name  = original_name + "_2_"
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,
                   shift_nb, bg_amplitude_limit, physical_bg,
-                  bit_sensitivity_list, name, prefix, hp_name='bit_sensitivity', verbose=verbose)
+                  bit_sensitivity_list, name, prefix, hp_name='bit_sensitivity', verbose=verbose, augmentations=augmentations)
         bit_sensitivity = original_bit_sensitivity
         flag_8bit = original_flag_8bit
 
         name = original_name + "_3_"
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,
                   shift_nb, bg_amplitude_limit, physical_bg,
-                  bit_sensitivity_list, name, prefix, hp_name='bit_sensitivity', verbose=verbose)
+                  bit_sensitivity_list, name, prefix, hp_name='bit_sensitivity', verbose=verbose, augmentations=augmentations)
         bit_sensitivity = original_bit_sensitivity
         flag_8bit = original_flag_8bit
         name = original_name
@@ -628,19 +752,19 @@ if __name__ == '__main__':
         n_melvec_list = [2,4,8,12,16,20,24,28,32]
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,   
                   shift_nb, bg_amplitude_limit, physical_bg,     
-                  n_melvec_list, name, prefix, hp_name='n_melvec', verbose=verbose)
+                  n_melvec_list, name, prefix, hp_name='n_melvec', verbose=verbose, augmentations=augmentations)
         n_melvec = original_n_melvec
 
         name = original_name + "_2_"
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,   
                   shift_nb, bg_amplitude_limit, physical_bg,     
-                  n_melvec_list, name, prefix, hp_name='n_melvec', verbose=verbose)
+                  n_melvec_list, name, prefix, hp_name='n_melvec', verbose=verbose, augmentations=augmentations)
         n_melvec = original_n_melvec
 
         name = original_name + "_3_"
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,   
                   shift_nb, bg_amplitude_limit, physical_bg,     
-                  n_melvec_list, name, prefix, hp_name='n_melvec', verbose=verbose)
+                  n_melvec_list, name, prefix, hp_name='n_melvec', verbose=verbose, augmentations=augmentations)
         n_melvec = original_n_melvec
         name = original_name
 
@@ -653,17 +777,17 @@ if __name__ == '__main__':
         sr_list= [25000,12000,10200,8400,6800,5100,3400]
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,     
                   shift_nb, bg_amplitude_limit, physical_bg,   
-                  sr_list, name, preprefix, hp_name='sr', verbose=verbose)
+                  sr_list, name, preprefix, hp_name='sr', verbose=verbose, augmentations=augmentations)
         sr = original_sr
         name = original_name + "_2_"
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,     
                   shift_nb, bg_amplitude_limit, physical_bg,   
-                  sr_list, name, preprefix, hp_name='sr', verbose=verbose)
+                  sr_list, name, preprefix, hp_name='sr', verbose=verbose, augmentations=augmentations)
         sr = original_sr
         name = original_name + "_3_"
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,     
                   shift_nb, bg_amplitude_limit, physical_bg,   
-                  sr_list, name, preprefix, hp_name='sr', verbose=verbose)
+                  sr_list, name, preprefix, hp_name='sr', verbose=verbose, augmentations=augmentations)
         sr = original_sr
         name = original_name
 
@@ -677,19 +801,19 @@ if __name__ == '__main__':
         melvec_height_list = [2,4,8,10,16,22,30]
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,        
                   shift_nb, bg_amplitude_limit, physical_bg,
-                  melvec_height_list, name, prefix, hp_name='melvec_height', verbose=verbose)
+                  melvec_height_list, name, prefix, hp_name='melvec_height', verbose=verbose, augmentations=augmentations)
         melvec_height = original_melvec_height
 
         name = original_name + "_2_"
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,        
                   shift_nb, bg_amplitude_limit, physical_bg,
-                  melvec_height_list, name, prefix, hp_name='melvec_height', verbose=verbose)
+                  melvec_height_list, name, prefix, hp_name='melvec_height', verbose=verbose, augmentations=augmentations)
         melvec_height = original_melvec_height
 
         name = original_name + "_3_"
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,        
                   shift_nb, bg_amplitude_limit, physical_bg,
-                  melvec_height_list, name, prefix, hp_name='melvec_height', verbose=verbose)
+                  melvec_height_list, name, prefix, hp_name='melvec_height', verbose=verbose, augmentations=augmentations)
         melvec_height = original_melvec_height
         name = original_name
 
@@ -703,19 +827,19 @@ if __name__ == '__main__':
         window_type_list = ["hamming", "hanning", "blackman", "rectangular", "triangular"]
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,       
                   shift_nb, bg_amplitude_limit, physical_bg, 
-                  window_type_list, name, prefix, hp_name='window_type', verbose=verbose)
+                  window_type_list, name, prefix, hp_name='window_type', verbose=verbose, augmentations=augmentations)
         window_type = original_window_type
 
         name = original_name + "_2_"
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,       
                   shift_nb, bg_amplitude_limit, physical_bg, 
-                  window_type_list, name, prefix, hp_name='window_type', verbose=verbose)
+                  window_type_list, name, prefix, hp_name='window_type', verbose=verbose, augmentations=augmentations)
         window_type = original_window_type
 
         name = original_name + "_3_"
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,       
                   shift_nb, bg_amplitude_limit, physical_bg, 
-                  window_type_list, name, prefix, hp_name='window_type', verbose=verbose)
+                  window_type_list, name, prefix, hp_name='window_type', verbose=verbose, augmentations=augmentations)
         window_type = original_window_type
         name = original_name
 
@@ -729,17 +853,17 @@ if __name__ == '__main__':
         Nft_list = [128, 256, 512, 1024, 2048]
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,        
                   shift_nb, bg_amplitude_limit, physical_bg,
-                  Nft_list, name, prefix, hp_name='Nft', verbose=verbose)
+                  Nft_list, name, prefix, hp_name='Nft', verbose=verbose, augmentations=augmentations)
         Nft = original_Nft
         name = original_name + "_2_"
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,        
                   shift_nb, bg_amplitude_limit, physical_bg,
-                  Nft_list, name, prefix, hp_name='Nft', verbose=verbose)
+                  Nft_list, name, prefix, hp_name='Nft', verbose=verbose, augmentations=augmentations)
         Nft = original_Nft
         name = original_name + "_3_"
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,        
                   shift_nb, bg_amplitude_limit, physical_bg,
-                  Nft_list, name, prefix, hp_name='Nft', verbose=verbose)
+                  Nft_list, name, prefix, hp_name='Nft', verbose=verbose, augmentations=augmentations)
         Nft = original_Nft
         name = original_name
 
@@ -752,7 +876,8 @@ if __name__ == '__main__':
     if do_physical_bg:
         print("PHYSICAL BACKGROUND NOISE")
         print("------------------------------------")
-        augmentations = ["physical_bg"]
+        augmentations = ["time_shift", "physical_bg"]
+        shift_nb = 2
         physical_bg = [False, True]
         name = original_name + "_2_"
 
@@ -779,8 +904,9 @@ if __name__ == '__main__':
         print("TIME SHIFT")
         print("------------------------------------")
         
-        shift_nb_list = [0,1,2,3,4,5,6,7,8,9,10]
-        #shift_nb_list = [8,9,10,11,12,13,14,15]
+        #shift_nb_list = [0,1,2,3,4,5,6,7,8,9,10,11,12]
+        shift_nb_list = [13,14,15]
+        original_shift_nb = 0
 
 
         augmentations = ["time_shift"] 
@@ -797,6 +923,7 @@ if __name__ == '__main__':
     if do_bg:
         print("BACKGROUND NOISE")
         print("------------------------------------")
+        shift_nb = 2
         bg_amplitude_limit_list = [[], [0.1], [0.1, 0.316], [0.1,0.316,0.5], [0.1,0.316,0.5,1]]
         #bg_amplitude_limit_list = [[], [0.1], [0.1,0.1], [0.1,0.1,0.1], [0.1,0.1,0.1,0.1], [0.1,0.1,0.1,0.1,0.1]]
         #bg_amplitude_limit_list = [[], [0.316], [0.316,0.316], [0.316,0.316,0.316], [0.316,0.316,0.316,0.316], [0.316,0.316,0.316,0.316,0.316]]
@@ -805,7 +932,7 @@ if __name__ == '__main__':
         #                           [0.1,0.1,0.316,0.316]]
                                     #[0.1, 0.1, 0.1, 0.316,0.316,0.316],
                                    #[0.1, 0.1, 0.1, 0.1, 0.316,0.316,0.316,0.316]]
-        augmentations = ["add_bg"]
+        augmentations = ["time_shift","add_bg"]
 
         search_hp(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_height, window_type, sr,     
                   shift_nb, bg_amplitude_limit, physical_bg,   

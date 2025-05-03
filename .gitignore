@@ -19,8 +19,11 @@ moresoundfiles/
 
 # Datasets for the model
 /LELEC210X/classification/src/classification/datasets/melvecs/HP_tuning/
-
-
+classification/src/classification/datasets/melvecs/
+classification/src/classification/Q2/hp_dir/hyperresnet
+classification/src/classification/datasets/models/model_int8s5_512_512_20_10_hanning_7876_time_shift_3HyperResNet_64train_60test.h5
+classification/src/classification/datasets/sounds/background/
+classification/src/classification/Q2/hp_dir/
 # TeX
 
 tex/*/*.aux

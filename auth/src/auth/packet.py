@@ -5,6 +5,14 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives.constant_time import bytes_eq
 import numpy as np
 
+
+"""
+Actuellement cette fonction renvoie un array de int16. Quand on veut recevoir en 8bits 
+il faut décomposer tous les int16 en 2 int8. Tu peux t’inspirer de comment j’ai fait dans le nouveau uart-reader.py, 
+mais attention à l’endianess qui n’est peut-être pas le même
+
+"""
+
 def tag_cbc_mac(msg, key):
     mode = modes.CBC(16 * b"\0")  # all-0 IV for CBC-MAC
     cipher = Cipher(algorithms.AES(key), mode, backend=default_backend())
