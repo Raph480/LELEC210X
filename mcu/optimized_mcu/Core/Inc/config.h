@@ -13,12 +13,12 @@
 
 #define RUN_CONFIG MAIN_APP
 
-#define DYNAMIC_CLOCK 0		// Set prescaler to /16 during acquisition and to /4 during transmission
+#define DYNAMIC_CLOCK 0		// Set prescaler to /16 during acquisition and to /4 during transmission, DEPRECATED in final version
 
 // Radio parameters
 #define ENABLE_RADIO 1
-#define SEND_8BIT_MELS 0 // Only send the 8 MSB bits of each number of the 16bit computed melspectrogram
-#define BIT_SENSITIVITY 3 // If SEND_8BIT_MELS enabled, increase sensitivity, recommended to 3 (risks of overflow if higher)
+#define SEND_8BIT_MELS 1 // Only send the 8 MSB bits of each number of the 16bit computed melspectrogram
+#define BIT_SENSITIVITY 5 // If SEND_8BIT_MELS enabled, increase sensitivity
 
 // General UART enable/disable (disable for low-power operation)
 #define ENABLE_UART 1
@@ -38,7 +38,7 @@
 
 // Spectrogram parameters
 #define SAMPLES_PER_MELVEC 512
-#define MELVEC_LENGTH 20
+#define MELVEC_LENGTH 10
 #define N_MELVECS 20
 
 // Enable performance measurements

@@ -236,7 +236,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc)
 {
-	//start_cycle_count();
+	start_cycle_count();
 	ADC_Callback(0);
-	//stop_cycle_count("ConvHalfCpltCallback");
+	stop_cycle_count("ConvHalfCpltCallback");
 }

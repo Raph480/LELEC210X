@@ -66,7 +66,7 @@ def Spectrogram_Compute(samples, melvec, window, hz2mel_mat, melvec_length = 20,
         #buf[i] = (np.sqrt(real * real + imag * imag) //2).astype(np.int16)
         acc0 = np.int64(real * real)
         acc1 = np.int64(imag * imag)
-        buf[i] = np.sqrt(np.int16(np.int64(acc0 + acc1) >> (num_bits+1))<< (num_bits-1)).astype(np.int16)
+        buf[i] = np.sqrt(np.int64(np.int16(np.int64(acc0 + acc1) >> (num_bits+1))<< (num_bits-1))).astype(np.int16)
 
     # STEP 3.4 Denormalize the magnitude
     for i in range(samples_per_melvec//2):
@@ -165,7 +165,7 @@ def melspectrogram(audio, N_melvec=20, melvec_length=20, samples_per_melvec=512,
         Spectrogram_Compute(samples, melspec[i], window, hz2mel_mat, melvec_length, samples_per_melvec)
 
     if flag_8bit:
-        melspec = melspec >> (8 -bit_sensitivity)  # Convert to 8-bit format
+        melspec = (melspec >> (8 -bit_sensitivity)) & 0xff  # Convert to 8-bit format
 
     return melspec
 

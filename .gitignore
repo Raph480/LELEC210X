@@ -905,3 +905,5 @@ mcu/hands_on_audio_double_buffer/audio_files/
 mcu/hands_on_feature_vectors/melspectrograms_plots/
 
 mcu/Tests/
+
+new_hz2mel_mat.txt

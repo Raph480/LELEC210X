@@ -20,7 +20,7 @@ uint8_t padded_msg_dma[1024]; // Adjust size based on message length
 uint8_t state_dma[1024];      // Adjust size based on message length
 
 void tag_cbc_mac(uint8_t *tag, const uint8_t *msg, size_t msg_len) {
-	start_cycle_count();
+	//start_cycle_count();
     size_t padded_len = (msg_len + 15) & ~15; // Round up to next multiple of 16
     uint8_t padded_msg[padded_len] __attribute__((aligned(4))); // Ensure 32-bit alignment
     size_t i;
@@ -48,7 +48,7 @@ void tag_cbc_mac(uint8_t *tag, const uint8_t *msg, size_t msg_len) {
     for (i = 0; i < 16; i++) {
         tag[i] = state_dma[padded_len - 16 + i];
     }
-    stop_cycle_count("Hardware encryption");
+    //stop_cycle_count("Hardware encryption");
 }
 
 

@@ -13,8 +13,7 @@ from classification.utils.plots import plot_specgram
 
 
 PRINT_PREFIX = "DF:HEX:"
-FREQ_SAMPLING = 10200
-MELVEC_LENGTH = 20
+MELVEC_LENGTH = 10
 N_MELVECS = 20
 
 dt = np.dtype(np.uint16).newbyteorder("<")

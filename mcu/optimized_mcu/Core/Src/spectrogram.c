@@ -56,9 +56,9 @@ void Spectrogram_Compute(q15_t *samples, q15_t *melvec) {
 	//           Complexity: O(N)
 	//           Number of cycles: <TODO>
 
-    start_cycle_count();
+    //start_cycle_count();
     arm_mult_q15(samples, hamming_window, buf, SAMPLES_PER_MELVEC);
-    stop_cycle_count("Step 1");
+    //stop_cycle_count("Step 1");
 
 	// STEP 2  : Discrete Fourier Transform
 	//           --> In-place Fast Fourier Transform (FFT) on a real signal
@@ -66,11 +66,11 @@ void Spectrogram_Compute(q15_t *samples, q15_t *melvec) {
 	//           Complexity: O(Nlog(N))
 	//           Number of cycles: <TODO>
 
-    start_cycle_count();
+    //start_cycle_count();
     arm_rfft_instance_q15 rfft_inst;
     arm_rfft_init_q15(&rfft_inst, SAMPLES_PER_MELVEC, 0, 1);
     arm_rfft_q15(&rfft_inst, buf, buf_fft);
-    stop_cycle_count("Step 2");
+    //stop_cycle_count("Step 2");
 
     // STEP 3  : Compute the complex magnitude of the FFT
 	//           Because the FFT can output a great proportion of very small values,
@@ -81,44 +81,44 @@ void Spectrogram_Compute(q15_t *samples, q15_t *melvec) {
 	//           Complexity: O(N)
 	//           Number of cycles: <TODO>
 
-    start_cycle_count();
+    //start_cycle_count();
     q15_t vmax;
     uint32_t pIndex=0;
     arm_absmax_q15(buf_fft, SAMPLES_PER_MELVEC, &vmax, &pIndex);
-    stop_cycle_count("Step 3.1");
+    //stop_cycle_count("Step 3.1");
 
 	// STEP 3.2: Normalize the vector - Dynamic range increase
 	//           Complexity: O(N)
 	//           Number of cycles: <TODO>
 
-    start_cycle_count();
+    //start_cycle_count();
     for (int i=0; i < SAMPLES_PER_MELVEC; i++) {
         buf[i] = (q15_t) (((q31_t) buf_fft[i] << 15) /((q31_t)vmax));
     }
-    stop_cycle_count("Step 3.2");
+    //stop_cycle_count("Step 3.2");
 
 	// STEP 3.3: Compute the complex magnitude
 	//           --> The output buffer is now two times smaller because (real|imag) --> (mag)
 	//           Complexity: O(N)
 	//           Number of cycles: <TODO>
 
-    start_cycle_count();
+    //start_cycle_count();
     arm_cmplx_mag_q15(buf, buf, SAMPLES_PER_MELVEC/2);
-    stop_cycle_count("Step 3.3");
+    //stop_cycle_count("Step 3.3");
 
 	// STEP 3.4: Denormalize the vector
 	//           Complexity: O(N)
 	//           Number of cycles: <TODO>
 
-    start_cycle_count();
+    //start_cycle_count();
     for (int i=0; i < SAMPLES_PER_MELVEC/2; i++) {
         buf[i] = (q15_t) ((((q31_t) buf[i]) * ((q31_t) vmax) ) >> 15 );
     }
-    stop_cycle_count("Step 3.4");
+    //stop_cycle_count("Step 3.4");
 
     // STEP 4: Apply Mel transform using optimized sparse multiplication
 
-    start_cycle_count();  // Start counting cycles
+    //start_cycle_count();  // Start counting cycles
     for (int i = 0; i < MELVEC_LENGTH; i++) {
         int16_t *hz2mel_row = &hz2mel_mat[i*SAMPLES_PER_MELVEC/2 +start_index[i]];  // Correct start in sparse matrix
         int16_t *fftmag_row = &buf[start_index[i]];  // Corresponding FFT values
@@ -131,7 +131,7 @@ void Spectrogram_Compute(q15_t *samples, q15_t *melvec) {
         melvec[i] = (int16_t)(tmp_result >> 15);  // Convert back to q15 format
     }
 
-    stop_cycle_count("Step 4");
+    //stop_cycle_count("Step 4");
     /*DEBUG_PRINT("MelVec (Original Version): \r\n");
 	for (int i = 0; i < MELVEC_LENGTH; i++) {
 		DEBUG_PRINT("%d ", melvec[i]);
