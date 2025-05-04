@@ -96,7 +96,7 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
         bg_dataset = None
 
     if  physical_bg:
-        my_phy_ds, phy_bg_dataset, classnames = get_dataset(path="../datasets/sounds/recorded_sounds/trainset_with_new/", filter_str="_background_",
+        my_phy_ds, phy_bg_dataset, classnames = get_dataset(path="../datasets/sounds/recorded_sounds/totalset_with_new/", filter_str="_background_",
         Nft=Nft, n_melvec=n_melvec, melvec_height=melvec_height, samples_per_melvec=samples_per_melvec,
         window_type=window_type, sr = sr,  flag_8bit = flag_8bit, bit_sensitivity=bit_sensitivity,
         normalize=True, shift_pct=0, verbose=False, img_idx = img_idx, play_sound=False, CNN_dataset = CNN_dataset)
@@ -245,18 +245,25 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
                                 metrics=['accuracy'])
                     return model
                 except Exception as e:
-                    # Return a dummy model with 0 output (guaranteed to perform poorly)
-                    dummy = tf.keras.Sequential()
-                    dummy.add(tf.keras.Input(shape=input_shape))
-                    dummy.add(tf.keras.layers.Flatten())
-                    dummy.add(tf.keras.layers.Dense(4, activation='softmax'))
-                    dummy.compile(
-                        optimizer='adam',
+                    print("\n[ERROR] Model creation failed.")
+                    print(f"Reason: {e}")
+                    print("Full traceback:")
+
+                    # Create a terrible dummy model to ensure very low accuracy
+                    bad_model = tf.keras.Sequential([
+                        tf.keras.Input(shape=input_shape),
+                        tf.keras.layers.Lambda(lambda x: tf.zeros_like(x)),  # Kills all features
+                        tf.keras.layers.Flatten(),
+                        tf.keras.layers.Dense(4, activation='softmax',
+                                            kernel_initializer='zeros',
+                                            bias_initializer='zeros')
+                    ])
+                    bad_model.compile(
+                        optimizer='sgd',
                         loss='sparse_categorical_crossentropy',
                         metrics=['accuracy']
                     )
-                    print(f"[WARNING] Model creation failed for this config: {e}")
-                    return dummy
+                    return bad_model
             return self_made_builder
     else:      
         #D. Self-made 1
@@ -302,7 +309,7 @@ def model_creation_evaluation(flag_8bit, bit_sensitivity, Nft, n_melvec, melvec_
             return self_made_builder
 
     if CNN_dataset:
-        project_name = "basic_ref_model_2D_20melvecs_time_shift3"
+        project_name = "basic_ref_model_2D_20melvecs_gridseach_sat"
     else:
         project_name = "basic_ref_model"
         #project_name = "test_opti"
@@ -643,13 +650,13 @@ if __name__ == '__main__':
     do_Nft = False
 
     do_shifts = True
-    do_bg = False
-    do_physical_bg = False
+    do_bg = True
+    do_physical_bg = True
 
 
     verbose = False #To show graphs
     preprefix = "../datasets/GSresults/"
-    original_name = "fri02_CNN_results_"
+    original_name = "sat03_CNN_results_"
 
     #Physical HP
     #------------------------------------
@@ -664,7 +671,7 @@ if __name__ == '__main__':
     #original_sr = 10200
     original_duration = original_n_melvec * original_Nft / original_sr 
 
-    original_shift_nb = 0 #2
+    original_shift_nb = 3
     original_bg_amplitude_limit = []
     original_physical_bg = False
 
@@ -904,8 +911,8 @@ if __name__ == '__main__':
         print("TIME SHIFT")
         print("------------------------------------")
         
-        #shift_nb_list = [0,1,2,3,4,5,6,7,8,9,10,11,12]
-        shift_nb_list = [13,14,15]
+        shift_nb_list = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+        #shift_nb_list = [13,14,15]
         original_shift_nb = 0
 
 
@@ -923,8 +930,8 @@ if __name__ == '__main__':
     if do_bg:
         print("BACKGROUND NOISE")
         print("------------------------------------")
-        shift_nb = 2
-        bg_amplitude_limit_list = [[], [0.1], [0.1, 0.316], [0.1,0.316,0.5], [0.1,0.316,0.5,1]]
+        shift_nb = 3
+        bg_amplitude_limit_list = [[], [0.1], [0.316], [0.1,0.316], [0.1,0.1,0.316,0.316]]
         #bg_amplitude_limit_list = [[], [0.1], [0.1,0.1], [0.1,0.1,0.1], [0.1,0.1,0.1,0.1], [0.1,0.1,0.1,0.1,0.1]]
         #bg_amplitude_limit_list = [[], [0.316], [0.316,0.316], [0.316,0.316,0.316], [0.316,0.316,0.316,0.316], [0.316,0.316,0.316,0.316,0.316]]
         #bg_amplitude_limit_list = [[], 
