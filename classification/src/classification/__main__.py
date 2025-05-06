@@ -92,27 +92,38 @@ def main(
     n_melvecs: int,
 ) -> None:
     models = {}
+    melvec_length = MELVEC_HEIGHT
+    n_melvecs = N_MELVECS
 
-    if model_1:
-        with open(model_1, "rb") as file:
-            model_1 = load_model(model_1)
-            print(f"Model {type(model_1).__name__} loaded successfully.")
+    # Initialize model path variables to store the paths for later use
+    model_1_path = model_1 if model_1 else None
+    model_2_path = model_2 if model_2 else None
+    model_3_path = model_3 if model_3 else None
+
+    # Load model 1 if provided
+    if model_1_path:
+        with open(model_1_path, "rb") as file:
+            model_1 = load_model(model_1_path)
+        print(f"Model 1 '{model_1_path}' loaded successfully.")
     else:
         logger.warning("Model 1 not provided.")
-    
-    if model_2:
-        with open(model_2, "rb") as file:
-            model_2 = load_model(model_2)
-            print(f"Model 2 {type(model_2).__name__} loaded successfully.")
+
+    # Load model 2 if provided
+    if model_2_path:
+        with open(model_2_path, "rb") as file:
+            model_2 = load_model(model_2_path)
+        print(f"Model 2 '{model_2_path}' loaded successfully.")
     else:
         logger.warning("Model 2 not provided.")
 
-    if model_3:
-        with open(model_3, "rb") as file:
-            model_3 = load_model(model_3)
-            print(f"Model 3 {type(model_3).__name__} loaded successfully.")
+    # Load model 3 if provided
+    if model_3_path:
+        with open(model_3_path, "rb") as file:
+            model_3 = load_model(model_3_path)
+        print(f"Model 3 '{model_3_path}' loaded successfully.")
     else:
         logger.warning("Model 3 not provided.")
+
         
     if log_file:
         log_stream = open(log_file, "w")
@@ -126,8 +137,12 @@ def main(
 
     class_names = ["chainsaw", "fire", "fireworks", "gunshot"]
 
+    #up_time = 3.5 #s
+    #min_time_between_listening = 6 #s
+
     up_time = 3.5 #s
-    min_time_between_listening = 6 #s
+    min_time_between_listening = 6
+
 
 
     N_STS = 50
@@ -162,52 +177,56 @@ def main(
         
         idv_probas_reduced = np.zeros((nb_packets, 4))
 
-        for i,fv in enumerate(fv_history):
+        for i, fv in enumerate(fv_history):
             print("Packet #", i)
-            #normalized_fv = fv / np.linalg.norm(fv)
-            #Normalize by the maximum value of the fv
-            normalized_fv = fv / np.max(fv)
-            idv_probas = model_1.predict(normalized_fv)[0]
-            idv_uncertainity = compute_uncertainity(payloads_history[i], idv_probas, idx, DTYPE, \
-                                                            detector = doublesum_detector, a_sum=1, b_entropy=1, save_payloads=False)
-            #do the difference of each proba and the uncertainty
-            idv_probas_reduced[i] = idv_probas - idv_uncertainity  
+            normalized_fv = fv / np.linalg.norm(fv)
+            if model_1:
+                if 'CNN' in str(model_1_path):
+                    normalized_fv = normalized_fv.reshape(1, MELVEC_HEIGHT, N_MELVECS)
+                idv_probas = model_1.predict(normalized_fv)[0]
+                idv_uncertainity = compute_uncertainity(
+                    payloads_history[i], idv_probas, idx, DTYPE,
+                    detector=doublesum_detector, a_sum=1, b_entropy=1, save_payloads=False
+                )
+                idv_probas_reduced[i] = idv_probas - idv_uncertainity
 
-        # If 2 paquets, get model_2 information on 2 concatenated packets
-        #TODO: if 3 packets, apply 2 times the model_2?
-        
+        # Handle combined packets for model_2 and model_3
         multiple_probas_reduced = np.zeros((1, 4))
         fv_combined = None
         n_melvecs = N_MELVECS
+
         if nb_packets == 2 and model_2:
             print("MODEL 2")
             fv_combined = np.hstack(fv_history[:2])
-            #normalized_fv_combined = fv_combined / np.linalg.norm(fv_combined)
-            #Normalize by the maximum value of the fv
-            normalized_fv_combined = fv_combined / np.max(fv_combined)
+            normalized_fv_combined = fv_combined / np.linalg.norm(fv_combined)
+
+            if 'CNN' in str(model_2_path):
+                normalized_fv_combined = normalized_fv_combined.reshape(1, MELVEC_HEIGHT, N_MELVECS * 2)
+
             multiple_probas = model_2.predict(normalized_fv_combined)[0]
-            multiple_uncertainty = compute_uncertainity(fv_combined, multiple_probas, idx, DTYPE, \
-                                                        detector=None, a_sum=0, b_entropy=1, save_payloads=False)
-            #do the difference of each proba and the uncertainty
+            multiple_uncertainty = compute_uncertainity(
+                fv_combined, multiple_probas, idx, DTYPE,
+                detector=None, a_sum=0, b_entropy=1, save_payloads=False
+            )
             multiple_probas_reduced = multiple_probas - multiple_uncertainty
             n_melvecs = N_MELVECS * 2
-            
-            
-        # If 3 packets, get model_3 information on 3 concatenated packets
+
         elif nb_packets >= 3 and model_3:
             print("MODEL 3")
             fv_combined = np.hstack(fv_history[:3])
-            #normalized_fv_combined = fv_combined / np.linalg.norm(fv_combined)
-            #Normalize by the maximum value of the fv
-            normalized_fv_combined = fv_combined / np.max(fv_combined)
+            normalized_fv_combined = fv_combined / np.linalg.norm(fv_combined)
+
+            if 'CNN' in str(model_3_path):
+                normalized_fv_combined = normalized_fv_combined.reshape(1, MELVEC_HEIGHT, N_MELVECS * 3)
+
             multiple_probas = model_3.predict(normalized_fv_combined)[0]
-            multiple_uncertainty = compute_uncertainity(fv_combined, multiple_probas, idx, DTYPE, \
-                                                        detector=None, a_sum=0, b_entropy=1, save_payloads=False)
-            #do the difference of each proba and the uncertainty
+            multiple_uncertainty = compute_uncertainity(
+                fv_combined, multiple_probas, idx, DTYPE,
+                detector=None, a_sum=0, b_entropy=1, save_payloads=False
+            )
             multiple_probas_reduced = multiple_probas - multiple_uncertainty
-            #Reduce the probability of gun (3rd index) by 0.5 as it is very unlikely with 3 packets
-            multiple_probas_reduced[3] -= 0.5
-            n_melvecs = N_MELVECS * 3
+            #multiple_probas_reduced[3] -= 0.5  # Penalize gun probability
+
 
             
         #3. Decision making
@@ -264,6 +283,7 @@ def main(
         print("Processing packet (listening=True)")
 
         if PRINT_PREFIX in payload:
+
             payload = payload[len(PRINT_PREFIX):].strip()
 
             melvec = payload_to_melvecs(payload, melvec_length, n_melvecs)
@@ -272,27 +292,16 @@ def main(
 
             #CODE RAPHAEL
             print(f"MEL Spectrogram #{msg_counter}")
-
-            if len(melvec) == N_MELVECS * MELVEC_HEIGHT /2:   # Probably because 8bit data is sent instead of 16bit
-                temp_melvec = np.empty(len(melvec) * 2, dtype=np.uint8)
-                temp_melvec[0::2] = (melvec & 0xFF).astype(np.uint8)  # Extract lower byte
-                temp_melvec[1::2] = (melvec >> 8).astype(np.uint8)    # Extract upper byte
-                melvec = temp_melvec
-            else:
-                #invert the bytes to go from little endian to big endian
-                melvec = melvec.view(np.uint8).reshape(-1, 2)[:, ::-1].flatten()
-                melvec = melvec.view(dt)
-                
-
-            #np.savetxt(f"melspectrograms_plots/melvec_{msg_counter}.txt", melvec, fmt="%04x", delimiter="\n")
-
-            if melvec.size == N_MELVECS * MELVEC_HEIGHT:
-                print(melvec.reshape((N_MELVECS, MELVEC_HEIGHT)).T)
-            else:
+        
+            if melvec.size != N_MELVECS * MELVEC_HEIGHT:
                 print(f"Error: melvec size {melvec.size} does not match expected size {N_MELVECS * MELVEC_HEIGHT}")
+            
+            fv = melvec
+            fv = fv.T.flatten()
 
-            fv = melvec.reshape(1, -1)
+            #fv = melvec.reshape(1, -1)
             #fv = fv / np.linalg.norm(fv) NOT NORMALIZE BEFORE AS AMPLITUDE RECQUIRED FOR THE DOUBLE SUM
+            fv = fv.reshape((N_MELVECS, MELVEC_HEIGHT)).T
             fv_history.append(fv)
             payloads_history.append(payload)
 
@@ -302,7 +311,8 @@ def main(
             fv = fv / np.max(fv)
             #plot concatenated spectrogram
             plot_specgram(
-                fv.reshape((n_melvecs, MELVEC_HEIGHT)),
+                #fv.reshape((N_MELVECS, MELVEC_HEIGHT)).T,
+                fv.reshape(MELVEC_HEIGHT, -1),
                 ax=plt.gca(),
                 is_mel=True,
                 title=f"MEL Spectrogram #{msg_counter}",

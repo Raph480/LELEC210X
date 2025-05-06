@@ -55,7 +55,7 @@ class Dataset:
                     cls = get_cls_from_path(file)
                     files.setdefault(cls, []).append(file)
             else:
-                if ("background" not in file.stem or "merged" in file.stem): #and "youtube" not in file.stem: #TODO: add potential youtube
+                if ("background" not in file.stem or "merged" in file.stem): #TODO: add potential youtube
                     cls = get_cls_from_path(file)
                     files.setdefault(cls, []).append(file)
 

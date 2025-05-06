@@ -30,10 +30,10 @@
 #define BYPASS_BTN_PRESS 0
 
 //For the threshold on the melvec:
-#define BYPASS_THRESHOLD 1
-#define MEL_N_STS 5    // Short-term sum over 5 frames
-#define MEL_N_LTS 50   // Long-term sum over 50 frames
-#define K		  1.75		//factor to modulate the comparison
+#define BYPASS_THRESHOLD 0
+#define MEL_N_STS 3    // Short-term sum over 5 frames
+#define MEL_N_LTS 15000   // Long-term sum over 50 frames
+#define K		  1.2		//factor to modulate the comparison
 
 
 // Spectrogram parameters

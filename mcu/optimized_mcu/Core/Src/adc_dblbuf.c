@@ -202,6 +202,8 @@ static void ADC_Callback(int buf_cplt) {
     float norm_mel_sts = mel_sts_sum / MEL_N_STS;
     float norm_mel_lts = (mel_lts_sum / MEL_N_LTS) * K;
 
+
+
     // Packet Detection
     if (norm_mel_sts > norm_mel_lts) {
         packet_detected = 1;
@@ -217,6 +219,7 @@ static void ADC_Callback(int buf_cplt) {
     // **Send Spectrogram Only if a Packet is Detected**
     if (cur_melvec >= N_MELVECS) {
         if (packet_detected) {
+        	DEBUG_PRINT("SENT\n");
             send_spectrogram();
         } else {
             //DEBUG_PRINT("20 frames reached, but threshold not detected, skipping transmission.\r\n");

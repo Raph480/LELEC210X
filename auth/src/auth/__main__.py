@@ -12,6 +12,14 @@ from common.logging import logger
 
 from . import PRINT_PREFIX, packet
 
+#Raph
+import numpy as np
+N_MELVECS = 20
+MELVEC_LENGTH = 10
+
+dt = np.dtype(np.uint16).newbyteorder("<")
+
+
 load_dotenv()
 
 
@@ -155,8 +163,12 @@ def main(
     input_stream = reader()
     for msg in input_stream:
         try:
+
             sender, payload = unwrapper.unwrap_packet(msg)
-            logger.debug(f"From {sender}, received packet: {payload.hex()}")
+            #logger.debug(f"From {sender}, received packet: {payload.hex()}")
+            #print(f"From {sender}, received packet: {payload.hex()}")
+            #print("payload length after: ", len(payload))
+
             output.write(PRINT_PREFIX + payload.hex() + "\n")
             output.flush()
 

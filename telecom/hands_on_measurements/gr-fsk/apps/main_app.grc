@@ -145,7 +145,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: 150e3
+    value: 50e3
   states:
     bus_sink: false
     bus_source: false
@@ -181,7 +181,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '20'
+    value: '10'
   states:
     bus_sink: false
     bus_source: false
@@ -291,7 +291,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: n_melvecs*melvec_length*2
+    value: n_melvecs*melvec_length
   states:
     bus_sink: false
     bus_source: false

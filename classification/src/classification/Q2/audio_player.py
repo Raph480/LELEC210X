@@ -35,7 +35,7 @@ def play_wav_files(folder_path, play_random=False, delay=0, log_file="play_log.t
         log.write("=" * 30 + "\n")
         
         for index, wav_file in enumerate(wav_files, start=0):
-            if index >= 120:
+            if index >= 90:
             #if (0 <= index <= 10) or (40 <= index <= 50) or (80 <= index <= 90) or (120 <= index <= 130):
 
                 file_path = os.path.join(folder_path, wav_file)

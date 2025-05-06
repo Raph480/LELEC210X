@@ -90,7 +90,13 @@ class PacketUnwrapper:
             #if self.senders_last_serial[sender] >= serial:
             #    raise InvalidPacket(f"Serial number non-incrementing ({serial}).")
             self.senders_last_serial[sender] = serial
-        return (sender, packet[HEADER_LEN:-TAG_LEN])
+
+        packet = packet[HEADER_LEN:-TAG_LEN]
+        #print(f"Packet length: {len(packet)}")
+        #print(f"Packet: {packet}")
+
+
+        return (sender, packet)
 
 
 #AES_key = bytes.fromhex("0123456789abcdef0123456789abcdef")

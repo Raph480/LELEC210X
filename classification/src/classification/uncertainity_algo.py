@@ -99,7 +99,7 @@ def compute_uncertainity(payloads, probas, idx, DTYPE, detector, a_sum, b_entrop
     print("Theoretical class: ", predicted_class_name)
 
     uncertainty = 0
-
+    '''
     #WARNING: was originally payload but changed to fv #TO NOT NORMALIZE BEFORE
     #1. Double running sum
     if detector: # Detector set to none for multiple packets
@@ -115,6 +115,7 @@ def compute_uncertainity(payloads, probas, idx, DTYPE, detector, a_sum, b_entrop
         if not detector.update(adc_samples[idx], threshold_factor=1.0):
             uncertainty += a_sum
             print("Double sum uncertainity: ", uncertainty)
+    '''
 
     #2. Entropy
     en = entropy(probas)
