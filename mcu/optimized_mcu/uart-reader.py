@@ -21,11 +21,7 @@ dt = np.dtype(np.uint16).newbyteorder("<")
 def parse_buffer(line):
     line = line.strip()
     if line.startswith(PRINT_PREFIX):
-        try: 
-            return bytes.fromhex(line[len(PRINT_PREFIX) :])
-        except ValueError:
-            print(f"Error parsing line: {line}")
-            return None
+        return bytes.fromhex(line[len(PRINT_PREFIX) :])
     else:
         print(line)
         return None
@@ -37,9 +33,11 @@ def reader(port=None):
     while True:
         line = ""
         while not line.endswith("\n"):
-            line += ser.read_until(b"\n", size=1 * N_MELVECS * MELVEC_LENGTH).decode(
+            line += ser.read_until(b"\n", size=2 * N_MELVECS * MELVEC_LENGTH).decode(
                 "ascii"
             )
+            print(line)
+        line = line.strip()
         buffer = parse_buffer(line)
         if buffer is not None:
             buffer_array = np.frombuffer(buffer, dtype=dt)
@@ -75,7 +73,6 @@ if __name__ == "__main__":
             msg_counter += 1
             print(f"MEL Spectrogram #{msg_counter}")
 
-
             if len(melvec) == N_MELVECS * MELVEC_LENGTH /2:   # Probably because 8bit data is sent instead of 16bit
                 temp_melvec = np.empty(len(melvec) * 2, dtype=np.uint8)
                 temp_melvec[0::2] = (melvec & 0xFF).astype(np.uint8)  # Extract lower byte
@@ -90,7 +87,7 @@ if __name__ == "__main__":
             #np.savetxt(f"melspectrograms_plots/melvec_{msg_counter}.txt", melvec, fmt="%04x", delimiter="\n")
 
             if melvec.size == N_MELVECS * MELVEC_LENGTH:
-                print()
+                print(melvec.reshape((N_MELVECS, MELVEC_LENGTH)).T)
             else:
                 print(f"Error: melvec size {melvec.size} does not match expected size {N_MELVECS * MELVEC_LENGTH}")
             print("HERE")

@@ -202,8 +202,8 @@ static void ADC_Callback(int buf_cplt) {
     float norm_mel_sts = mel_sts_sum / MEL_N_STS;
     float norm_mel_lts = (mel_lts_sum / MEL_N_LTS) * K;
 
-
-
+    //DEBUG_PRINT("norm_mel_sts: %d \n", norm_mel_sts);
+    //DEBUG_PRINT("norm_mel_lts: %d \n", norm_mel_lts);
     // Packet Detection
     if (norm_mel_sts > norm_mel_lts) {
         packet_detected = 1;
