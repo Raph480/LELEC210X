@@ -1,23 +1,6 @@
 Index	Class Name
 ==============================
-90	fireworks
-91	fireworks
-92	fire
-93	fire
-94	fireworks
-95	gun
-96	gun
-97	fire
-98	chainsaw
-99	chainsaw
-100	fire
-101	chainsaw
-102	fireworks
-103	chainsaw
-104	chainsaw
-105	fire
-106	fire
-107	fire
-108	gun
-109	fire
-110	chainsaw
+30	fire
+31	fire
+32	fire
+33	fire

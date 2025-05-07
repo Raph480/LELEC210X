@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20250507-0851-Experimental"
+	Name="(empty)"
+	Generator="ctest-3.22.1"
+	CompilerName=""
+	CompilerVersion=""
+	OSName="Linux"
+	Hostname="martin-HP-ENVY-Laptop-14-eb0xxx"
+	OSRelease="6.8.0-59-generic"
+	OSVersion="#61~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Tue Apr 15 17:03:15 UTC 2"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="140"
+	ProcessorCacheSize="12288"
+	NumberOfLogicalCPU="8"
+	NumberOfPhysicalCPU="4"
+	TotalVirtualMemory="8191"
+	TotalPhysicalMemory="15744"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="1500.65"
+	>
+	<Testing>
+		<StartDateTime>May 07 10:51 CEST</StartDateTime>
+		<StartTestTime>1746607879</StartTestTime>
+		<TestList/>
+		<EndDateTime>May 07 10:51 CEST</EndDateTime>
+		<EndTestTime>1746607879</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>
