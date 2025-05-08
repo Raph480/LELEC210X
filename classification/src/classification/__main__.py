@@ -31,6 +31,9 @@ DTYPE = np.dtype(np.uint16).newbyteorder("<")
 
 dt = np.dtype(np.uint16).newbyteorder("<")
 
+
+init_state = True
+
 import sys
 
 class Tee:
@@ -141,7 +144,8 @@ def main(
     #min_time_between_listening = 6 #s
 
     up_time = 3.5 #s
-    min_time_between_listening = 6
+    min_time_between_listening = 7
+    init_time = 10
 
 
 
@@ -155,12 +159,22 @@ def main(
     listening = False
     last_activation_time = 0
 
+    def disable_init_state_after_delay(init_time=15):
+        global init_state
+        time.sleep(20)
+        init_state = False
+        print("INIT STATE SET TO FALSE")
+        print("------------------------------------")
+
+    # Start background thread to change init_state after 15 seconds
+    threading.Thread(target=disable_init_state_after_delay, args=init_time, daemon=True).start()
+
         
-    def wait_take_decision_and_send(fv_history,payloads_history, doublesum_detector, idx, up_time=3, model_1=None, model_2=None, model_3=None):
+    def wait_take_decision_and_send(fv_history,payloads_history, doublesum_detector, idx, up_time=3, init_state = False, model_1=None, model_2=None, model_3=None):
 
         class_names = ["chainsaw", "fire", "fireworks", "gunshot"]
         #1. Listening time: wiate for up_time s to recieve packets
-        #----------------------
+
         time.sleep(up_time)
         nonlocal listening
         listening = False
@@ -171,6 +185,7 @@ def main(
 
         #Get model_1 information about recieved packets
         nb_packets = len(fv_history)
+        print("nb packets: ", nb_packets)
         if nb_packets == 0:
             print("No packets received during listening time!")
             return
@@ -271,10 +286,10 @@ def main(
         print("----------------")
 
         #Launch the decision thread if enough time 
-        if not listening and (last_activation_time == 0 or (current_time - last_activation_time >= min_time_between_listening)):
+        if not listening and (last_activation_time == 0 or ((current_time - last_activation_time >= min_time_between_listening) or init_state)):
             listening = True
             last_activation_time = current_time
-            threading.Thread(target=wait_take_decision_and_send, args=(fv_history, payloads_history, doublesum_detector, idx, up_time, model_1, model_2, model_3), daemon=True).start()
+            threading.Thread(target=wait_take_decision_and_send, args=(fv_history, payloads_history, doublesum_detector, idx, up_time, init_state, model_1, model_2, model_3), daemon=True).start()
 
         if not listening:
             print("Skipping packet (listening=False)")
