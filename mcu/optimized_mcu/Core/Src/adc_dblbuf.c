@@ -177,13 +177,20 @@ static void ADC_Callback(int buf_cplt) {
 
     //start_cycle_count();
     // **Mel-Spectrogram Based Threshold Algorithm**
-    float mel_energy = 0.0f;
+    //float mel_energy = 0.0f;
 
     // Sum energy across Mel bands.
     // Compute sum of mel energy using CMSIS-DSP dot product
 
     static const q15_t ones_vector[MELVEC_LENGTH] = { [0 ... MELVEC_LENGTH-1] = 0x7FFF };
-    arm_dot_prod_q15(mel_vectors[cur_melvec], (q15_t*)ones_vector, MELVEC_LENGTH, &mel_energy);
+    //arm_dot_prod_q15(mel_vectors[cur_melvec], (q15_t*)ones_vector, MELVEC_LENGTH, &mel_energy);
+
+    // Correctly compute mel_energy using q63_t
+    q63_t mel_energy_q63;
+    arm_dot_prod_q15(mel_vectors[cur_melvec], (q15_t*)ones_vector, MELVEC_LENGTH, &mel_energy_q63);
+
+    // Convert Q15 dot product result to float (scale factor is 2^15 = 32768)
+    float mel_energy = (float)mel_energy_q63 / 32768.0f;
 
 
     // Optimize STS update
@@ -202,8 +209,9 @@ static void ADC_Callback(int buf_cplt) {
     float norm_mel_sts = mel_sts_sum / MEL_N_STS;
     float norm_mel_lts = (mel_lts_sum / MEL_N_LTS) * K;
 
-    //DEBUG_PRINT("norm_mel_sts: %d \n", norm_mel_sts);
-    //DEBUG_PRINT("norm_mel_lts: %d \n", norm_mel_lts);
+    DEBUG_PRINT("STS: %f \n", norm_mel_sts);
+    DEBUG_PRINT("LTS: %f \n", norm_mel_lts);
+
     // Packet Detection
     if (norm_mel_sts > norm_mel_lts) {
         packet_detected = 1;
@@ -219,7 +227,6 @@ static void ADC_Callback(int buf_cplt) {
     // **Send Spectrogram Only if a Packet is Detected**
     if (cur_melvec >= N_MELVECS) {
         if (packet_detected) {
-        	DEBUG_PRINT("SENT\n");
             send_spectrogram();
         } else {
             //DEBUG_PRINT("20 frames reached, but threshold not detected, skipping transmission.\r\n");
